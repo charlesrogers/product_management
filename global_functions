@@ -1,9 +1,7 @@
 # Renaming Columns --------------------------------------------------------
 #TBD
-
 # Recoding Data -----------------------------------------------------------
 #TBD
-
 # Opportunity Functions ---------------------------------------------------
 # * Master Opportunity Function -------------------------------------------
 get_imp_sat_opp_scores <- function(your_data_frame,factor_name){
@@ -24,7 +22,6 @@ find_imp_sat_columns <- function(your_data_frame){
 data_frame_imp_sat <- cbind(imp_columns,sat_columns)
   return(data_frame_imp_sat)
 }
-
 
 # * Calculate Importance --------------------------------------------------
 individual_data <- NULL
@@ -68,15 +65,13 @@ return(data_frame_imp_sat_split)
 calculate_opportunity_score <- function(data_frame_split) {
   opportunity_scores <- data_frame_split %>%
     pivot_wider(objective,
-                                    names_from = c(imp_sat),
-                                    values_from = imp_sat_score) %>%
+                names_from = c(imp_sat),
+                values_from = imp_sat_score) %>%
     mutate(opportunity_score=if_else(imp<sat,imp,imp+imp-sat)) %>%
     arrange(desc(opportunity_score)) 
   
   return(opportunity_scores)
 }
-
-
 
 # * Compare Two Factors: IMP-SAT-OPP --------------------------------------
 compare_two_groups_opportunities <- function(opportunity_data_frame_1,opportunity_data_frame_2){
@@ -92,7 +87,48 @@ compare_two_groups_opportunities <- function(opportunity_data_frame_1,opportunit
   return(pivoted_opportunities)
 }
 
+# * Compare Two Factors: IMP-SAT-OPP - FAST -------------------------------
+get_opportunity_score_compare_2 <- function(your_data_frame,column_to_split_on,factor_a,factor_b) {
+  opportunity_calc_group_1 <- your_data_frame %>%
+    filter(column_to_split_on==factor_a)
+  
+  opportunity_columns_group_1 <- find_imp_sat_columns(opportunity_calc_group_1)
+  
+  opportunity_score_group_1 <- calculate_imp_sat_score(opportunity_columns_group_1) 
+  
+  opportunity_score_group_1 <- split_imp_sat_columns(opportunity_score_group_1)
+  
+  opportunity_score_group_1<- calculate_opportunity_score(opportunity_score_group_1) %>%
+    mutate(opportunity_score=if_else(imp<sat,imp,imp+imp-sat)) %>%
+    arrange(desc(opportunity_score)) %>%
+    mutate(segment_name=factor_a)
+  
+  opportunity_calc_group_2 <- your_data_frame %>%
+    filter(column_to_split_on==factor_b)
+  
+  opportunity_columns_group_2 <- find_imp_sat_columns(opportunity_calc_group_2)
+  
+  opportunity_score_group_2 <- calculate_imp_sat_score(opportunity_columns_group_2) 
+  
+  opportunity_score_group_2 <- split_imp_sat_columns(opportunity_score_group_2)
+  
+  opportunity_score_group_2<- calculate_opportunity_score(opportunity_score_group_2) %>%
+    mutate(opportunity_score=if_else(imp<sat,imp,imp+imp-sat)) %>%
+    arrange(desc(opportunity_score)) %>%
+    mutate(segment_name=factor_b)
+  
+  merged_opportunity_data_frame <- rbind(opportunity_score_group_1,opportunity_score_group_2)
+  
+  pivoted_opportunity <- merged_opportunity_data_frame %>%
+    pivot_wider(objective,
+                names_from = c(segment_name),
+                values_from = opportunity_score) %>% 
+    mutate(objective=as_factor(objective))  
+  return(pivoted_opportunity)
+}
+  
 
+# ** ORDER BY DIFFERENCE --------------------------------------------------
 # compare_two_groups_opportunities <- function(opportunity_data_frame_1,opportunity_data_frame_2){
 # 
 #   merged_opportunties <- rbind(opportunity_data_frame_1,opportunity_data_frame_2)
@@ -187,8 +223,78 @@ get_attractiveness_compare_2 <- function(your_data_frame,column_to_split_on,fact
 }
 
 
-# Visulization ------------------------------------------------------------
+# ATTRACTIVENESS RANKING --------------------------------------------------
+# * Find Attractiveness: Rank Columns -------------------------------------
+find_attractiveness_rank_columns <- function(your_data_frame){
+  attractivness_rank_columns <- your_data_frame %>%
+    select(starts_with("sol_rank"))
+  return(attractivness_rank_columns)
+}
 
+# Calculate Attractiveness: RANK Score ------------------------------------
+individual_data <- NULL
+all_data <- NULL
+calculate_attractiveness_rank_score <- function(objectives){
+  for (objective in seq_along(objectives)){
+    namez <- names(objectives)[[objective]]
+    
+    objective_score <- fct_count(objectives[[objective]]) %>%
+      mutate(solution=namez)
+    
+    objective_score_tibble <- objective_score %>%
+      mutate(user_rating=f) %>%
+      filter(user_rating %in% c(1,2,3,4,5,6,7,8)) %>%
+      select(solution,user_rating,n)
+    
+    individual_data <-  objective_score_tibble %>%
+      summarize(solution=unique(solution),
+                total_sum=sum(n),
+                attractiveness_score_1=sum(n[user_rating==1])*3,
+                attractiveness_score_2=sum(n[user_rating==2])*2,
+                attractiveness_score_3=sum(n[user_rating==3])*1) %>%
+      mutate(attractiveness_score=(attractiveness_score_1+attractiveness_score_2+attractiveness_score_3)) %>%
+      select(solution,attractiveness_score)
+      
+    all_data <- rbind(all_data,individual_data)
+    
+  }
+  return(all_data)
+}
+
+
+# * Get Attractiveness: RANK Compared -------------------------------------
+get_attractiveness_rank_compare_2 <- function(your_data_frame,column_to_split_on,factor_a,factor_b){
+  attractiveness_calc_group_1 <- your_data_frame %>%
+    filter(column_to_split_on==factor_a)
+  
+  attractiveness_columns_group_1 <- find_attractiveness_rank_columns(attractiveness_calc_group_1)
+  
+  attractiveness_score_group_1 <- calculate_attractiveness_rank_score(attractiveness_columns_group_1) %>%
+    mutate(segment_name=factor_a)
+  
+  attractiveness_calc_group_2 <- your_data_frame %>%
+    filter(column_to_split_on==factor_b)
+  
+  attractiveness_columns_group_2 <- find_attractiveness_rank_columns(attractiveness_calc_group_2)
+  
+  attractiveness_score_group_2 <- calculate_attractiveness_rank_score(attractiveness_columns_group_2) %>%
+    mutate(segment_name=factor_b)
+  
+  merged_attractivness_data_frame <- rbind(attractiveness_score_group_1,attractiveness_score_group_2)
+  
+  pivoted_attractiveness <- merged_attractivness_data_frame %>%
+    pivot_wider(solution,
+                names_from = c(segment_name),
+                values_from = attractiveness_score) %>% 
+    mutate(objective=as_factor(solution)) %>%
+    select(-objective)
+  # mutate(difference=segment_name-) %>%
+  # mutate(objective = fct_reorder(objective, difference, .fun='max' ))
+  return(pivoted_attractiveness)
+}
+
+
+# Visulization ------------------------------------------------------------
 # *  Opportunity Score Graph ----------------------------------------------
 get_opportunity_score_graph <- function(data,title_string,subtitle_string) {
   data %>%
