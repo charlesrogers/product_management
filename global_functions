@@ -1,0 +1,295 @@
+# Renaming Columns --------------------------------------------------------
+#TBD
+
+# Recoding Data -----------------------------------------------------------
+#TBD
+
+# Opportunity Functions ---------------------------------------------------
+# * Master Opportunity Function -------------------------------------------
+get_imp_sat_opp_scores <- function(your_data_frame,factor_name){
+  data_frame_imp_sat <- find_imp_sat_columns(your_data_frame)
+  imp_sat_scores <- calculate_imp_sat_score(data_frame_imp_sat)
+  objective_columns <- split_imp_sat_columns(imp_sat_scores)
+  opportuity_scores <- calculate_opportunity_score(objective_columns) %>%
+    mutate(segment_name=factor_name)
+  return(opportuity_scores)
+}
+
+# * Find Importance Columns -----------------------------------------------
+find_imp_sat_columns <- function(your_data_frame){
+ imp_columns <- your_data_frame %>%
+  select(starts_with("imp_"))
+ sat_columns <- your_data_frame %>%
+   select(starts_with("sat_"))
+data_frame_imp_sat <- cbind(imp_columns,sat_columns)
+  return(data_frame_imp_sat)
+}
+
+
+# * Calculate Importance --------------------------------------------------
+individual_data <- NULL
+all_data <- NULL
+calculate_imp_sat_score <- function(objectives){
+  for (objective in seq_along(objectives)){
+    namez <- names(objectives)[[objective]]
+    
+    objective_score <- fct_count(objectives[[objective]]) %>%
+      mutate(objective_name=namez)
+    
+    objective_score_tibble <- objective_score %>%
+      mutate(user_rating=f) %>%
+      filter(user_rating %in% c(1,2,3,4,5)) %>%
+      select(objective_name,user_rating,n)
+    
+    print(objective_score_tibble)
+    
+    individual_data <-  objective_score_tibble %>%
+      summarize(objective_name=unique(objective_name),
+                total_sum=sum(n),
+                imp_sat_sum=sum(n[user_rating==5|
+                                    user_rating==4]))  %>%
+      mutate(imp_sat_score=((imp_sat_sum/total_sum)*10))
+    print(individual_data)
+    all_data <- rbind(all_data,individual_data)
+    
+  }
+  return(all_data)
+}
+
+
+# * Split Imp/Sat into Columns --------------------------------------------
+split_imp_sat_columns <- function(data_frame_imp_sat){
+  data_frame_imp_sat_split <-  data_frame_imp_sat %>%
+  separate(objective_name,"__",into = c("imp_sat","objective"),remove = FALSE)
+return(data_frame_imp_sat_split)
+}
+
+# * Calculate Opportunity Score -------------------------------------------
+calculate_opportunity_score <- function(data_frame_split) {
+  opportunity_scores <- data_frame_split %>%
+    pivot_wider(objective,
+                                    names_from = c(imp_sat),
+                                    values_from = imp_sat_score) %>%
+    mutate(opportunity_score=if_else(imp<sat,imp,imp+imp-sat)) %>%
+    arrange(desc(opportunity_score)) 
+  
+  return(opportunity_scores)
+}
+
+
+
+# * Compare Two Factors: IMP-SAT-OPP --------------------------------------
+compare_two_groups_opportunities <- function(opportunity_data_frame_1,opportunity_data_frame_2){
+    
+  merged_opportunties <- rbind(opportunity_data_frame_1,opportunity_data_frame_2)
+  pivoted_opportunities <- merged_opportunties %>%
+    pivot_wider(objective,
+                names_from = c(segment_name),
+                values_from = opportunity_score) %>% 
+    mutate(objective=as_factor(objective)) 
+    # mutate(difference=segment_name-) %>%
+    # mutate(objective = fct_reorder(objective, difference, .fun='max' ))
+  return(pivoted_opportunities)
+}
+
+
+# compare_two_groups_opportunities <- function(opportunity_data_frame_1,opportunity_data_frame_2){
+# 
+#   merged_opportunties <- rbind(opportunity_data_frame_1,opportunity_data_frame_2)
+#   segment_first <- first(merged_opportunties$segment_name)
+#   print(segment_first)
+#   segment_last <- last(merged_opportunties$segment_name)
+#   print(segment_last)
+#   pivoted_opportunities <- merged_opportunties %>%
+#     pivot_wider(objective,
+#                 names_from = c(segment_name),
+#                 values_from = opportunity_score) %>%
+#     mutate(objective=as_factor(objective)) %>%
+#     mutate(segment_name=arrange(desc(segment_name)))%>%
+#     mutate(difference=first(segment_name)-last(segment_name)) %>%
+#     mutate(objective = fct_reorder(objective, difference, .fun='max' ))
+#   return(pivoted_opportunities)
+# }
+
+# ATTRACTIVENESS ----------------------------------------------------------
+# * MASTER Attractiveness Calculation -------------------------------------
+get_attractiveness <- function(your_data_frame){
+  attractiveness_columns <- find_attractiveness_columns(your_data_frame)
+  attractiveness_score <- calculate_attractiveness_score(attractiveness_columns)
+  return(attractiveness_score)
+}
+# * Find Attractiveness Columns -------------------------------------------
+find_attractiveness_columns <- function(your_data_frame) {
+    attractiveness_columns <- your_data_frame %>%
+      select(starts_with("sol_att"))
+    return(attractiveness_columns)
+  }
+
+# * Calculate Attractiveness ----------------------------------------------
+individual_data <- NULL
+all_data <- NULL
+calculate_attractiveness_score <- function(objectives){
+  for (objective in seq_along(objectives)){
+    namez <- names(objectives)[[objective]]
+    
+    objective_score <- fct_count(objectives[[objective]]) %>%
+      mutate(solution=namez)
+    
+    objective_score_tibble <- objective_score %>%
+      mutate(user_rating=f) %>%
+      filter(user_rating %in% c(1,2,3,4,5)) %>%
+      select(solution,user_rating,n)
+    
+    print(objective_score_tibble)
+    
+    individual_data <-  objective_score_tibble %>%
+      summarize(solution=unique(solution),
+                total_sum=sum(n),
+                attractiveness_sum=sum(n[user_rating==5|
+                                    user_rating==4]))  %>%
+      mutate(attractiveness_score=((attractiveness_sum/total_sum)*10))
+    print(individual_data)
+    all_data <- rbind(all_data,individual_data)
+    
+  }
+  return(all_data)
+}
+
+# * Compare 2 Group Attractiveness ----------------------------------------
+get_attractiveness_compare_2 <- function(your_data_frame,column_to_split_on,factor_a,factor_b){
+  attractiveness_calc_group_1 <- your_data_frame %>%
+    filter(column_to_split_on==factor_a)
+  
+  attractiveness_columns_group_1 <- find_attractiveness_columns(attractiveness_calc_group_1)
+  
+  attractiveness_score_group_1 <- calculate_attractiveness_score(attractiveness_columns_group_1) %>%
+    mutate(segment_name=factor_a)
+  
+  attractiveness_calc_group_2 <- your_data_frame %>%
+    filter(column_to_split_on==factor_b)
+  
+  attractiveness_columns_group_2 <- find_attractiveness_columns(attractiveness_calc_group_2)
+  
+  attractiveness_score_group_2 <- calculate_attractiveness_score(attractiveness_columns_group_2) %>%
+    mutate(segment_name=factor_b)
+  
+  merged_attractivness_data_frame <- rbind(attractiveness_score_group_1,attractiveness_score_group_2)
+  
+  pivoted_attractiveness <- merged_attractivness_data_frame %>%
+    pivot_wider(solution,
+                names_from = c(segment_name),
+                values_from = attractiveness_score) %>% 
+    mutate(objective=as_factor(solution)) %>%
+    select(-objective)
+  # mutate(difference=segment_name-) %>%
+  # mutate(objective = fct_reorder(objective, difference, .fun='max' ))
+  return(pivoted_attractiveness)
+}
+
+
+# Visulization ------------------------------------------------------------
+
+# *  Opportunity Score Graph ----------------------------------------------
+get_opportunity_score_graph <- function(data,title_string,subtitle_string) {
+  data %>%
+    mutate(high_opportunity=if_else(opportunity_score>=10,"high-priority opportunity","other opportunity")) %>%
+    ggplot(aes(x=imp,y=sat,color=high_opportunity,label=objective))+geom_point() + 
+    geom_text(aes(label=ifelse(opportunity_score>=10,as.character(objective),'')),hjust=0,vjust=0,angle = 45) +
+    #coord_flip() +
+    #+ scale_x_discrete(drop=FALSE)
+    labs(title=title_string,subtitle=subtitle_string,x="Importance",y="Satisfaction",color="Opportunity\nValue",fill="", size="")+#,caption=paste0("Data as of ",today()) ,caption="NYC Research Team" ,caption=paste0("Created ",today())
+    theme(text=element_text(family = "Roboto"),
+          panel.grid.major = element_line(color = "#DAE1E7"),
+          panel.background = element_blank(),axis.text = element_text(size = 12),
+          axis.text.x = element_text(margin = margin(t = 5)),#hjust = 1,angle=90
+          axis.text.y = element_text(margin = margin(r = 5)),
+          axis.title = element_text (size = 15),
+          axis.line = element_line(),
+          axis.title.y = element_text(margin = margin(r = 10), hjust = 0.5),
+          axis.title.x = element_text(margin = margin(t = 10), hjust = 0.5),
+          plot.caption = element_text(size = 8,
+                                      margin = margin(t = 10),
+                                      color = "#3D4852"), 
+          title = element_text (size = 15,margin = margin(b = 10)),) +
+    guides(fill=FALSE) +
+    expand_limits(x=0,y=0) +
+    # scale_x_discrete(drop=FALSE) + 
+    #scale_x_continuous(expand=c(0,0)) + scale_y_continuous(expand=c(0,0)) #+
+    coord_cartesian(xlim=c(1,10),ylim=c(1,10))
+}
+
+# *  Cleveland Grahp ------------------------------------------------------
+get_cleveland_graph <- function(data, objective, group_1,group_2,title_string,subtitle_string) {
+  objective <- enquo(objective)
+  group_1 <- enquo(group_1)
+  group_2 <- enquo(group_2)
+  # print(dplyr::quo_name(!!group_1))
+  data %>%
+    ggplot() + geom_segment(aes(x=!!objective, xend=!!objective, y=!!group_1, yend=!!group_2), color="grey") +
+    geom_point(aes(x=!!objective, y=!!group_1), color="blue", size=3) +
+    geom_point(aes(x=!!objective, y=!!group_2), color="red", size=3) +
+    coord_flip()+
+    labs(title=title_string,subtitle=subtitle_string,x="Objectives",y="Opportunity Score",color="Shipping\nMethod",fill="", size="")+#,caption=paste0("Data as of ",today()) ,caption="NYC Research Team" ,caption=paste0("Created ",today())
+    theme(text=element_text(family = "Roboto"),
+          panel.grid.major = element_line(color = "#DAE1E7"),
+          panel.background = element_blank(),axis.text = element_text(size = 12),
+          axis.text.x = element_text(margin = margin(t = 5)),#hjust = 1,angle=90
+          axis.text.y = element_text(margin = margin(r = 5)),
+          axis.title = element_text (size = 15),
+          axis.line = element_line(),
+          axis.title.y = element_text(margin = margin(r = 10), hjust = 0.5),
+          axis.title.x = element_text(margin = margin(t = 10), hjust = 0.5),
+          plot.caption = element_text(size = 8,
+                                      margin = margin(t = 10),
+                                      color = "#3D4852"), 
+          title = element_text (size = 15,margin = margin(b = 10)),
+          legend.position="bottom") +
+    expand_limits(x=0,y=0)
+}
+
+# * Distribution Graph ----------------------------------------------------
+get_distribution_graph <- function(data,relevant_column,title_string,subtitle_string) {
+  data %>%
+    ggplot(aes(relevant_column,fill=relevant_column))+geom_bar() + 
+    coord_flip() +
+    labs(title=title_string,subtitle=subtitle_string,x="Factor",y="Count",color="",fill="", size="")+#,caption=paste0("Data as of ",today()) ,caption="NYC Research Team" ,caption=paste0("Created ",today())
+    theme(text=element_text(family = "Roboto"),
+          panel.grid.major = element_line(color = "#DAE1E7"),
+          panel.background = element_blank(),axis.text = element_text(size = 12),
+          axis.text.x = element_text(margin = margin(t = 5)),#hjust = 1,angle=90
+          axis.text.y = element_text(margin = margin(r = 5)),
+          axis.title = element_text (size = 15),
+          axis.line = element_line(),
+          axis.title.y = element_text(margin = margin(r = 10), hjust = 0.5),
+          axis.title.x = element_text(margin = margin(t = 10), hjust = 0.5),
+          plot.caption = element_text(size = 8,
+                                      margin = margin(t = 10),
+                                      color = "#3D4852"), 
+          title = element_text (size = 15,margin = margin(b = 10)),) +
+    guides(fill=FALSE) +
+    expand_limits(x=0,y=0)
+}
+
+
+
+get_distribution_graph_with_fill <- function(data,relevant_column,fill_column,title_string,subtitle_string) {
+  data %>%
+    ggplot(aes(relevant_column,fill=fill_column))+geom_bar() + 
+    coord_flip() +
+    labs(title=title_string,subtitle=subtitle_string,x="Factor",y="Count",color="",fill="", size="")+#,caption=paste0("Data as of ",today()) ,caption="NYC Research Team" ,caption=paste0("Created ",today())
+    theme(text=element_text(family = "Roboto"),
+          panel.grid.major = element_line(color = "#DAE1E7"),
+          panel.background = element_blank(),axis.text = element_text(size = 12),
+          axis.text.x = element_text(margin = margin(t = 5)),#hjust = 1,angle=90
+          axis.text.y = element_text(margin = margin(r = 5)),
+          axis.title = element_text (size = 15),
+          axis.line = element_line(),
+          axis.title.y = element_text(margin = margin(r = 10), hjust = 0.5),
+          axis.title.x = element_text(margin = margin(t = 10), hjust = 0.5),
+          plot.caption = element_text(size = 8,
+                                      margin = margin(t = 10),
+                                      color = "#3D4852"), 
+          title = element_text (size = 15,margin = margin(b = 10)),) +
+    guides(fill=FALSE) +
+    expand_limits(x=0,y=0)
+}
