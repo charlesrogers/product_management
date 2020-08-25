@@ -1,6 +1,21 @@
 # Product Research Process
-## What to Build
+This document is my general research process. 
++ Credentials?
++ Ethos
++ Request for input
+## What Should We Build?
+For me the most important question, for:
+> Product-market-fit hideth a multitude of sins
 
-## Are we Buidling the Right Thing
+### Determine Objectives
 
-## How Do We Know if We're Effective
+### Measure Objectives
+
+### Prioritize Objectives
+
+## Solution Generation
+
+## Are we Buidling the Right Thing?
+
+## How Do We Know If We're Effective?
+Metawork
