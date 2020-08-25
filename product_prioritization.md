@@ -8,3 +8,23 @@ When it comes to prioritizing a product there are some considerations
   + Likelihood to adopt * Number of Users * change in LTV (GMV  *  Churn Rate)
 ## Process for Low-Risk Situations
 
+---
+### TO FILE
+Prioritization is a combination of business value * user value * what is feasible * what will create long-term value above the cost of capital
+1. Business value
+    + What is the overall funnel
+     + What are the steps in the funnel
+       + What are the individual elements that make up that step of the funnel
+   + How much does each facet contribute to the greater conversion rate
+   + What is the most significant factor by:
+     + Number of users
+      + Amount of GMV
+      + Room for growth
+1. User value
+   + Importance, Satisfaction, Opportunity Scores
+     + BATNA
+     + Table stakes
+     + Minimum Acceptable Threshold
+1. Feasibility
+1. Defensibility
+    + Will this result in a moat?
