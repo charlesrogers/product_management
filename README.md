@@ -13,6 +13,6 @@ For me the most important question, for:
 ## Solution Generation
 
 ## Are we Buidling the Right Thing?
-
+[Solution Evaluation](https://github.com/charlesrogers/product_research/blob/master/evaluative_research.md)
 ## How Do We Know If We're Effective?
 Metawork
