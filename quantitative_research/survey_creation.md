@@ -3,6 +3,9 @@
 + List hypotheses you want to invalidate/corroborate
 + List objectives
 + List questions that will invalidate/corroborate those hypotheses
++ List factors that would be useful in segmentation
+  + Those that are identifiable by adverisiers
+  + Those that we predict will explain the largest variance between users
 + Determine objective
 ## Design Questionnaire
 +  Cross-Survey Comparison via Standard Question Bank: [Use this database of questions](https://github.com/charlesrogers/product_research/blob/master/quantitative_research/survey_question_bank.md) for all demo/firmo questions and for likert/multiple-choice answers
