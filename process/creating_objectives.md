@@ -19,10 +19,10 @@ Probability/risk (and thus "Likelihood" objectives) seem to be more relevant whe
 Go deeper on the objectives that are more directly relevant to the project and higher level for the adjacent objectives.
 When presenting solutions, is it better to write the solution to a higher or more specific level?
 For example, when trying to determine what solution to build, and cross-validating against previous interviews and considering the needs of a US-based medical device company:
-• Level X - Minimize time to find a supplier who complies with regulations
-• Level Y
-• Obj A. Minimize time to find a supplier located in the United States
-• Obj B. Minimize time to find a supplier who is FDA compliant
++ Level X - Minimize time to find a supplier who complies with regulations
++ Level Y
++ Obj A. Minimize time to find a supplier located in the United States
++ Obj B. Minimize time to find a supplier who is FDA compliant
 Level Y - A is useful to many people, but applies to lots of industries
 Level Y - B is useful to , but applies to one industry
 ## Which Levels to Include
@@ -32,19 +32,19 @@ Scope
 ## Testing Objectives
 When we are not sure of what level of objective to ask at...
 ### Time to Identify vs Resolve?
-• What about resolution? Should we still ask about sometimes we can't do anything about it.
++ What about resolution? Should we still ask about sometimes we can't do anything about it.
 Themes
-• Accuracy
-• Risk
++ Accuracy
++ Risk
 ### What level do we ask at?
-• When you ask at the solution level, it can solve two outcomes, so it solves the problem of which to ask about, but we lose data on what actually mattered to the user.
-• We don't know if we want to ask about time or quality, so ask about production process
-• Option A
-• Minimize the likelihood the supplier makes changes to the production process without my knowledge
-• Option B
-• Minimize the time it takes to assess changes in supplier's quality performance
-• Minimize the time it takes to assess changes in supplier's on-time delivery performance
-• If you ask one level higher (for the outcome), it might be lest relevant
++ When you ask at the solution level, it can solve two outcomes, so it solves the problem of which to ask about, but we lose data on what actually mattered to the user.
++ We don't know if we want to ask about time or quality, so ask about production process
++ Option A
+  + Minimize the likelihood the supplier makes changes to the production process without my knowledge
++ Option B
+  + Minimize the time it takes to assess changes in supplier's quality performance
+  + Minimize the time it takes to assess changes in supplier's on-time delivery performance
++ If you ask one level higher (for the outcome), it might be lest relevant
 ### Likelihood vs Magnitude
 For problems that are not that preventable, we likely do not not want to ask whether they want to minimize the likelihood of the event—these are ones that involve risk that is inherent to the system...
 Eg. minimize the risk of earth being in the path of an asteroid
@@ -56,7 +56,7 @@ Magnitude: Continuous - mitigate
 For low probability ones, leave high level (we're basically finish for interest, so can't go too specific)
 #### Hidden risk
 Risk that is created by how you make a decision vs risk is part of the system (inherent in doing what you are doing
-e
+
 #### Likelihood, For the Second time
 Minimize likelihood of something bad happening (Minimize likelihood of ordering the incorrect amount)
 OR
@@ -71,7 +71,7 @@ Minimize the likelihood of using a payment method that will negatively impact ca
 Minimize the likelihood  cash flow will be negatively affected by payment method
 #### Issues with Juicing
 What are we actually doing when we are juicing?
-merging solution with value proposition?
+We are likely merging objectives with solutions + value proposition, which makes the objectives quite a bit more attractive
 ## Open Questions
 ### Should we measure outcomes Independently 
 ### Ask about the last experience, not average
