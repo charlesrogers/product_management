@@ -1,6 +1,6 @@
 # How to Create Objectives
 ## What is the Appropriate Level to Frame the Objectives?
-V devised a nice framework to explain the different levels of objectives:
+### Framework to explain the different levels of objectives
 1. Business level: Maximize profit profit
 2. Job level: The role specific job itself - eg "Sell more products" or "Find the right products for internal use"
 3. Step level: The context-specific job  - eg. "Source products in order to resell them"
@@ -12,12 +12,14 @@ V devised a nice framework to explain the different levels of objectives:
 + Objectives specifically related to using the product - eg. "Find repeat order data", "Sign up quickly"
 + Objectives related to internal processes that don't directly accomplish the job (but are more around reducing variability/cost/mistakes when accomplishing the context-specific (level 2 job - "Submit pre-PO approval request to supervisor") but may be company specific. Very similar to product meta job, but it's service related...
 + If it applies to every step, a potential solution is abstracting it up a level and just asking it once:
-+ Minimize the likelihood of not following established processes in the organization  TRUE  3	1	Optional	Is this about forgetting? Is this about not making your bosses angry? > Should we abstract up a level and say something like "Minimize the number of internal preventable mistakes"
-When stuck on an objective, it might be helpful to identify at which level it is located:
-This seems like it's "Sell Products > Find Suppliers > Vet Supplier > Determine Supplier's Business Stability > Determine financial stability"
-Probability/risk (and thus "Likelihood" objectives) seem to be more relevant when there is hidden risk...
-Go deeper on the objectives that are more directly relevant to the project and higher level for the adjacent objectives.
-When presenting solutions, is it better to write the solution to a higher or more specific level?
+> Minimize the likelihood of not following established processes in the organization
+  + Optional: Is this about forgetting? Is this about not making your bosses angry? Should we abstract up a level and say something like "Minimize the number of internal preventable mistakes"
+## Troubleshotting & Tips
++ When stuck on an objective, it might be helpful to identify at which level it is located:
+ + The above example (X) seems like it's "Sell Products > Find Suppliers > Vet Supplier > Determine Supplier's Business Stability > Determine financial stability"
++ Probability/risk (and thus "Likelihood" objectives) seem to be more relevant when there is hidden risk...
++ Go deeper on the objectives that are more directly relevant to the project and higher level for the adjacent objectives.
++ When presenting solutions, is it better to write the solution to a higher or more specific level?
 For example, when trying to determine what solution to build, and cross-validating against previous interviews and considering the needs of a US-based medical device company:
 + Level X - Minimize time to find a supplier who complies with regulations
 + Level Y
@@ -56,19 +58,21 @@ Magnitude: Continuous - mitigate
 For low probability ones, leave high level (we're basically finish for interest, so can't go too specific)
 #### Hidden risk
 Risk that is created by how you make a decision vs risk is part of the system (inherent in doing what you are doing
-
 #### Likelihood, For the Second time
-Minimize likelihood of something bad happening (Minimize likelihood of ordering the incorrect amount)
++ Minimize likelihood of something bad happening (Minimize likelihood of ordering the incorrect amount)
 OR
-Minimize likelihood of something good not happening (Minimize likelihood of not ordering the correct amount)
++ Minimize likelihood of something good not happening (Minimize likelihood of not ordering the correct amount)
 Avoiding something bad happening seems to be slightly "juicing" it but the double negative of avoiding something good not happening is harder to read.... so we prefer the more neutral avoiding something not happening.
-Preliminary verdict: Neutral. 
-Minimize likelihood of running out of inventory for a product technically you can't control, and incorporates a lot more things.
-Minimize likelihood of not ordering the correct amount - this can't control, but fewer variables involved
-Minimize likelihood of reordering at the incorrect time - this you also can't control, but fewer variables involved
-Others
-Minimize the likelihood of using a payment method that will negatively impact cash flow 
-Minimize the likelihood  cash flow will be negatively affected by payment method
+**Preliminary verdict: Neutral.**
++ Minimize likelihood of running out of inventory for a product
+  + Technically you can't control, and incorporates a lot more things.
++ Minimize likelihood of not ordering the correct amount
+  + This can't control, but fewer variables involved
++ Minimize likelihood of reordering at the incorrect time
+  + This you also can't control, but fewer variables involved
+Other examples:
++ Minimize the likelihood of using a payment method that will negatively impact cash flow 
++ Minimize the likelihood cash flow will be negatively affected by payment method
 #### Issues with Juicing
 What are we actually doing when we are juicing?
 We are likely merging objectives with solutions + value proposition, which makes the objectives quite a bit more attractive
