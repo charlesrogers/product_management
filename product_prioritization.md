@@ -5,5 +5,6 @@ When it comes to prioritizing a product there are some considerations
 
 ## Process for High-Risk Situations
 + NPV of solutions
+  + Likelihood to adopt * Number of Users * change in LTV (GMV  *  Churn Rate)
 ## Process for Low-Risk Situations
 
