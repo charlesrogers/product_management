@@ -1,5 +1,5 @@
 # Model Creation
-## See "The Cycles of Theory Building in Management Research": https://www.hbs.edu/faculty/publication%20files/05-057.pdf
+See "The Cycles of Theory Building in Management Research": https://www.hbs.edu/faculty/publication%20files/05-057.pdf
 ## How to create an accurate model of the world? 
 Create a theory that explains the largest variance with the fewest number of moving parts.
 It's not easy, but it's fun.
