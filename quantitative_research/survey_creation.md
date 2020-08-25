@@ -4,7 +4,7 @@
 + List objectives
 + List questions that will invalidate/corroborate those hypotheses
 + List factors that would be useful in segmentation
-  + Those that are identifiable by adverisiers
+  + Those that are identifiable by advertisers
   + Those that we predict will explain the largest variance between users
 + Determine objective
 ## Design Questionnaire
