@@ -1,5 +1,17 @@
 # Creating Presentations
-
+## Output
+1. Executive summary
+  + Key Takeaways
+  + Biggest overall opportunities presented in sentence format
+2. Methodology
+  + Target sample
+  + Sample size
+  + Research methodologies employed
+3. Findings: Show your work
+  + Models & Frameworks
+  + Overall Data
+  + Data broken down by segment
+4. Next steps
 ## Presentation Checklist
 1. Start with the context
 2. Models should exclusive
@@ -18,4 +30,4 @@ a. Each slide should convey (typically) one message clearly
 1. Visual Hierarchy
 2. Give the context for each slide
 a. If explaining multiple points all within a category or theme, include way-finding headings at the top on each page reminds the viewer what they are looking at
-3. Highlight what has changed
+3. Highlight what has changed between groups
