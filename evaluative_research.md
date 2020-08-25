@@ -1,4 +1,9 @@
 # Concept & Solution Validation
+Products in different stages deserve different levels of vaidation.
+## Verbal & Contextual Validation
+
+## Visual & Workflow Validation
+
 ## Timeline to
 1. Discover objectives and the user's current satisfaction
 2. For unmet objectives, determine what would meet their needs
