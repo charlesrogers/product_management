@@ -1,13 +1,12 @@
 # Survey Creation Process 
-## Survey Design
-+ List objectives
+## Survey Design Process
 + List hypotheses you want to invalidate/corroborate
++ List objectives
 + List questions that will invalidate/corroborate those hypotheses
-## Process
-### Determine objective
-### Design Questionnaire
++ Determine objective
+## Design Questionnaire
 +  Cross-Survey Comparison via Standard Question Bank: Use this database of questions for all non-project-specific survey questions.
-#### Question Construction
+### Question Construction
 + Time & Money - When writing quantity questions (of time or money):
 +(Generally) Only include one variable in a question
   + When questions seem to break, it's likely because you are asking two questions in one. This is often when you create answers that include something like X AND Y or A AND B
@@ -24,15 +23,16 @@
   + Make the list of answers mutually exclusive
   + Make each list of answers exhaustive
 + Free text field
-  + 
+  + TBD
 + Multi-select
+  + TBD
 + Likert questions:
   + Require a response to all rows
   + Match Question to Ratings
 + TRY AND AVOID MULTI-SELECT (checkboxes)
 + Ideas to explore
   + Simulate results before fielding to see if you get the data you need...
-#### Create rough draft in a collaborative tool: 
+### Create rough draft in a collaborative tool: 
 + Use a collaborative tool BEFORE coding survey in survey instrument. Except in cases of the simplest surveys, it is best to design the survey in a collaborative word processor to allow for people to quickly see the flow, leave comments, and make suggestions without having to take  the survey multiple times
   + Don't Interchange Words: Don't switch between words like "seller" / "supplier", "good"/ "product", or "source" / "procure".
   + Don't use internal terminology: "Customer" not "buyer" or "user"
@@ -48,7 +48,7 @@
     + Ask, "Is it hard question to answer?"
 + Review with partners
 + Update survey
-## Code survey in survey instrument:
+### Code survey in survey instrument:
 Depending on the length and skip-logic, the survey should take anywhere from 2-4 (uninterrupted) hours to code
 + Survey Organizaion
   + Add a introduction on the first page of survey
@@ -63,10 +63,12 @@ Depending on the length and skip-logic, the survey should take anywhere from 2-4
   + Check survey page skip logic
   + For every matrix question, ensure "all" rows must be selected
   + Make sure you have underlined/bolded important phrases
-## Field survey
-### Distribution
-#### Email
+### Field survey
+#### Distribution
+##### Email
 + Original Email
 + Follow up email
+#### Other Distribution Channels
+##### Vendors
 ### Incentives
 + TBD
