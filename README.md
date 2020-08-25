@@ -6,6 +6,8 @@ This document is my general research process.
 ## What Should We Build?
 For me the most important question, for:
 > Product-market-fit hideth a multitude of sins
+1. [Determine what people want](https://github.com/charlesrogers/product_research/blob/master/qualitative_research/how_to_create_objectives.md)
+2. Measure what people want
 
 ### Determine Objectives
 
