@@ -8,8 +8,7 @@ For me the most important question, for:
 > Product-market-fit hideth a multitude of sins
 1. [Determine what people want](https://github.com/charlesrogers/product_research/blob/master/qualitative_research/discover_objectives.md) by completeing qualitative interviews
 2. Measure what people want via a qualitative instrument
-
-### Prioritize Objectives
+3. Prioritize Objectives
 
 ## Solution Generation
 
