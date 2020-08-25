@@ -5,7 +5,7 @@
 + List questions that will invalidate/corroborate those hypotheses
 + Determine objective
 ## Design Questionnaire
-+  Cross-Survey Comparison via Standard Question Bank: Use this database of questions for all non-project-specific survey questions.
++  Cross-Survey Comparison via Standard Question Bank: [Use this database of questions for all non-project-specific survey questions].(https://github.com/charlesrogers/product_research/blob/master/quantitative_research/survey_question_bank.md)
 ### Question Construction
 + Time & Money - When writing quantity questions (of time or money):
 +(Generally) Only include one variable in a question
