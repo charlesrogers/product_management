@@ -1,24 +1,24 @@
-Model Creation
-See "The Cycles of Theory Building in Management Research"
-How to create an accurate model of the world? 
+# Model Creation
+## See "The Cycles of Theory Building in Management Research": https://www.hbs.edu/faculty/publication%20files/05-057.pdf
+## How to create an accurate model of the world? 
 Create a theory that explains the largest variance with the fewest number of moving parts.
 It's not easy, but it's fun.
-Observe
+## Observe
 Observe and measure what you see
-Classify
-With the phenomena observed and described, researchers in the second stage then classify the phenomena into categories. In the descriptive stage of theory building, the classification schemes that scholars propose typically are defined by the attributes of the phenomena. (p.3)
-Define Relationships (Create a model)
-[E]xplore the association between the category-defining attributes and the outcomes observed. p. 3
+## Classify
+>With the phenomena observed and described, researchers in the second stage then classify the phenomena into categories. In the descriptive stage of theory building, the classification schemes that scholars propose typically are defined by the attributes of the phenomena. (p.3)
+## Define Relationships (Create a model)
+>[E]xplore the association between the category-defining attributes and the outcomes observed. p. 3
 Eventually this process should ideally involve some statistical analysis (e.g. regression) to test the relationship
-Create a Descriptive Acyclic Graph (DAG)
+## Create a Descriptive Acyclic Graph (DAG)
 https://en.wikipedia.org/wiki/Directed_acyclic_graph
-Create a test to invalidate/corroborate the hypothesis
-Test Out of Sample
-"[Models improve] when researchers [...] "test" the hypothesis that had been inductively formulated. This most often is done by exploring whether the same correlations exist between attributes and outcomes in a different set of data than the data from which the hypothesized relationships were induced." p.4
-Execute the test
+## Test in-sample test to invalidate/corroborate the hypothesis
+## Test Out of Sample
+>"[Models improve] when researchers [...] "test" the hypothesis that had been inductively formulated. This most often is done by exploring whether the same correlations exist between attributes and outcomes in a different set of data than the data from which the hypothesized relationships were induced." p.4
+## Execute the test
 a. For us, most often, this is an interview, survey, or analysis of server data.
-Anomalies are Good
-It is only when an anomaly is identified – an outcome for which the theory can't account – that an opportunity to improve theory occurs. [... D]iscovery of an anomaly gives researchers the opportunity to revisit the categorization scheme – to cut the data in a different way – so that the anomaly and the prior associations of attributes and outcomes can all be explained.
+### Anomalies are Good
+>It is only when an anomaly is identified – an outcome for which the theory can't account – that an opportunity to improve theory occurs. [... D]iscovery of an anomaly gives researchers the opportunity to revisit the categorization scheme – to cut the data in a different way – so that the anomaly and the prior associations of attributes and outcomes can all be explained.
 1. Observe the data
 a. 
 2. Describe the data
@@ -53,6 +53,6 @@ a. Internal Validity
 ⅱ. The researchers have ruled out all plausible alternative explanations that might link the phenomena with the outcomes of interest.
 b. External Validity
 ⅰ. The extent to which a relationship that was observed between phenomena and outcomes in one context can be trusted to apply in different contexts as well
-Objective:
-A theory completes the transition from descriptive to normative when it can give a manager unambiguous guidance about what actions will and will not lead to the desired result, given the circumstance in which she finds herself. (Ibid.)
+## Objective:
+>A theory completes the transition from descriptive to normative when it can give a manager unambiguous guidance about what actions will and will not lead to the desired result, given the circumstance in which she finds herself. (Ibid.)
 The goal is to move from demographics to circumstances.
