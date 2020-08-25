@@ -1,4 +1,5 @@
 # Product Prioritization
+The question at hand is the eternal, "What should we build?"  
 When it comes to prioritizing a product there are some considerations 
 + How confident are you that know what people are trying to accomplish and the tradeoffs they would make?
 + What is the scope of solutions that you would consider? Are you interested in only doing sustain innvoations, adjacent features, or entirely new solution spaces.
@@ -28,3 +29,6 @@ Prioritization is a combination of business value * user value * what is feasibl
 1. Feasibility
 1. Defensibility
     + Will this result in a moat?
+
+## Level of Focus
+When it comes to targeting users, you can priortized based on format-specific features (eg between pedestrians or automobile drives) or within-format differences (male drivers vs female drivers).
