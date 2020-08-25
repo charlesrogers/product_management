@@ -50,6 +50,14 @@
   + 11-25 years
   + 26 - 50 years
   + 51 years or more
++ Which of the following best describes your company's "business type"?
+  + Wholesaler/distributor - Buy products produced by other companies and sell to retailers or other businesses
+  + Retailer - Sell products to consumers that were produced by other companies
+  + Brand - design products (often with your logo on them) that are resold
+  + Contract manufacturer - Manufacture products based on the designs or specifications of others
+  + Raw material producer - growing crops, mining, extracting raw materials
+  + Trading Company - trade on behalf of other companies, typically don't store inventory, often help find suppliers
+  + Import/export company - focus on helping companies get their products in/out of a specific country (less focused on helping them find suppliers)
 ## Demographic Questions
 + Please select all the statements that describe your current employment situation (Select all that apply)
   + Full time employee
