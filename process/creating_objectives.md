@@ -9,10 +9,10 @@ V devised a nice framework to explain the different levels of objectives:
 6. Tactical step level: Tactics or techniques that are used in order to achieve a process step - eg. "Learn from other people what they thought of their experience sourcing from that supplier
 7. Consumption Chain Level: how long to understand the tool that helps you accomplish the objective
 ## Meta Jobs:
-• Objectives specifically related to using the product - eg. "Find repeat order data", "Sign up quickly"
-• Objectives related to internal processes that don't directly accomplish the job (but are more around reducing variability/cost/mistakes when accomplishing the context-specific (level 2 job - "Submit pre-PO approval request to supervisor") but may be company specific. Very similar to product meta job, but it's service related...
-• If it applies to every step, a potential solution is abstracting it up a level and just asking it once:
-• Minimize the likelihood of not following established processes in the organization  TRUE  3	1	Optional	Is this about forgetting? Is this about not making your bosses angry? > Should we abstract up a level and say something like "Minimize the number of internal preventable mistakes"
++ Objectives specifically related to using the product - eg. "Find repeat order data", "Sign up quickly"
++ Objectives related to internal processes that don't directly accomplish the job (but are more around reducing variability/cost/mistakes when accomplishing the context-specific (level 2 job - "Submit pre-PO approval request to supervisor") but may be company specific. Very similar to product meta job, but it's service related...
++ If it applies to every step, a potential solution is abstracting it up a level and just asking it once:
++ Minimize the likelihood of not following established processes in the organization  TRUE  3	1	Optional	Is this about forgetting? Is this about not making your bosses angry? > Should we abstract up a level and say something like "Minimize the number of internal preventable mistakes"
 When stuck on an objective, it might be helpful to identify at which level it is located:
 This seems like it's "Sell Products > Find Suppliers > Vet Supplier > Determine Supplier's Business Stability > Determine financial stability"
 Probability/risk (and thus "Likelihood" objectives) seem to be more relevant when there is hidden risk...
