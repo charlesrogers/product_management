@@ -59,6 +59,13 @@
     + Raw material producer - growing crops, mining, extracting raw materials
     + Trading Company - trade on behalf of other companies, typically don't store inventory, often help find suppliers
     + Import/export company - focus on helping companies get their products in/out of a specific country (less focused on helping them find suppliers)
++ Product End Use
+  + Which of the following best describes the primary use of the products you source?
+    + Internal use
+    + Resale
+    + Personal consumption
+    + Component in manufacturing
+    + Capital expendatures
 ## Demographic Questions
 + Please select all the statements that describe your current employment situation (Select all that apply)
   + Full time employee
