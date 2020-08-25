@@ -88,9 +88,10 @@ Ideally our process is invisible—if possible we should be able to present info
 ### Impact
 ## Stylistic Measures (Nice to Haves)
 ### Brevity
-KPI: A simple KPI would be  communicating the appropriate message with the fewest number of characters.
-Counter KIP: Time to understand the concept
----RAW THOUGHTS TO INTEGRATE---
++ KPI: A simple KPI would be  communicating the appropriate message with the fewest number of characters.
++ Counter KIP: Time to understand the concept
+---
+RAW THOUGHTS TO INTEGRATE
 I think the sunk-cost lens might be less predictive than whether they are currently satisfied with their solutions (vs not having any). I think it might be circular to say "they didn't switch to Alibaba because they were happy with their solutions." I think we need to look at the times when they were looking for new solutions:
 Doug didn't have any examples when HE had to find new suppliers, but did express at least one blocking criteria (Chinese quality being perceived as inferior).
 The lady from Nebraska DID mention looking, but she was able to find what she wanted to find via google (so we didn't rank high enough... an awareness issue AND likely we didn't have enough US-based suppliers).
