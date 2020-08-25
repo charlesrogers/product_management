@@ -4,9 +4,9 @@
 ### Quality checks
 + Check to see if they pass both trap questions
 + Calculate the distribution of responses for outcomes (CAN BE DONE together, or for each of importance and satisfaction)
-++ Determine % of each number selected (1-5) per respondent
-++ Sum of the squares of the distribution where each of the responses is selected at 20% (1/5)
-++ Upper limit of 98.2% (purely) random and lower bound of 42.2% (one selection)
+  + Determine % of each number selected (1-5) per respondent
+  + Sum of the squares of the distribution where each of the responses is selected at 20% (1/5)
+  + Upper limit of 98.2% (purely) random and lower bound of 42.2% (one selection)
 + Time to complete
 ++ Count words
 ++ Determine maximum words per minute (use 400 WPM)
