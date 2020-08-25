@@ -1,4 +1,4 @@
 # Categorical Segmentation
-Categorical Segmentation should not produce as high opportunity scores, but it is an "interpretable model" that allows you to target potential users based on identifiable factors.
+Categorical Segmentation should not produce as high opportunity scores as using an "outcome driven innovation" process, but the results will likely be an "interpretable model" that allows you to target potential users based on identifiable factors.
 ## Process
 ### 
