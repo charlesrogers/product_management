@@ -1,12 +1,4 @@
 # Qualitative Interview Coding & Synthesis
-## Interview Coding
-Here are the Meta objectives we want to accomplish while executing an interview:
-1. Minimize the effort to extract new objectives
-2. Minimize the effort to code new objectives 
-3. Minimize the effort to code an existing objective
-4. Minimize the effort to capture the context associated with an objected
-5. Minimize the time to find what you're looking for when reviewing a previously coded interview
-6. Make everything we know about users legible (searchable)
 ### Individual Interview
 + Diagram journey by creating the timeline of the buyer's journey: For each user, write what their journey was
 + Extract the user's objectives/goals
@@ -92,4 +84,11 @@ a. What was the change that resulted in the desire to accomplish the objective
 a. What data is available
 4. Efficiency - Doing the job better
 5. Emotional
----
+### Interview Coding Objectives
+Here are the Meta objectives we want to accomplish while executing an interview:
+1. Minimize the effort to extract new objectives
+2. Minimize the effort to code new objectives 
+3. Minimize the effort to code an existing objective
+4. Minimize the effort to capture the context associated with an objected
+5. Minimize the time to find what you're looking for when reviewing a previously coded interview
+6. Make everything we know about users legible (searchable)
