@@ -19,11 +19,11 @@ Some product concepts are low-enough risk that they do not require speaking with
 + Deliver the proposed value
 + If the user could find the new solution
 + If they could understand it
-+ If they would trust it enough to use it
++ If they would trust it enough to use it  
 Each of these potential issues are relatively low-probabiliy, especially if you are making incremental changes and following traditional design conventions.
 These lower-risk opportunities should typically reveal themselves as you analyze a conversion rate funnel, which is essentially optimizing an existing flow or feature. The risk of this type of innovation is that you reach a "[local maxima](https://github.com/charlesrogers/product_research/blob/master/research_resources/research_frameworks.md#local-maxima)".
 ### Things that Don't Need to Be Tested
-+ When a product has little adoption risk (eg it's a [sustaining innovation](#) with little difference other than better performance, then the only question is really "does this perform better/result in better outcomes for the user" than the other options and thus less customer "insight" is required beyond whether it is usable.
++ When a product has little adoption risk (eg it's a [sustaining innovation](https://github.com/charlesrogers/product_research/blob/master/research_resources/research_frameworks.md#sustaining-innovations) with little difference other than better performance, then the only question is really "does this perform better/result in better outcomes for the user" than the other options and thus less customer "insight" is required beyond whether it is usable.
 + 
 ---
 ### TO FILE
