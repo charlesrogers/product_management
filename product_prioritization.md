@@ -5,8 +5,15 @@ When it comes to prioritizing a product there are some considerations
 + What is the scope of solutions that you would consider? Are you interested in only doing sustain innvoations, adjacent features, or entirely new solution spaces.
 
 ## Process for High-Risk Situations
-+ NPV of solutions
-  + Likelihood to adopt * Number of Users * change in LTV (GMV  *  Churn Rate)
+Determine the net present value of each of the solutions
+The calculation is not meant to be exact, but meant to be a way of comparing different options and evaluating your assumptions.  
+Over time, you are able to see collect base rates that can be used to improve future estimates.
+### Calulation of NPV for A Features
++ Likelihood to adopt * Number of Users * Incremental Value =
+  + Likelihood to adopt: either based on an opportunity score, an actual likelihood to adopt score, or a base rate of typical conversion rates for the industry (adjusted up or down, appropriately)
+  + Number of users
+  + Incremental Value: Average Order Value * Churn Rate * Incremental number of orders * Contribution Margin
+
 ## Process for Low-Risk Situations
 
 ---
