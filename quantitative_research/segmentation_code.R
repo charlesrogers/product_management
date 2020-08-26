@@ -139,16 +139,43 @@ get_error_bars_adjusted_wald <- function(your_data_frame){
 
 # Analysis ----------------------------------------------------------------
 # * Opportunity Functions --------------------------------------------------
-# ** Master Opportunity Function ------------------------------------------
-get_imp_sat_opp_scores <- function(your_data_frame,factor_name){
-  data_frame_imp_sat <- find_imp_sat_columns(your_data_frame)
-  imp_sat_scores <- calculate_imp_sat_score(data_frame_imp_sat)
-  objective_columns <- split_imp_sat_columns(imp_sat_scores)
-  opportuity_scores <- calculate_opportunity_score(objective_columns) %>%
-    mutate(segment_name=factor_name)
-  return(opportuity_scores)
-}
 
+
+# ** Opportunity - Total Population ---------------------------------------
+get_imp_sat_opp_scores_total_population <- function(your_data_frame){
+
+  opportunity_columns_group_1 <- find_imp_sat_columns(your_data_frame)
+  
+  opportunity_score_group_1 <- calculate_imp_sat_score(opportunity_columns_group_1)  
+  
+  opportunity_score_group_1 <- split_imp_sat_columns(opportunity_score_group_1)
+  
+  opportunity_score_group_1<- calculate_opportunity_score(opportunity_score_group_1) %>%
+    mutate(opportunity_score=if_else(imp<sat,imp,imp+imp-sat)) %>%
+    arrange(desc(opportunity_score)) %>%
+    mutate(segment_name="total_population",
+           rank=rank(desc(opportunity_score)))
+  
+  importance_satisfaction_opportunity <- opportunity_score_group_1 %>%
+    pivot_wider(objective,
+                names_from = c(segment_name),
+                values_from = c(imp,sat,opportunity_score,rank)) %>%
+    mutate(objective=as_factor(objective)) %>%
+    separate(objective,sep="([.])",into= c("sourcing_stage","objective")) %>%
+    # mutate(max_opportunity=rank()) %>%
+    # arrange(max_opportunity) %>%
+    mutate_if(is.numeric,round,1) %>%
+    mutate(objective=factor(objective, levels=objective)) 
+  deparsed_column_name <- "total_opportunity"
+  
+  importance_satisfaction_opportunity %>%
+    # arrange(desc(max_opportunity))%>%
+    # select(-group_difference_score,-max_opportunity) %>%
+    # filter(Opportunity_Group!="None")%>%
+    print_data_table(.,deparsed_column_name)
+  
+  return(importance_satisfaction_opportunity)
+}
 # ** COMPARE 2 IMP SAT ----------------------------------------------------
 get_imp_sat_opp_scores_compare_2 <- function(your_data_frame,column_to_split_on,factor_a,factor_b) {
   opportunity_calc_group_1 <- your_data_frame %>%
@@ -202,14 +229,33 @@ get_imp_sat_opp_scores_compare_2 <- function(your_data_frame,column_to_split_on,
     arrange(max_opportunity) %>%
     mutate(objective=factor(objective, levels=objective)) 
   deparsed_column_name <- deparse(substitute(column_to_split_on))
-  # opportunity_by_sourcing_spend %>%
-  #   select(objective,max_opportunity) %>%
-  print_data_table(importance_satisfaction_opportunity,deparsed_column_name)
+  
+  importance_satisfaction_opportunity %>%
+    arrange(desc(max_opportunity))%>%
+  select(-group_difference_score,-max_opportunity) %>%
+    filter(Opportunity_Group!="None")%>%
+  print_data_table(.,deparsed_column_name)
+  
+  opportunity_score_group_2 %>%
+    pivot_wider(objective,
+                names_from = c(segment_name),
+                values_from = c(imp,sat,opportunity_score,rank)) %>%
+    mutate(objective=as_factor(objective)) %>%
+    separate(objective,sep="([.])",into= c("sourcing_stage","objective"))%>%
+    mutate(sourcing_stage_count=if_else(.[[5]]>=10,1,0)) %>%
+  print(.)
+  
+  opportunities_by_stage_group_1 <- get_opportunities_by_stage(opportunity_score_group_1)
+  print(opportunities_by_stage_group_1)
+  
+  print_data_table(opportunities_by_stage_group_1,paste0("opps_by_stage-",factor_a))
+  opportunities_by_stage_group_2 <- get_opportunities_by_stage(opportunity_score_group_2)
 
+  print_data_table(opportunities_by_stage_group_2,paste0("opps_by_stage-",factor_b))
   return(importance_satisfaction_opportunity)
 }
 
-# ** COMPARE 3 IMP SAT ----------------------------------------------------
+# ** COMPARE 3 IMP SAT - WIP ----------------------------------------------
 get_imp_sat_opp_scores_compare_3 <- function(your_data_frame,column_to_split_on,factor_a,factor_b,factor_c) {
   opportunity_calc_group_1 <- your_data_frame %>%
     filter(column_to_split_on==factor_a)
@@ -274,11 +320,34 @@ get_imp_sat_opp_scores_compare_3 <- function(your_data_frame,column_to_split_on,
     separate(objective,sep="([.])",into= c("sourcing_stage","objective")) 
   return(importance_satisfaction_opportunity)
 }
-# * Get Opportunities by Segment ------------------------------------------
+
+# * Get Opportunities by Segment TBD --------------------------------------
 get_opportunities_by_segment <- function(your_list_of_data_frames){
   
 }
-  
+
+# * Get Opportunity by Stage TBD ------------------------------------------
+get_opportunities_by_stage <- function(your_data_frame){
+  stage_opportunity_count <- your_data_frame %>%
+    pivot_wider(objective,
+                names_from = c(segment_name),
+                values_from = c(imp,sat,opportunity_score,rank)) %>%
+    mutate(objective=as_factor(objective)) %>%
+    separate(objective,sep="([.])",into= c("sourcing_stage","objective"))  %>%
+    mutate(sourcing_stage_count=if_else(.[[5]]>=10,1,0)) %>%
+    dplyr::group_by(sourcing_stage) %>%
+    mutate(stage_opp_count=sum(sourcing_stage_count==1)) %>%
+    ungroup() %>%
+    distinct(sourcing_stage,stage_opp_count) %>%
+    arrange(desc(stage_opp_count))
+    # dplyr::group_by(sourcing_stage) %>%
+    # mutate(max_stage_opp_score=max(.[[5]])) %>%
+    # ungroup() 
+  # print(stage_opportunity_count)
+
+  return(stage_opportunity_count)
+}
+
 # ** Find Importance Columns ----------------------------------------------
 find_imp_sat_columns <- function(your_data_frame){
  imp_columns <- your_data_frame %>%
@@ -326,90 +395,7 @@ split_imp_sat_columns <- function(data_frame_imp_sat){
 return(data_frame_imp_sat_split)
 }
 
-# ** Calculate Opportunity Score ------------------------------------------
-calculate_opportunity_score <- function(data_frame_split) {
-  opportunity_scores <- data_frame_split %>%
-    pivot_wider(objective,
-                names_from = c(imp_sat),
-                values_from = imp_sat_score) %>%
-    mutate(opportunity_score=if_else(imp<sat,imp,imp+imp-sat)) %>%
-    arrange(desc(opportunity_score)) 
-  
-  return(opportunity_scores)
-}
 
-# ** Compare Two Factors: IMP-SAT-OPP -------------------------------------
-compare_two_groups_opportunities <- function(opportunity_data_frame_1,opportunity_data_frame_2){
-    
-  merged_opportunties <- rbind(opportunity_data_frame_1,opportunity_data_frame_2)
-  pivoted_opportunities <- merged_opportunties %>%
-    pivot_wider(objective,
-                names_from = c(segment_name),
-                values_from = opportunity_score) %>% 
-    mutate(objective=as_factor(objective)) 
-    # mutate(difference=segment_name-) %>%
-    # mutate(objective = fct_reorder(objective, difference, .fun='max' ))
-  return(pivoted_opportunities)
-}
-
-# ** Compare Two Factors: IMP-SAT-OPP - FAST ------------------------------
-get_opportunity_score_compare_2 <- function(your_data_frame,column_to_split_on,factor_a,factor_b) {
-  opportunity_calc_group_1 <- your_data_frame %>%
-    filter(column_to_split_on==factor_a)
-  
-  opportunity_columns_group_1 <- find_imp_sat_columns(opportunity_calc_group_1)
-  
-  opportunity_score_group_1 <- calculate_imp_sat_score(opportunity_columns_group_1) 
-  
-  opportunity_score_group_1 <- split_imp_sat_columns(opportunity_score_group_1)
-  
-  opportunity_score_group_1<- calculate_opportunity_score(opportunity_score_group_1) %>%
-    mutate(opportunity_score=if_else(imp<sat,imp,imp+imp-sat)) %>%
-    arrange(desc(opportunity_score)) %>%
-    mutate(segment_name=factor_a)
-  
-  opportunity_calc_group_2 <- your_data_frame %>%
-    filter(column_to_split_on==factor_b)
-  
-  opportunity_columns_group_2 <- find_imp_sat_columns(opportunity_calc_group_2)
-  
-  opportunity_score_group_2 <- calculate_imp_sat_score(opportunity_columns_group_2) 
-  
-  opportunity_score_group_2 <- split_imp_sat_columns(opportunity_score_group_2)
-  
-  opportunity_score_group_2<- calculate_opportunity_score(opportunity_score_group_2) %>%
-    mutate(opportunity_score=if_else(imp<sat,imp,imp+imp-sat)) %>%
-    arrange(desc(opportunity_score)) %>%
-    mutate(segment_name=factor_b)
-  
-  merged_opportunity_data_frame <- rbind(opportunity_score_group_1,opportunity_score_group_2)
-  
-  pivoted_opportunity <- merged_opportunity_data_frame %>%
-    pivot_wider(objective,
-                names_from = c(segment_name),
-                values_from = opportunity_score) %>% 
-    mutate(objective=as_factor(objective))  
-  return(pivoted_opportunity)
-}
-
-# ** ORDER BY DIFFERENCE --------------------------------------------------
-# compare_two_groups_opportunities <- function(opportunity_data_frame_1,opportunity_data_frame_2){
-# 
-#   merged_opportunties <- rbind(opportunity_data_frame_1,opportunity_data_frame_2)
-#   segment_first <- first(merged_opportunties$segment_name)
-#   print(segment_first)
-#   segment_last <- last(merged_opportunties$segment_name)
-#   print(segment_last)
-#   pivoted_opportunities <- merged_opportunties %>%
-#     pivot_wider(objective,
-#                 names_from = c(segment_name),
-#                 values_from = opportunity_score) %>%
-#     mutate(objective=as_factor(objective)) %>%
-#     mutate(segment_name=arrange(desc(segment_name)))%>%
-#     mutate(difference=first(segment_name)-last(segment_name)) %>%
-#     mutate(objective = fct_reorder(objective, difference, .fun='max' ))
-#   return(pivoted_opportunities)
-# }
 
 # * ATTRACTIVENESS ---------------------------------------------------------
 # ** MASTER Attractiveness Calculation ------------------------------------
@@ -758,7 +744,114 @@ get_distribution_graph_with_fill <- function(data,relevant_column,fill_column,ti
 
 # Print Data Table --------------------------------------------------------
 print_data_table <- function(your_data_frame,deparsed_column_name){
-  png(paste0(deparsed_column_name,'.png'), height = 22*nrow(your_data_frame), width = 180*ncol(your_data_frame))
+  png(paste0(deparsed_column_name,'.png'), height = 23*nrow(your_data_frame), width = 160*ncol(your_data_frame))
   grid.table(your_data_frame)
   dev.off()
 }
+
+# * Print Data Table - Variable Width -------------------------------------
+
+
+print_data_table_variable <- function(your_data_frame,deparsed_column_name){
+  png(paste0(deparsed_column_name,'.png'), height = 22*nrow(your_data_frame), width = 150*ncol(your_data_frame))
+  grid.table(your_data_frame)
+  dev.off()
+}
+# DEPRICATED CODE ---------------------------------------------------------
+# ** ORDER BY DIFFERENCE --------------------------------------------------
+# compare_two_groups_opportunities <- function(opportunity_data_frame_1,opportunity_data_frame_2){
+# 
+#   merged_opportunties <- rbind(opportunity_data_frame_1,opportunity_data_frame_2)
+#   segment_first <- first(merged_opportunties$segment_name)
+#   print(segment_first)
+#   segment_last <- last(merged_opportunties$segment_name)
+#   print(segment_last)
+#   pivoted_opportunities <- merged_opportunties %>%
+#     pivot_wider(objective,
+#                 names_from = c(segment_name),
+#                 values_from = opportunity_score) %>%
+#     mutate(objective=as_factor(objective)) %>%
+#     mutate(segment_name=arrange(desc(segment_name)))%>%
+#     mutate(difference=first(segment_name)-last(segment_name)) %>%
+#     mutate(objective = fct_reorder(objective, difference, .fun='max' ))
+#   return(pivoted_opportunities)
+# }
+# ** Master Opportunity Function [DEP] ------------------------------------
+# 
+# get_imp_sat_opp_scores <- function(your_data_frame,factor_name){
+#   data_frame_imp_sat <- find_imp_sat_columns(your_data_frame)
+#   imp_sat_scores <- calculate_imp_sat_score(data_frame_imp_sat)
+#   objective_columns <- split_imp_sat_columns(imp_sat_scores)
+#   opportuity_scores <- calculate_opportunity_score(objective_columns) %>%
+#     mutate(segment_name=factor_name)
+#   return(opportuity_scores)
+# }
+# ** Compare Two Factors: IMP-SAT-OPP - FAST ------------------------------
+# get_opportunity_score_compare_2 <- function(your_data_frame,column_to_split_on,factor_a,factor_b) {
+#   opportunity_calc_group_1 <- your_data_frame %>%
+#     filter(column_to_split_on==factor_a)
+#   
+#   opportunity_columns_group_1 <- find_imp_sat_columns(opportunity_calc_group_1)
+#   
+#   opportunity_score_group_1 <- calculate_imp_sat_score(opportunity_columns_group_1) 
+#   
+#   opportunity_score_group_1 <- split_imp_sat_columns(opportunity_score_group_1)
+#   
+#   opportunity_score_group_1<- calculate_opportunity_score(opportunity_score_group_1) %>%
+#     mutate(opportunity_score=if_else(imp<sat,imp,imp+imp-sat)) %>%
+#     arrange(desc(opportunity_score)) %>%
+#     mutate(segment_name=factor_a)
+#   
+#   opportunity_calc_group_2 <- your_data_frame %>%
+#     filter(column_to_split_on==factor_b)
+#   
+#   opportunity_columns_group_2 <- find_imp_sat_columns(opportunity_calc_group_2)
+#   
+#   opportunity_score_group_2 <- calculate_imp_sat_score(opportunity_columns_group_2) 
+#   
+#   opportunity_score_group_2 <- split_imp_sat_columns(opportunity_score_group_2)
+#   
+#   opportunity_score_group_2<- calculate_opportunity_score(opportunity_score_group_2) %>%
+#     mutate(opportunity_score=if_else(imp<sat,imp,imp+imp-sat)) %>%
+#     arrange(desc(opportunity_score)) %>%
+#     mutate(segment_name=factor_b)
+#   
+#   merged_opportunity_data_frame <- rbind(opportunity_score_group_1,opportunity_score_group_2)
+#   
+#   pivoted_opportunity <- merged_opportunity_data_frame %>%
+#     pivot_wider(objective,
+#                 names_from = c(segment_name),
+#                 values_from = opportunity_score) %>% 
+#     mutate(objective=as_factor(objective))  
+#   return(pivoted_opportunity)
+# }
+
+
+# ** Calculate Opportunity Score DEP --------------------------------------
+# calculate_opportunity_score <- function(data_frame_split) {
+#   opportunity_scores <- data_frame_split %>%
+#     pivot_wider(objective,
+#                 names_from = c(imp_sat),
+#                 values_from = imp_sat_score) %>%
+#     mutate(opportunity_score=if_else(imp<sat,imp,imp+imp-sat)) %>%
+#     arrange(desc(opportunity_score)) 
+#   
+#   return(opportunity_scores)
+# }
+
+# ** Compare Two Factors: IMP-SAT-OPP DEP ---------------------------------
+# compare_two_groups_opportunities <- function(opportunity_data_frame_1,opportunity_data_frame_2){
+#     
+#   merged_opportunties <- rbind(opportunity_data_frame_1,opportunity_data_frame_2)
+#   pivoted_opportunities <- merged_opportunties %>%
+#     pivot_wider(objective,
+#                 names_from = c(segment_name),
+#                 values_from = opportunity_score) %>% 
+#     mutate(objective=as_factor(objective)) 
+#     # mutate(difference=segment_name-) %>%
+#     # mutate(objective = fct_reorder(objective, difference, .fun='max' ))
+#   return(pivoted_opportunities)
+# }
+
+# * TODO * ----------------------------------------------------------------
+# * Add table Stakes Flag to Opportunity Score Calculation ----------------
