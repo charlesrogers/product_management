@@ -3,4 +3,4 @@
 _I have given this book away 4 times_
 ## Key Principles
 ### Montecarlo Simulation for NPV Calculations
-### Determine How Much to Invest in a Solution
+### Determining Project-Specific Research ROI
