@@ -13,6 +13,7 @@ NB: Categorical Segmentation should not produce as high opportunity scores as us
         + ~~To prioritize for features, working by stage in the process _could_ be useful if the stages are parts of different products (unlikely)~~
     1. Determine the rankings at the following levels:
         1. Segment level: Determine which objectives matter (>10 opportunity score) for each segment
+        1. Objective theme level (on-time performance, reduction of errors, decision making)
         1. Objective level: Determine which segments matter (above a certain level OR highest) for each objective
             + Average rank Per segment
             + 
