@@ -1,8 +1,11 @@
 # Product Prioritization
 The question at hand is the eternal, "What should we build?"  
+What we should build is a function of how much value it will create for the customer & business; this requires understanding the customers' needs, how much they are willing to pay for the solution, and the resources required to produce the level of solution required for adoption.
+## Decision Risk
 When it comes to prioritizing a product there are some considerations 
 + How confident are you that know what people are trying to accomplish and the tradeoffs they would make?
 + What is the scope of solutions that you would consider? Are you interested in only doing sustain innvoations, adjacent features, or entirely new solution spaces.
+If the siuation is low risk, you can proceed relatively quickly. In those situations where there is considerable uncertainty
 ## Process for High-Risk Situations
 Determine the net present value of each of the solutions
 The calculation is not meant to be exact, but meant to be a way of comparing different options and evaluating your assumptions.  
