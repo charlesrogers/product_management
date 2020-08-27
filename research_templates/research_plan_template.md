@@ -14,7 +14,13 @@
 ### Test Plan
 See [sample test plan here](https://github.com/charlesrogers/product_research/blob/master/research_templates/research_plan_template.md#sample-test-plan)
 + What are the **KEY RISKS** that must be answered to determine if this is the right path to take
-  + What are the core risks that have the potential to make this project a failure?
+  + List the independent core risks that have the potential to make this project a failure
+    + Demand size:
+      + Do people want this?
+      + Can we acquire them at a reasonable cost?
+    + Supply side:
+      + Will we be able to provide a solution that helps people achieve their objectives in a meaningful way?
+      + Can we **efficiently** build this?
 + What is the level of each of those risks?
 + How should we test this?
   + What information would allow us to move forward confidently?
@@ -42,7 +48,6 @@ See [sample test plan here](https://github.com/charlesrogers/product_research/bl
   + Research Report
   + Interview Notes
   + Data Analysis
-
 ---
 ## Appendix
 #### Sample Test Plan
