@@ -46,8 +46,8 @@ Prioritization is a combination of business value * user value * what is feasibl
      + Table stakes
      + Minimum Acceptable Threshold
 1. Feasibility
-1. Defensibility
-    + Will this result in a moat?
+1. [Defensibility](https://github.com/charlesrogers/product_research/blob/master/research_resources/Helmer-Seven_powers.md)
+    + Will this result in a lasting competitive advantage (eg a moat)?
 
 ## Level of Focus
 When it comes to targeting users, you can priortized based on format-specific features (eg between pedestrians or automobile drives) or within-format differences (male drivers vs female drivers).
