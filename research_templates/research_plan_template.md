@@ -1,10 +1,7 @@
 # Research Plan Template
 ## Elements of a Research Plan
 + Objectives
-  + What outcomes do we want?
-  + Why we are doing this project
-  + What are the core risks that have the potential to make this project a failure? This might be the most important step
-    + What information would allow us to move forward confidently?
+  + What outcomes do we want? Why we are doing this project?
 + KPIs/Metrics
   + What is the measurable business objective (KPI) / How will success be evaluated
   + What are the assumptions that undergird this KPI
@@ -16,15 +13,22 @@
   + What is the threshold at which the outcome would be considered meaningful
 + Test Plan - See [sample test plan here](https://github.com/charlesrogers/product_research/blob/master/research_templates/research_plan_template.md#sample-test-plan)
   + What are the **KEY RISKS** that must be answered to determine if this is the right path to take
+    + What are the core risks that have the potential to make this project a failure?
   + What is the level of each of those risks?
-  + What observable facts can we use to determine the true level of the key risks
-    + Who is the target population
-    + What is best determined by quantitative research
-      + As much as possible, server data (i.e. analytics data) should be used
-    + What is best determined by qualitative research
-    + What is best determined by other parties
-  + When you have a feature that has >= 2 key risk, start with the greatest risk first
-    + _It is sometimes hard to determine which is the "greater risk", but it is typically the one that is binary and not conditional... For example, if the questions are "do people want this" and "will this actually improve their outcome", test whether it will improve their outcome first as you can always make the feature easier to use which will make it more desirable, but you can't always make it more efficacious._
+  + How should we test this?
+    + What information would allow us to move forward confidently?
+      + What observable facts can we use to determine the true level of the key risks
+        + Who is the target population
+        + Who should not be considered
+        
+      + What is best determined by quantitative research
+        + As much as possible, server data (i.e. analytics data) should be used
+      + What is best determined by qualitative research
+      + What is best determined by other parties
+    + When you have a feature that has >= 2 key risk, start with the greatest risk first
+      + _It is sometimes hard to determine which is the "greater risk", but it is typically the one that is binary and not conditional... For example, if the questions are "do people want this" and "will this actually improve their outcome", test whether it will improve their outcome first as you can always make the feature easier to use which will make it more desirable, but you can't always make it more efficacious._
+    + At what threshold do we consider the outcome to be meaningful to the business?
+    + What is the maximum acceptable "range" of answer could we accept about this key risk would result in us being confident enought that the outcome of this product feature would be worth pursuing?
 + Resources
   + Data requested
 + Timeline
