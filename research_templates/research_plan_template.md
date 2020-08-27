@@ -17,18 +17,22 @@
 + Test Plan
   + What are the **KEY RISKS** that must be answered to determine if this is the right path to take
   + What is the level of each of those risks?
-  + What observable facts can we use to determine the true level of the key risks    
-**Sample Test Plan**   
+  + What observable facts can we use to determine the true level of the key risks
+    + What is best determined by quantitative research
+      + As much as possible, server data (i.e. analytics data) should be used
+    + What is best determined by qualitative research
+    + What is best determined by other parties
+  
+**Sample Test Plan**
 
 KPI | Feature | Key Risk | Risk Level | Test to Measure Risk | Threshold
 --- | --- | --- | --- | --- | ---
 Num of Impression | Feature A | Don't want it | High | Survey Importance Level | >80% IMP
 Sign up CR | Feature B | Not able to use it | Low | Usability Test | >=90% Completion Rate
 Adoption rate | Feature C | Don't understand value | Medium | Test value prop | >80% Likelihood to Adopt
-## Open Hypotheses
-+ What is best determined by qualitative research
-+ What is best determined by quantitative research
-+ What is best determined by other parties
+
+--- 
+## TO INCORPORATE
 ## Resources
 What resources are needed
 + Data requested
