@@ -17,7 +17,7 @@
     + As we optimize this KPI, what other important aspects should we make sure to not disrupt?
     + What is the counter KPI?
   + What is the threshold at which the outcome would be considered meaningful
-+ Test Plan - See [sample test plan here](#)
++ Test Plan - See [sample test plan here](https://github.com/charlesrogers/product_research/blob/master/research_templates/research_plan_template.md#sample-test-plan)
   + What are the **KEY RISKS** that must be answered to determine if this is the right path to take
   + What is the level of each of those risks?
   + What observable facts can we use to determine the true level of the key risks
