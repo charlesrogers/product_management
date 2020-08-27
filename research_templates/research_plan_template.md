@@ -41,8 +41,8 @@
 
 ### Sample Test Plan
 
-KPI | Feature | Key Risk | Risk Level | Test to Measure Risk | Threshold
---- | --- | --- | --- | --- | ---
-Num of Impression | Feature A | Don't want it | High | Survey Importance Level | >80% IMP
-Sign up CR | Feature B | Don't know how to use it | Low | Usability Test | >=90% Completion Rate
-Adoption rate | Feature C | Don't understand value | Medium | Test value prop | >80% Likelihood to Adopt
+KPI | Feature | Key Risk | Risk Level | Test to Measure Risk | Test Cost |Threshold
+--- | --- | --- | --- | --- | --- |---
+Num of Impression | Feature A | Don't want it | High | Survey Importance Level | High | =>80% IMP
+Sign up CR | Feature B | Don't know how to use it | Low | Usability Test |  Medium | >=90% Completion Rate
+Adoption rate | Feature C | Don't understand value | Medium | Verbal Test value prop | Low | Likelihood to Adopt: >80% "very" or "extremely likely"
