@@ -1,7 +1,4 @@
 # Research Plan Template
-## General Guidelines
-+ Always have a deadline
-+ Create a outline of the deliverables at the beginning
 ## Elements of a Research Plan
 + Objectives
   + What outcomes do we want?
@@ -31,12 +28,16 @@
 + Resources
   + Data requested
 + Timeline
+  + Deadline
   + Phases
   + Contingencies
 + Communication Plan
   + Share findings of each interview within 24 hours
+  + Create a outline of the deliverables and share with the stakeholders at the beginning
   + Deliverables
     + Research Report
+    + Interview Notes
+    + Data Analysis
 
 ### Sample Test Plan
 
