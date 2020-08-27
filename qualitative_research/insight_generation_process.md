@@ -58,9 +58,13 @@ What we share doesn't have to be novel, but it should be interesting. Observatio
 ## Practical Tips
 ## Make it Algebraic when Dealing With Causality
 When you write a causal statement, it is possible to represent it in at least three equal and interchangeable ways:
-1. Directed Acyclic Graph
+1. [Directed Acyclic Graph](https://github.com/charlesrogers/product_research/blob/master/qualitative_research/descriptive_acyclic_graphs.md)
+  + Vizulize the relationships between the forces and subforces
 2. Algebraically
+  + Convert the combined forces 
+  + Example: likelihood of adoption is a function of x + y + z 
 3. Sentence format
+  + Example: likelihood of adoption is a function of years in business, company size, and role specialization.
 ## Evaluating an Insight
 ### Anonymize
 Below is an example of a true statement that feels like it could do more
