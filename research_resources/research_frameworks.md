@@ -1,5 +1,4 @@
 # Research Frameworks & Concepts
-
 ## Decision Making Timeline
 ## Jobs To Be Done
 ## Four Forces
@@ -33,6 +32,5 @@ Desirabilty is contextual: it can depend on other priorities and thus changes wi
 ## Types of Innovations
 ### Sustaining Innovations
 ### Disruptive Innovation
-###
 ## Local Maxima
-Lower-risk opportunities (often "low-hanging fruit") are typically sustaining innovations that focus on making the existing feature perform its _current_ function better—-this is inherently an optimization. They are often revealed as you analyze the conversion rate funnel of a feature or product. The risk of this type of innovation is that you reach a "local maximum" where you have made a very efficient tool, but that that tool isn't fully effective in solving their user's core objective.
+Lower-risk opportunities (often "low-hanging fruit") are typically sustaining innovations that focus on making the existing feature perform its _current_ function better—this is inherently an optimization. They are often revealed as you analyze the conversion rate funnel of a feature or product. The risk of this type of innovation is that you reach a "local maximum" where you have made a very efficient tool, but that that tool isn't fully effective in solving their user's core objective.
