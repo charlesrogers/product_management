@@ -43,6 +43,8 @@ See [sample test plan here](https://github.com/charlesrogers/product_research/bl
   + Interview Notes
   + Data Analysis
 
+---
+## Appendix
 #### Sample Test Plan
 
 KPI | Feature | Key Risk | Risk Level | Test to Measure Risk | Test Cost |Threshold
