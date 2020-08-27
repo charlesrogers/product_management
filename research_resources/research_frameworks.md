@@ -11,6 +11,8 @@ The "Four Forces" are the motivating and impeding forces that affect progress.
   + Fear of the Unknown
   + Habit
 ## Switching Cost Model
+### Desirability
+Desirabilty is contextual: it can depend on other priorities and thus changes with time as people mature and solve their most pressing issues. Product desirability is also contingent on how easy the product is to use.
 + How much better must something be to switch
 + Tradeoffs between objectives when one gets worse to make another better (disruption)
 + "Must haves" provide filtering criteria
