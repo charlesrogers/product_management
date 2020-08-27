@@ -13,15 +13,20 @@
 + What is the threshold at which the outcome would be considered meaningful
 ### Test Plan
 See [sample test plan here](https://github.com/charlesrogers/product_research/blob/master/research_templates/research_plan_template.md#sample-test-plan)
+#### Key Risks
 + What are the **KEY RISKS** that must be answered to determine if this is the right path to take
   + List the independent core risks that have the potential to make this project a failure
     + Demand size:
-      + Do people want this?
+      + How much people want this?
+      + How much are they willing to pay?
       + Can we acquire them at a reasonable cost?
     + Supply side:
       + Will we be able to provide a solution that helps people achieve their objectives in a meaningful way?
       + Can we **efficiently** build this?
+    + Competition:
+      + Will this product feature result in long-term value or will it be easily copied by others?
 + What is the level of each of those risks?
+#### Measure Amount of Risk
 + How should we test this?
   + What information would allow us to move forward confidently?
     + What observable facts can we use to determine the true level of the key risks
