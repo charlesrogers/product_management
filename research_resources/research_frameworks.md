@@ -3,7 +3,6 @@
 ## Supply Side
 Many people think "features" first—what can be accomplished, but not whether it is desired.
 ## Demand Side
-
 ## Decision Making Timeline
 ## Jobs To Be Done
 ## Four Forces
