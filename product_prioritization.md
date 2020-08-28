@@ -1,22 +1,25 @@
 # Product Prioritization
-The question at hand is the eternal, "What should we build?"  
-What we should build is a function of how much value it will create for the customer & business; this requires understanding the customers' needs, how much they are willing to pay for the solution, and the resources required to produce the level of solution required for adoption.
-## Decision Risk
+The question at hand is the eternal, "What should we build?"  The answer is largely a function of how much value the potential feature will create for the customer & business; this requires understanding the potential users' needs, how much it's worth to them, and the resources required to produce the level of solution required for adoption.
+## The Question of Risk
 When it comes to prioritizing a product there are some considerations 
 + How confident are you that know what people are trying to accomplish and the tradeoffs they would make?
-+ What is the scope of solutions that you would consider? Are you interested in only doing sustain innvoations, adjacent features, or entirely new solution spaces.
-If the siuation is low risk, you can proceed relatively quickly. In those situations where there is considerable uncertainty
++ What is the scope of solutions that you would consider? Are you exclusively interested in sustaining innvoations an adjacent features, or are you willing to consider entirely new solution spaces?
+If the situation is low risk (e.g. it's a quick feature to build), you can proceed relatively quickly. In those situations where there is considerable risk (either high investment or where failure will be costly), certain steps should be taken to determine whether to proceed. 
 ## Process for High-Risk Situations
-Determine the net present value of each of the solutions
-The calculation is not meant to be exact, but meant to be a way of comparing different options and evaluating your assumptions.  
+Determine the [Net Present Value](https://github.com/charlesrogers/product_research/blob/master/research_resources/research_frameworks.md#net-present-value) of each of the solutions.
+The calculation is not meant to be exact, but meant to be a way of comparing different options **and** evaluating the core risks that undergird your assumptions.
 Over time, you are able to see collect base rates that can be used to improve future estimates.
-### Calulation of NPV for A Features
-+ Likelihood to adopt * Number of Users * Incremental Value =
-  + Likelihood to adopt: either based on an opportunity score, an actual likelihood to adopt score, or a base rate of typical conversion rates for the industry (adjusted up or down, appropriately)
-  + Number of users
-  + Incremental Value: Average Order Value * Churn Rate * Incremental number of orders * Contribution Margin
-#### Montecarlo Simulation
-Because many of the elements involved in this calculation are likely not very certain (e.g. will involve a decently large range), a Montecarlo Simulation can be used (as advocated by [Douglas Hubbard in How to Measure Anything](https://github.com/charlesrogers/product_research/blob/master/research_resources/Hubbard-How_to_measure_anything.md#montecarlo-simulation-for-npv-calculations).
+### Calulation of NPV for Product Features
+The basic calculation is as follows:  
+Net Present Value = Likelihood to adopt * Number of Users * Incremental Value * Probability of Success 
++ Likelihood to adopt: Either based on an opportunity score, an actual likelihood to adopt score, or a base rate of typical conversion rates for the industry (adjusted up or down, appropriately)
++ Number of users
++ Incremental Value: Average Order Value * Churn Rate * Incremental number of orders * Contribution Margin
+  + Churn rate can be replaced with an "outperformance" metric to represent how long it takes for a competitor to duplicate your feature (shorter when [lack of moat/7 Powers](https://github.com/charlesrogers/product_research/blob/master/research_resources/research_frameworks.md#7-powers))
+Once you have determined the Net Present Value of the project, compare it to your investment hurdle rate: if it is below other options (and especially not when below your investment hurdle rate) do not proceed with the project.  
+Often your product feature will just improve one aspect of your value funnel. You must determine if this feature will have a material impact in the overall funnel, which can be determined by looking at your most constrained step in the funnel. ~~For example, while a feature might double (𝝙100%) your conversion rate from 0.05% to 0.1%, if you only have 500 users, that will only increase your users from ~3 to 5.~~ **This is to be considered only once you've done some optimization on the funnel**
+#### Monte Carlo Simulation
+Because many of the elements involved in this calculation are likely not very certain (e.g. will involve a decently large range), a Monte Carlo Simulation can be used (as advocated by [Douglas Hubbard in How to Measure Anything](https://github.com/charlesrogers/product_research/blob/master/research_resources/Hubbard-How_to_measure_anything.md#montecarlo-simulation-for-npv-calculations).
 ## Process for Low-Risk Situations
 Some product concepts are low-enough risk that they do not require speaking with users: for example, if you are selling leads and you have devised a solution that would result in better quality and more leads, the only pertinant questions are whether you could:
 + Deliver the proposed value
@@ -30,7 +33,7 @@ These lower-risk opportunities should typically reveal themselves as you analyze
 + 
 ---
 ### TO FILE
-Prioritization is a combination of business value * user value * what is feasible * what will create long-term value above the cost of capital
+
 1. Business value
     + What is the overall funnel
      + What are the steps in the funnel
@@ -38,13 +41,13 @@ Prioritization is a combination of business value * user value * what is feasibl
    + How much does each facet contribute to the greater conversion rate
    + What is the most significant factor by:
      + Number of users
-      + Amount of GMV
-      + Room for growth
-1. User value
-   + Importance, Satisfaction, Opportunity Scores
-     + BATNA
-     + Table stakes
-     + Minimum Acceptable Threshold
+     + Amount of GMV
+     + Room for growth
+1. Likelihood to adopt
+   + User value can be predicted by various metrics, but primarily Importance, Satisfaction, and Opportunity Scores
+     + BATNA: Features x Price...
+     + Table stakes: if over 75% of potential users say they are either "very" or "extremely satisfied" with accomplishing an objective then it becomes a required feature to compete in that market.
+     + Minimum Acceptable Threshold: Set by the Kano model
 1. Feasibility
 1. [Defensibility](https://github.com/charlesrogers/product_research/blob/master/research_resources/Helmer-Seven_powers.md)
     + Will this result in a lasting competitive advantage (eg a moat)?
