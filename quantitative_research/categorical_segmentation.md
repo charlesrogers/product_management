@@ -18,7 +18,13 @@ NB: Categorical Segmentation should not produce as high opportunity scores as us
             + Average rank Per segment
             + 
         1. Stage by Segment level: Determine which objectives matter at each stage of the user process
-### How to Calculate which Segments Provide Useful Information
+### Which Segments Matter
+How should we measure which segments provide useful information about differences in users' needs?
+We want to determine a few things:
++ Which segments don't contain useful information, or in other words, have a high correlation between their objectives
++ Which segments are basically the same as other segments
 #### PCA
+
 #### Correlation
+
 #### Mutual Information
