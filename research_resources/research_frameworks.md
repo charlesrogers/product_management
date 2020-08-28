@@ -37,3 +37,5 @@ Lower-risk opportunities (often "low-hanging fruit") are typically sustaining in
 ## Moats
 ### 7 Powers
 [From Hamilton Helmer's "7 Powers"](https://github.com/charlesrogers/product_research/blob/master/research_resources/Helmer-Seven_powers.md)
+## Net Present Value
+Calculation:
