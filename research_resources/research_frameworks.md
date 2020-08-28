@@ -39,3 +39,6 @@ Lower-risk opportunities (often "low-hanging fruit") are typically sustaining in
 [From Hamilton Helmer's "7 Powers"](https://github.com/charlesrogers/product_research/blob/master/research_resources/Helmer-Seven_powers.md)
 ## Net Present Value
 Calculation:
+## Kano Model
+
+Importantly, while innovations start out being "delighters", over time they are adopted by the competition and become table stakes.
