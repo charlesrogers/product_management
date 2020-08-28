@@ -1,4 +1,9 @@
 # Research Frameworks & Concepts
+## Outcome Driven Innovation
+## Supply Side
+Many people think "features" first—what can be accomplished, but not whether it is desired.
+## Demand Side
+
 ## Decision Making Timeline
 ## Jobs To Be Done
 ## Four Forces
@@ -40,5 +45,11 @@ Lower-risk opportunities (often "low-hanging fruit") are typically sustaining in
 ## Net Present Value
 Calculation:
 ## Kano Model
+The [Kano Model](https://en.wikipedia.org/wiki/Kano_model) provides an alternate model that provides a vocabulary to decribe importance and satisfaction from a supply side... instead of looking at objectives, you are looking at features first.
++ Must-Be's are table stakes
++ One-dimensional qualities are things that are moderately satisfied but not extremely important
++ Attractive qualities are objectives that are not very satisfied
++ Indifferent qualities are unimportnat objectives (or features that are already very or extremely satisfied)
++ Reverse quality is what happens when you merge two competing objectives and don't segment  
 
-Importantly, while innovations start out being "delighters", over time they are adopted by the competition and become table stakes.
+Importantly, the Kano model also takes into account time: while some thoughtful innovations start out being "delighters", over time they are adopted by the competition and become table stakes.
