@@ -22,9 +22,17 @@ NB: Categorical Segmentation should not produce as high opportunity scores as us
 How should we measure which segments provide useful information about differences in users' needs?
 We want to determine a few things:
 + Which segments don't contain useful information, or in other words, have a high correlation between their objectives
-+ Which segments are basically the same as other segments
++ Which segments are basically the same as other segments...
+    + Should check at the indiviudal level
 #### PCA
 
 #### Correlation
 
 #### Mutual Information
+
+
+---
+## Cut Copy
+### Introduction
+What we should focus on is a function of how much value it will create for the customer and business, which requires understanding the customers' needs, how much they are willing to pay, and the resources required to produce the level of solution required for adoption.
+At this stage we are determining where the largest opportunities from the demand side of the equation (i.e. what the buyers want).
