@@ -207,6 +207,54 @@ get_error_bars_adjusted_wald <- function(your_data_frame){
 
 # Analysis ----------------------------------------------------------------
 # * Opportunity Functions --------------------------------------------------
+# ** Find Importance Columns ----------------------------------------------
+find_imp_sat_columns <- function(your_data_frame){
+  imp_columns <- your_data_frame %>%
+    select(starts_with("imp_"))
+  sat_columns <- your_data_frame %>%
+    select(starts_with("sat_"))
+  data_frame_imp_sat <- cbind(imp_columns,sat_columns)
+  return(data_frame_imp_sat)
+}
+
+
+# ** Calculate Importance & Satisfaction ----------------------------------
+individual_data <- NULL
+all_data <- NULL
+calculate_imp_sat_score <- function(objectives){
+  for (objective in seq_along(objectives)){
+    namez <- names(objectives)[[objective]]
+    
+    objective_score <- fct_count(objectives[[objective]]) %>%
+      mutate(objective_name=namez)
+    
+    objective_score_tibble <- objective_score %>%
+      mutate(user_rating=f) %>%
+      filter(user_rating %in% c(1,2,3,4,5)) %>%
+      select(objective_name,user_rating,n)
+    
+    print(objective_score_tibble)
+    
+    individual_data <-  objective_score_tibble %>%
+      summarize(objective_name=unique(objective_name),
+                total_sum=sum(n),
+                imp_sat_sum=sum(n[user_rating==5|
+                                    user_rating==4]))  %>%
+      mutate(imp_sat_score=((imp_sat_sum/total_sum)*10))
+    print(individual_data)
+    all_data <- rbind(all_data,individual_data)
+    
+  }
+  return(all_data)
+}
+
+# ** Split Imp/Sat into Columns -------------------------------------------
+split_imp_sat_columns <- function(data_frame_imp_sat){
+  data_frame_imp_sat_split <-  data_frame_imp_sat %>%
+    separate(objective_name,"__",into = c("imp_sat","objective"),remove = FALSE)
+  return(data_frame_imp_sat_split)
+}
+
 # ** Calculate Opportunity Score ------------------------------------------
 calculate_opportunity_score <- function(data_frame_split) {
   opportunity_scores <- data_frame_split %>%
@@ -223,17 +271,14 @@ calculate_opportunity_score <- function(data_frame_split) {
 get_imp_sat_opp_scores_total_population <- function(your_data_frame){
 
   opportunity_columns_group_1 <- find_imp_sat_columns(your_data_frame)
-  
   opportunity_score_group_1 <- calculate_imp_sat_score(opportunity_columns_group_1)  
-  
   opportunity_score_group_1 <- split_imp_sat_columns(opportunity_score_group_1)
-  
-  opportunity_score_group_1<- calculate_opportunity_score(opportunity_score_group_1) %>%
+  opportunity_score_group_1 <- calculate_opportunity_score(opportunity_score_group_1) 
+  opportunity_score_group_1 <- opportunity_score_group_1 %>%
     mutate(opportunity_score=if_else(imp<sat,imp,imp+imp-sat)) %>%
     arrange(desc(opportunity_score)) %>%
     mutate(segment_name="total_population",
            rank=rank(desc(opportunity_score)))
-  
   importance_satisfaction_opportunity <- opportunity_score_group_1 %>%
     pivot_wider(objective,
                 names_from = c(segment_name),
@@ -247,18 +292,19 @@ get_imp_sat_opp_scores_total_population <- function(your_data_frame){
   deparsed_column_name <- "total_opportunity"
   
   importance_satisfaction_opportunity %>%
-    # arrange(desc(max_opportunity))%>%
-    # select(-group_difference_score,-max_opportunity) %>%
-    # filter(Opportunity_Group!="None")%>%
-    print_data_table(.,deparsed_column_name)
+    print_data_table_general_population(.,deparsed_column_name)
   
   return(importance_satisfaction_opportunity)
 }
 # ** COMPARE 2 IMP SAT ----------------------------------------------------
 get_imp_sat_opp_scores_compare_2 <- function(your_data_frame,column_to_split_on,factor_a,factor_b) {
+  file_type <- "opportunity_list_table"
   opportunity_calc_group_1 <- your_data_frame %>%
     filter(column_to_split_on==factor_a)
-  
+  sample_size_factor_a<- opportunity_calc_group_1 %>%
+    filter(!is.na(.[[1]]))%>%
+    nrow()
+  print(sample_size_factor_a)
   opportunity_columns_group_1 <- find_imp_sat_columns(opportunity_calc_group_1)
   
   opportunity_score_group_1 <- calculate_imp_sat_score(opportunity_columns_group_1)  
@@ -267,12 +313,18 @@ get_imp_sat_opp_scores_compare_2 <- function(your_data_frame,column_to_split_on,
   
   opportunity_score_group_1<- calculate_opportunity_score(opportunity_score_group_1) %>%
     mutate(opportunity_score=if_else(imp<sat,imp,imp+imp-sat)) %>%
-    arrange(desc(opportunity_score)) %>%
+    arrange(desc(objective)) %>%
     mutate(segment_name=factor_a,
            rank=rank(desc(opportunity_score)))
   
   opportunity_calc_group_2 <- your_data_frame %>%
     filter(column_to_split_on==factor_b)
+  
+  sample_size_factor_b<- opportunity_calc_group_2 %>%
+    filter(!is.na(.[[1]]))%>%
+    nrow()
+  print(sample_size_factor_b)
+  
   
   opportunity_columns_group_2 <- find_imp_sat_columns(opportunity_calc_group_2)
   
@@ -282,7 +334,7 @@ get_imp_sat_opp_scores_compare_2 <- function(your_data_frame,column_to_split_on,
   
   opportunity_score_group_2<- calculate_opportunity_score(opportunity_score_group_2) %>%
     mutate(opportunity_score=if_else(imp<sat,imp,imp+imp-sat)) %>%
-    arrange(desc(opportunity_score)) %>%
+    arrange(desc(objective)) %>%
     mutate(segment_name=factor_b,
            rank=rank(desc(opportunity_score)))
   
@@ -299,8 +351,8 @@ get_imp_sat_opp_scores_compare_2 <- function(your_data_frame,column_to_split_on,
     as.data.frame(.) %>%
     select(deparsed_column_name=V2) %>%
     pluck(.,1)
-  importance_satisfaction_opportunity %>%
-  View("Check Data Frame")
+  # importance_satisfaction_opportunity %>%
+  # View("Check Data Frame")
   
   importance_satisfaction_opportunity <- importance_satisfaction_opportunity %>%
     mutate(group_difference=.[[7]]-.[[8]],
@@ -319,8 +371,9 @@ get_imp_sat_opp_scores_compare_2 <- function(your_data_frame,column_to_split_on,
   importance_satisfaction_opportunity %>%
     arrange(desc(max_opportunity))%>%
     select(-group_difference_score,-max_opportunity) %>%
-    filter(Opportunity_Group!="None")%>%
-    print_data_table(.,paste0(deparsed_column_name,"_opportunity_list"))
+    filter(Opportunity_Group!="None") %>%
+    select(-contains("rank"),-contains("group"),-contains("Group")) %>%
+    print_data_table_compare_2(.,deparsed_column_name,file_type,sample_size_factor_a,sample_size_factor_b)
   
   opportunity_graph_data_frame <- prep_data_frame_for_opportunity_graph(importance_satisfaction_opportunity)
 
@@ -329,7 +382,7 @@ get_imp_sat_opp_scores_compare_2 <- function(your_data_frame,column_to_split_on,
   
   opportunities_by_stage_group_1 <- get_opportunities_by_stage(opportunity_score_group_1)
   print_data_table(opportunities_by_stage_group_1,paste0("opp_by_stage-",factor_a))
-  # print(opportunities_by_stage_group_1)
+  
   
   opportunities_by_stage_group_2 <- get_opportunities_by_stage(opportunity_score_group_2)
   print_data_table(opportunities_by_stage_group_2,paste0("opp_by_stage-",factor_b))
@@ -465,52 +518,9 @@ get_opportunities_by_stage <- function(your_data_frame){
 }
 
 
-# ** Find Importance Columns ----------------------------------------------
-find_imp_sat_columns <- function(your_data_frame){
- imp_columns <- your_data_frame %>%
-  select(starts_with("imp_"))
- sat_columns <- your_data_frame %>%
-   select(starts_with("sat_"))
-data_frame_imp_sat <- cbind(imp_columns,sat_columns)
-  return(data_frame_imp_sat)
-}
 
-# ** Calculate Importance -------------------------------------------------
-individual_data <- NULL
-all_data <- NULL
-calculate_imp_sat_score <- function(objectives){
-  for (objective in seq_along(objectives)){
-    namez <- names(objectives)[[objective]]
-    
-    objective_score <- fct_count(objectives[[objective]]) %>%
-      mutate(objective_name=namez)
-    
-    objective_score_tibble <- objective_score %>%
-      mutate(user_rating=f) %>%
-      filter(user_rating %in% c(1,2,3,4,5)) %>%
-      select(objective_name,user_rating,n)
-    
-    print(objective_score_tibble)
-    
-    individual_data <-  objective_score_tibble %>%
-      summarize(objective_name=unique(objective_name),
-                total_sum=sum(n),
-                imp_sat_sum=sum(n[user_rating==5|
-                                    user_rating==4]))  %>%
-      mutate(imp_sat_score=((imp_sat_sum/total_sum)*10))
-    print(individual_data)
-    all_data <- rbind(all_data,individual_data)
-    
-  }
-  return(all_data)
-}
 
-# ** Split Imp/Sat into Columns -------------------------------------------
-split_imp_sat_columns <- function(data_frame_imp_sat){
-  data_frame_imp_sat_split <-  data_frame_imp_sat %>%
-  separate(objective_name,"__",into = c("imp_sat","objective"),remove = FALSE)
-return(data_frame_imp_sat_split)
-}
+
 
 # SEGMENTATION ------------------------------------------------------------
 
@@ -536,12 +546,6 @@ get_pct_difference <- function(your_data_frame){
 }
 
 # Usefulness --------------------------------------------------------------
-get_usefulness_score <- function(your_data_frame){
-  useful_columns <- find_useful_columns(your_data_frame)
-  useful_score <- calculate_useful_score(useful_columns)
-  return(useful_score)
-}
-
 # * Find Usefulness Columns -----------------------------------------------
 find_useful_columns <- function(your_data_frame) {
   useful_columns <- your_data_frame %>%
@@ -593,6 +597,27 @@ calculate_useful_score <- function(objectives){
   
   return(all_data)
 }
+# * Usefulness - General --------------------------------------------------
+get_usefulness_score <- function(your_data_frame){
+  useful_columns <- find_useful_columns(your_data_frame)
+  useful_score <- calculate_useful_score(useful_columns)
+  return(useful_score)
+}
+# * Usefulness - Compare 2 ------------------------------------------------
+get_usefulness_compare_2 <- function(your_data_frame,column_to_split_on,factor_a,factor_b){
+  group_1 <- your_data_frame %>%
+    filter(column_to_split_on==factor_a)
+  
+  usefulness_score_group_1 <- get_usefulness_score(group_1) %>%
+    mutate(segment_name=factor_a,
+           rank=rank(desc(usefulness_score)),
+           index=usefulness_score_score/median(usefulness_score)) %>%
+    arrange(desc(solution))
+  print(usefulness_score_group_1)
+  
+  group_2 <- your_data_frame %>%
+    filter(column_to_split_on==factor_b)
+}
 
 # * ATTRACTIVENESS ---------------------------------------------------------
 # ** MASTER Attractiveness Calculation ------------------------------------
@@ -631,9 +656,13 @@ calculate_attractiveness_score <- function(objectives){
                 attractiveness_sum=sum(n[user_rating==5|
                                     user_rating==4]))  %>%
       mutate(attractiveness_score=((attractiveness_sum/total_sum)*10))
+             # solution=str_remove(.,"sol"),
+             # solution=str_replace(.,"att","attractiveness:_"))
+    deparsed_column_name <- "solution_attractiveness"
     print(individual_data)
     all_data <- rbind(all_data,individual_data)
-    
+    all_data %>% 
+      print_data_table(.,deparsed_column_name)
   }
   return(all_data)
 }
@@ -646,7 +675,10 @@ get_attractiveness_compare_2 <- function(your_data_frame,column_to_split_on,fact
   attractiveness_columns_group_1 <- find_attractiveness_columns(attractiveness_calc_group_1)
   
   attractiveness_score_group_1 <- calculate_attractiveness_score(attractiveness_columns_group_1) %>%
-    mutate(segment_name=factor_a)
+    mutate(segment_name=factor_a,
+           rank=rank(desc(attractiveness_score)),
+           index=attractiveness_score/median(attractiveness_score)) %>%
+    arrange(desc(attractiveness_score))
   
   attractiveness_calc_group_2 <- your_data_frame %>%
     filter(column_to_split_on==factor_b)
@@ -654,18 +686,26 @@ get_attractiveness_compare_2 <- function(your_data_frame,column_to_split_on,fact
   attractiveness_columns_group_2 <- find_attractiveness_columns(attractiveness_calc_group_2)
   
   attractiveness_score_group_2 <- calculate_attractiveness_score(attractiveness_columns_group_2) %>%
-    mutate(segment_name=factor_b)
+    mutate(segment_name=factor_b,
+           rank=rank(desc(attractiveness_score)),
+           index=attractiveness_score/median(attractiveness_score)) %>%
+    arrange(desc(attractiveness_score))
   
   merged_attractivness_data_frame <- rbind(attractiveness_score_group_1,attractiveness_score_group_2)
   
   pivoted_attractiveness <- merged_attractivness_data_frame %>%
     pivot_wider(solution,
                 names_from = c(segment_name),
-                values_from = attractiveness_score) %>% 
+                values_from = c(attractiveness_score,rank,index)) %>% 
     mutate(objective=as_factor(solution)) %>%
     select(-objective)
-  # mutate(difference=segment_name-) %>%
-  # mutate(objective = fct_reorder(objective, difference, .fun='max' ))
+  deparsed_column_name <- deparse(substitute(column_to_split_on))
+  deparsed_column_name <- str_split_fixed(deparsed_column_name[1],"([$])",2) %>%
+    as.data.frame(.) %>%
+    select(deparsed_column_name=V2) %>%
+    pluck(.,1)
+  print_data_table(pivoted_attractiveness,deparsed_column_name)
+  
   return(pivoted_attractiveness)
 }
 
@@ -735,7 +775,6 @@ calculate_attractiveness_rank_score_full <- function(objectives){
       select(solution,attractiveness_score)
     
     all_data <- rbind(all_data,individual_data)
-    
   }
   return(all_data)
 }
@@ -748,7 +787,10 @@ get_attractiveness_rank_compare_2 <- function(your_data_frame,column_to_split_on
   attractiveness_columns_group_1 <- find_attractiveness_rank_columns(attractiveness_calc_group_1)
   
   attractiveness_score_group_1 <- calculate_attractiveness_rank_score(attractiveness_columns_group_1) %>%
-    mutate(segment_name=factor_a)
+    mutate(segment_name=factor_a,
+           rank=rank(desc(attractiveness_score)),
+           index=attractiveness_score/median(attractiveness_score)) %>%
+    arrange(desc(solution))
   
   attractiveness_calc_group_2 <- your_data_frame %>%
     filter(column_to_split_on==factor_b)
@@ -756,18 +798,27 @@ get_attractiveness_rank_compare_2 <- function(your_data_frame,column_to_split_on
   attractiveness_columns_group_2 <- find_attractiveness_rank_columns(attractiveness_calc_group_2)
   
   attractiveness_score_group_2 <- calculate_attractiveness_rank_score(attractiveness_columns_group_2) %>%
-    mutate(segment_name=factor_b)
+    mutate(segment_name=factor_b,
+           rank=rank(desc(attractiveness_score)),
+           index=attractiveness_score/median(attractiveness_score)) %>%
+    arrange(desc(attractiveness_score))
   
   merged_attractivness_data_frame <- rbind(attractiveness_score_group_1,attractiveness_score_group_2)
   
   pivoted_attractiveness <- merged_attractivness_data_frame %>%
     pivot_wider(solution,
                 names_from = c(segment_name),
-                values_from = attractiveness_score) %>% 
-    mutate(objective=as_factor(solution)) %>%
-    select(-objective)
-  # mutate(difference=segment_name-) %>%
-  # mutate(objective = fct_reorder(objective, difference, .fun='max' ))
+                values_from = c(attractiveness_score,rank,index)) %>% 
+    mutate(solution=as_factor(solution))
+    
+  
+  
+  deparsed_column_name <- deparse(substitute(column_to_split_on))
+  deparsed_column_name <- str_split_fixed(deparsed_column_name[1],"([$])",2) %>%
+    as.data.frame(.) %>%
+    select(deparsed_column_name=V2) %>%
+    pluck(.,1)
+  print_data_table(pivoted_attractiveness,deparsed_column_name)
   return(pivoted_attractiveness)
 }
 
@@ -797,8 +848,8 @@ get_attractiveness_rank_compare_2_full <- function(your_data_frame,column_to_spl
                 values_from = attractiveness_score) %>% 
     mutate(objective=as_factor(solution)) %>%
     select(-objective)
-  # mutate(difference=segment_name-) %>%
-  # mutate(objective = fct_reorder(objective, difference, .fun='max' ))
+  deparsed_column_name <- deparse(substitute(column_to_split_on))
+  print_data_table(pivoted_attractiveness,deparsed_column_name)
   return(pivoted_attractiveness)
 }
 
@@ -1110,7 +1161,8 @@ get_distribution_graph_with_fill <- function(data,relevant_column,fill_column,ti
 # SAVE --------------------------------------------------------------------
 
 # Print Data Table --------------------------------------------------------
-print_data_table <- function(your_data_frame,deparsed_column_name){
+# * Print Data Table: OLD -------------------------------------------------
+print_data_table_old <- function(your_data_frame,deparsed_column_name){
   png(paste0(project_name,"-",deparsed_column_name,"-",lubridate::today(),'.png'), height = 23*nrow(your_data_frame), width = 220*ncol(your_data_frame))
   grid.table(your_data_frame)
   dev.off()
@@ -1119,18 +1171,301 @@ print_data_table <- function(your_data_frame,deparsed_column_name){
   dev.off()
 }
 
-# * Print Data Table - Variable Width -------------------------------------
-print_data_table_variable <- function(your_data_frame,deparsed_column_name){
-  png(paste0(deparsed_column_name,'.png'), height = 22*nrow(your_data_frame), width = 150*ncol(your_data_frame))
-  grid.table(your_data_frame)
-  dev.off()
+# Print Data Table: Neutral -----------------------------------------------
+print_data_table <- function(your_data_frame,deparsed_column_name){
+  modified_data_frame <- your_data_frame %>%
+    mutate_if(is.character,~str_replace_all(.,"_"," ")) %>%
+    mutate_if(is.character,~str_to_sentence(.)) %>%
+    mutate_if(is.factor,~str_replace_all(.,"_"," ")) %>%
+    mutate_if(is.factor,~str_to_sentence(.)) %>%
+    rename_all(.,~str_replace_all(.,"_"," ")) %>%
+    rename_all(.,~str_to_title(.)) %>%
+    gt() %>%
+    tab_header(
+      title = md(paste0('Top Opportunities: ',project_name_short)),
+      # subtitle = md("Data US Alibaba users find most helpful when selecting a supplier")
+    ) %>%
+    tab_options(
+      column_labels.border.bottom.color = "black",
+      column_labels.border.bottom.width= px(3),
+      heading.align = "left"
+    ) %>% 
+    data_color(
+      columns = c(last_col(1):last_col()),
+      colors = scales::col_numeric(
+        palette = paletteer::paletteer_d(
+          palette = "ggsci::blue_material"
+        ) %>% as.character(),
+        domain = NULL
+      )
+    ) %>% 
+    fmt_number(
+      columns = c(last_col(1):last_col()),
+      decimals = 2 # decrease decimal places
+    ) %>% 
+    tab_style(
+      style = cell_text(color = "black", weight = "bold"),
+      locations = list(
+        cells_row_groups(),
+        cells_column_labels(everything())))
+  file_name <- paste0(project_name,"-",deparsed_column_name,"-table-",lubridate::today(),'.png')
+  file_name_backup <- paste0("/Users/crogers/Work-Analysis/Output/",project_name,"-",deparsed_column_name,"-table-",lubridate::today(),'.png')
+  gtsave(modified_data_frame,file_name)
+  gtsave(modified_data_frame,file_name_backup)
 }
+
+# * Print Data Table: General Population ----------------------------------
+print_data_table_general_population <- function(your_data_frame,deparsed_column_name){
+  modified_data_frame <- your_data_frame %>%
+    mutate(objective=str_to_sentence(str_replace_all(objective,"_"," ")),
+           sourcing_stage=str_to_title(str_replace_all(sourcing_stage,"_"," "))) %>%
+    rename(`Opportunity Score`=opportunity_score_total_population,
+           `Importance`=imp_total_population,
+           `Satisfaction`=sat_total_population,
+           `Sourcing Stage`=sourcing_stage,
+           `Objective`=objective) %>%
+    select(-rank_total_population) %>%
+    gt(groupname_col = "Sourcing Stage",
+       rowname_col = "Objective") %>%
+    tab_header(
+      title = md(paste0('Top Opportunities: ',project_name_short)),
+      # subtitle = md("Data US Alibaba users find most helpful when selecting a supplier")
+    ) %>%
+    tab_options(
+      column_labels.border.bottom.color = "black",
+      column_labels.border.bottom.width= px(3),
+      heading.align = "left"
+    ) %>%
+    tab_style(
+      style = cell_text(color = "green",weight = "normal"),
+      locations = list(
+        cells_body(
+          columns = vars(`Opportunity Score`),
+          rows = `Opportunity Score` >= 10
+        ))) %>%
+    tab_style(
+      style = cell_text(color = "darkgreen",weight = "bold"),
+      locations = list(
+        cells_body(
+          columns = vars(`Opportunity Score`),
+          rows = `Opportunity Score` >= 12
+        ))) %>%
+    tab_style(
+      style = cell_text(color = "black", weight = "bold"),
+      locations = list(
+        cells_row_groups(),
+        cells_column_labels(everything())))
+    file_name <- paste0(project_name,"-",deparsed_column_name,"-table-",lubridate::today(),'.png')
+    file_name_backup <- paste0("/Users/crogers/Work-Analysis/Output/",project_name,"-",deparsed_column_name,"-table-",lubridate::today(),'.png')
+    gtsave(modified_data_frame,file_name)
+    gtsave(modified_data_frame,file_name_backup)
+}
+
+# * Print Data Table: Compare 2 -------------------------------------------
+print_data_table_compare_2 <- function(your_data_frame,deparsed_column_name,file_type,sample_size_factor_a,sample_size_factor_b){
+  columns_of_interest <- c(1:9)
+  row_count<- nrow(your_data_frame)
+  segement_name <- str_to_title(str_replace_all(deparsed_column_name,"_"," "))
+
+  modified_data_frame <- your_data_frame %>%
+    select(all_of(columns_of_interest)) %>%
+    rename(pctDiff=pct_diff)%>%
+    mutate(objective=str_to_sentence(str_replace_all(objective,"_"," ")),
+           sourcing_stage=str_to_title(str_replace_all(sourcing_stage,"_"," ")),
+           factor_a_opp=.[[7]],
+           factor_b_opp=.[[8]]) 
+
+  factor_a_opp <- names(your_data_frame[7]) %>%
+    str_replace_all(.,"opportunity_score_","") %>%
+    str_to_title(.)
+  factor_a_opp_name <- factor_a_opp
+
+  factor_b_opp <- names(your_data_frame[8]) %>%
+    str_replace_all(.,"opportunity_score_","") %>%
+    str_to_title(.)
+  factor_b_opp_name <- factor_b_opp
+  
+  modified_data_frame  <- modified_data_frame %>%
+    rename(`Sourcing Stage`=sourcing_stage,
+           `Objective`=objective,
+           !!factor_a_opp:=factor_a_opp,
+           !!factor_b_opp:=factor_b_opp) %>%
+    dplyr::relocate(pctDiff,.after = everything()) %>%
+    gt(groupname_col = "Sourcing Stage",
+       rowname_col = "Objective") %>%
+    tab_header(
+      title = md(paste0('Top Opportunities: ',project_name_short, " - ",segement_name)),
+      subtitle = html(paste0("Sample: ",factor_a_opp_name," group N = ",sample_size_factor_a," & ",factor_b_opp_name," group N = ",sample_size_factor_b))
+    )  %>%
+    tab_spanner(
+      label = "Importance", 
+      columns = 3:4
+    ) %>%
+    tab_spanner(
+      label = "Satisfaction", 
+      columns = 5:6
+    ) %>%
+    tab_spanner(
+      label = "Opportunities", 
+      columns = 9:10
+    ) %>%
+    tab_options(
+      column_labels.border.bottom.color = "black",
+      column_labels.border.bottom.width= px(3),
+      heading.align = "left"
+    ) %>%
+    data_color(
+      columns = 9:10,
+      colors = scales::col_numeric(
+        palette = paletteer::paletteer_d(
+          palette = "ggsci::blue_material"
+        ) %>% as.character(),
+        domain = NULL
+      )
+    ) %>%
+     tab_style(
+      style = cell_text(color = "black", weight = "bold"),
+      locations = list(
+        cells_row_groups(),
+    cells_column_labels(everything()))) %>%
+     cols_hide(
+       columns = c(7:8))
+  file_name <- paste0(project_name,"-",deparsed_column_name,"-",file_type,lubridate::today(),'.png')
+  file_name_backup <- paste0("/Users/crogers/Work-Analysis/Output/",project_name,"-",deparsed_column_name,"-",file_type,"-",lubridate::today(),'.png')
+  gtsave(modified_data_frame,file_name)
+  gtsave(modified_data_frame,file_name_backup)
+}
+
+# *Print: Rename: UTTER FAILURE -------------------------------------------
+# I SPENT 3 HOURS TRYING TO RENAME COLUMNS SO ULTIMATELY THEY COULD HAVE THE SAME NAME>>>> WHICH ISN"T ALLOWED
+print_data_table_compare_2_rename <- function(your_data_frame,deparsed_column_name){
+  columns_of_interest <- c(1:8)
+  segement_name <- str_to_title(str_replace_all(deparsed_column_name,"_"," "))
+  
+  
+  modified_data_frame <- modified_data_frame <- your_data_frame %>%
+    select(columns_of_interest) %>%
+    transmute(objective=str_to_sentence(str_replace_all(objective,"_"," ")),
+              sourcing_stage=str_to_title(str_replace_all(sourcing_stage,"_"," ")),
+              # factor_a=.[[7]],
+              # factor_b=.[[8]],
+              factor_a_imp=.[[3]],
+              factor_b_imp=.[[4]],
+              factor_a_sat=.[[5]],
+              factor_b_sat=.[[6]],
+              factor_a_opp=.[[7]],
+              factor_b_opp=.[[8]]) 
+  
+  factor_a_imp <- names(your_data_frame[3]) %>%
+    str_split_fixed(.,"_",n=2) %>%
+    .[1,2] %>%
+    make.names()
+  print(factor_a_imp)
+  factor_b_imp <- names(your_data_frame[4]) %>%
+    str_split_fixed(.,"_",n=2) %>%
+    .[1,2] %>%
+    make.names()
+  print(factor_b_imp)
+  factor_a_sat <- names(your_data_frame[5]) %>%
+    str_split_fixed(.,"_",n=2) %>%
+    .[1,2] %>%
+    make.names()
+  print(factor_a_sat)
+  factor_b_sat <- names(your_data_frame[6]) %>%
+    str_split_fixed(.,"_",n=2) %>%
+    .[1,2] %>%
+    make.names()
+  print(factor_b_sat)
+  factor_a_opp <- names(your_data_frame[7]) %>%
+    str_split_fixed(.,"_",n=2) %>%
+    .[1,2] %>%
+    make.names()
+  print(factor_a_opp)
+  factor_b_opp <- names(your_data_frame[8]) %>%
+    str_split_fixed(.,"_",n=2) %>%
+    .[1,2] %>%
+    make.names()
+  print(factor_b_opp)
+  modified_data_frame <- modified_data_frame %>%
+    rename(`Sourcing Stage`=sourcing_stage,
+           `Objective`=objective,
+           !!factor_a_imp:=factor_a_imp,
+           !!factor_b_imp:=factor_b_imp,
+           !!factor_a_sat:=factor_a_sat,
+           !!factor_b_sat:=factor_b_sat,
+           !!factor_a_opp:=factor_a_opp,
+           !!factor_b_opp:=factor_b_opp) %>%
+    gt(groupname_col = "Sourcing Stage",
+       rowname_col = "Objective") %>%
+    tab_header(
+      title = md(paste0('Top Opportunities: ',project_name_short, " - ",segement_name)),
+      # subtitle = md("Data US Alibaba users find most helpful when selecting a supplier")
+    )  %>%
+    tab_spanner(
+      label = "Importance", 
+      columns = 3:4
+    ) %>%
+    tab_spanner(
+      label = "Satisfaction", 
+      columns = 5:6
+    ) %>%
+    tab_spanner(
+      label = "Opportunities", 
+      columns = 7:8
+    ) %>%
+    tab_options(
+      column_labels.border.bottom.color = "black",
+      column_labels.border.bottom.width= px(3),
+      heading.align = "left"
+    ) %>%
+    tab_style(
+      style = cell_text(color = "green",weight = "normal"),
+      locations = list(
+        cells_body(
+          columns = 7,
+          rows = factor_a >= 10
+        ))) %>%
+    tab_style(
+      style = cell_text(color = "green",weight = "normal"),
+      locations = list(
+        cells_body(
+          columns = 8,
+          rows = factor_b >= 10
+        ))) %>%
+    tab_style(
+      style = cell_text(color = "darkgreen",weight = "bolder"),
+      locations = list(
+        cells_body(
+          columns = 7,
+          rows = factor_a_opp >= 12
+        ))) %>%
+    tab_style(
+      style = cell_text(color = "darkgreen",weight = "bolder"),
+      locations = list(
+        cells_body(
+          columns = 8,
+          rows = factor_b_opp >= 12
+        ))) %>%
+    tab_style(
+      style = cell_text(color = "black", weight = "bold"),
+      locations = list(
+        cells_row_groups(),
+        cells_column_labels(everything()))) #%>%
+  # cols_hide(
+  #   columns = vars(factor_a,factor_b))
+  file_name <- paste0(project_name,"-",deparsed_column_name,"-table-",lubridate::today(),'.png')
+  file_name_backup <- paste0("/Users/crogers/Work-Analysis/Output/",project_name,"-",deparsed_column_name,"-table-",lubridate::today(),'.png')
+  gtsave(modified_data_frame,file_name)
+  gtsave(modified_data_frame,file_name_backup)
+}
+
 # * Save CSV --------------------------------------------------------------
 save_yo_file_csv <- function(data_frame,project_name){
   file_name <- deparse(substitute(data_frame))
   write.csv(data_frame,paste0(project_name,"-",file_name,"-",lubridate::today(),".csv"))
   write.csv(data_frame,paste0("/Users/crogers/Work-Analysis/Output/",project_name,"-",file_name,"-",lubridate::today(),".csv"))
 }
+
 
 # * Save - Plot -----------------------------------------------------------
 save_yo_file_png <- function(data_frame){
