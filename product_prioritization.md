@@ -5,7 +5,9 @@ When it comes to prioritizing a product there are some considerations
 + How confident are you that know what people are trying to accomplish and the tradeoffs they would make?
 + What is the scope of solutions that you would consider? Are you exclusively interested in sustaining innvoations an adjacent features, or are you willing to consider entirely new solution spaces?
 If the situation is low risk (e.g. it's a quick feature to build), you can proceed relatively quickly. In those situations where there is considerable risk (either high investment or where failure will be costly), certain steps should be taken to determine whether to proceed. 
-<img src="https://user-images.githubusercontent.com/1085160/93369064-ccfb1080-f81c-11ea-9d9b-0eab73aa9498.png" width="400" height="400">
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/1085160/93369064-ccfb1080-f81c-11ea-9d9b-0eab73aa9498.png" width="400" height="400">
+</p>
 
 ## Process for High-Risk Situations
 Determine the [Net Present Value](https://github.com/charlesrogers/product_research/blob/master/research_resources/research_frameworks.md#net-present-value) of each of the solutions.
