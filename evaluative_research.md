@@ -1,9 +1,19 @@
 # Concept & Solution Validation
 Products in different stages deserve different levels of vaidation.
-## Verbal & Contextual Validation
-
+## Concept Validation
+Prior to working out all the details, it is useful to get a rough idea of how useful the concepts you are entertaining appear to be to the potential users.
+### Absolute vs Relative ranking
+When you can do multiple things, use absolute ranking ("How useful do you find each of the following features?")
+When you can do one thing, look at relative ranking ("Please rank the top x of the following by how useful they would be to you.")
+There is a strong case to measure both relative and absolute because it is probable that one or two of the top selected options will be unattractive after you have to make compromises due to cost or feasability and where you to re-run the study without those choices the results would likely be quite different.
+Sometimes the users don't know how useful things will be (especially when you control the algorithm that allocates traffic to them) so it's best not to ask those questions and instead ask if what you'll require to achieve that end is feasible with their work flow.
 ## Visual & Workflow Validation
-
+### Questions to answer:
+1. Does you know what it is supposed to do?
+1. How useful would that outcome be for you?
+1. Do you believe it will do what it says?
+  1. What concerns might you have?
+1. Can you find it?
 ## Timeline to
 1. Discover objectives and the user's current satisfaction
 2. For unmet objectives, determine what would meet their needs
