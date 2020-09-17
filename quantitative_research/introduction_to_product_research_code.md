@@ -6,7 +6,13 @@ You must load certain variables into your environment so that the following code
 1. All save_yo_file variables
 1. All plot_yo_data variables
 1. 
-#### Dependencies:
+##### Libraries
+```r
+library(tidyverse)
+library(magrittr)
+library(janitor)
+library(lubridate)
+```
 ##### Project Name
 This code is used to create the descriptive file names
 ```r
