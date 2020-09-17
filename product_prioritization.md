@@ -37,7 +37,9 @@ These lower-risk opportunities should typically reveal themselves as you analyze
 + 
 ---
 ### TO FILE
-
+#### Caveats
+Magnitude vs Frequency. It's possible that the most common complaint is not the most important thing, and also compaint-based design can lead to small improvements (incrementalism) instead of uncovering new opportunites.
+### OLD NOTES
 1. Business value
     + What is the overall funnel
      + What are the steps in the funnel
