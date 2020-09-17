@@ -117,3 +117,9 @@
   + Undecided
   + Agree
   + Strongly Agree
++ Useful
+  + Not at all useful
+  + Slightly useful
+  + Moderately useful
+  + Very useful
+  + Extremely useful
