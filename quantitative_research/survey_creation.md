@@ -71,6 +71,7 @@ Depending on the length and skip-logic, the survey should take anywhere from 2-4
 ##### Email
 + Original Email
 + Follow up email
+  + Make sure to exclude the participants who have already completed the survey
 #### Other Distribution Channels
 ##### Vendors
 ### Incentives
