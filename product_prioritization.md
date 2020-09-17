@@ -23,6 +23,7 @@ Once you have determined the Net Present Value of the project, compare it to you
 Often your product feature will just improve one aspect of your value funnel. You must determine if this feature will have a material impact in the overall funnel, which can be determined by looking at your most constrained step in the funnel. ~~For example, while a feature might double (𝝙100%) your conversion rate from 0.05% to 0.1%, if you only have 500 users, that will only increase your users from ~3 to 5.~~ **This is to be considered only once you've done some optimization on the funnel**
 #### Monte Carlo Simulation
 Because many of the elements involved in this calculation are likely not very certain (e.g. will involve a decently large range), a Monte Carlo Simulation can be used (as advocated by [Douglas Hubbard in How to Measure Anything](https://github.com/charlesrogers/product_research/blob/master/research_resources/Hubbard-How_to_measure_anything.md#montecarlo-simulation-for-npv-calculations).
+
 ## Process for Low-Risk Situations
 Some product concepts are low-enough risk that they do not require speaking with users: for example, if you are selling leads and you have devised a solution that would result in better quality and more leads, the only pertinant questions are whether you could:
 + Deliver the proposed value
