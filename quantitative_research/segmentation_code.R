@@ -1,14 +1,99 @@
 # Data Prep ---------------------------------------------------------------
+
 # * Load Packages ---------------------------------------------------------
 library(tidyverse)
 library(magrittr)
 library(janitor)
+library(lubridate)
 # library(proportion)
-# * Loading Data ----------------------------------------------------------
-load_your_data <- function(your_data_path_as_string){
-  your_data_frame <- read_csv(your_data_path_as_string) %>%
-    clean_names()
+
+
+# Load Data ---------------------------------------------------------------
+
+# * Load Previous Survey Data ---------------------------------------------
+load_previous_survey_data <- function(){
+ previous_survey_data <- read_csv('/Users/crogers/Work-Analysis/Seller Analysis/Seller Satisfaction Analysis/Previous_Survey_Findings/previous_survey_data.csv') %>%
+   select(-X1)
+ return(previous_survey_data)
+}
+
+# * Create Current Survey Data Frame --------------------------------------
+add_to_current_survey_data <- function(your_output_column,column_name){
+   current_survey_data$column_name <- your_output_column
+  return(current_survey_data)
+}
+
+# * Load & Clean Data - Master Function -----------------------------------
+
+load_and_rename_data_survey_monkey <- function(your_data_path_as_string){
+  raw_data_frame <- read_csv(your_data_path_as_string)
+  col_names <- get_column_names_survey_monkey(raw_data_frame)
+  list_of_row_2_names <- get_row_1_as_column_names_survey_monkey(raw_data_frame)
+  list_of_index_numbers <- get_index_of_cols_to_rename(col_names)
+  working_row_names <- list_of_row_2_names[list_of_index_numbers]
+  your_data_frame <- clean_names_survey_monkey(raw_data_frame)
+  your_data_frame <- rename_vague_columns(your_data_frame,working_row_names)
+  return(your_data_frame)
+}
+
+# * Get Column Names for Manual Renaming ----------------------------------
+get_column_names_for_manual_renaming <- function(your_data_path_as_string){
+  raw_data_frame <- read_csv(your_data_path_as_string)
+  column_names <- raw_data_frame %>%
+    clean_names() %>%
+    colnames()
+  row_1_column_names <- raw_data_frame %>%
+    row_to_names(.,1) %>%
+    clean_names() %>%
+    colnames()
+  merged_column_names <- cbind(column_names,row_1_column_names)
+  return(merged_column_names)
+}
+# * Get Index of Column Names that Need Renaming --------------------------
+get_index_of_cols_to_rename <- function(data_frame_of_column_names){
+  columns_to_rename_by_index <- data_frame_of_column_names %>%
+    rownames_to_column() %>% 
+    filter(str_detect(value,"^x")) %>%
+    transmute(viable_rownames=rowname) %>%
+    pull() %>%
+    as.numeric()
+  return(columns_to_rename_by_index)
+}
+
+
+# * Rename Vauge, 'xX' Columns --------------------------------------------
+rename_vague_columns<- function(your_data_frame,working_row_names){
+  your_data_frame <- your_data_frame %>% 
+    rename_with(.,~ working_row_names,starts_with("x"))
+  return(your_data_frame)
+}
+
+
+# * Clean Names of Loaded Data --------------------------------------------
+clean_names_survey_monkey <- function(your_data_frame){
+  your_data_frame <- your_data_frame %>%
+    janitor::clean_names()
   your_data_frame <- your_data_frame[-c(1), ]
+  return(your_data_frame)
+}
+
+# * Get Row Names for Recoding --------------------------------------------
+get_row_1_as_column_names_survey_monkey <- function(raw_data_frame){
+  your_data_frame <- raw_data_frame %>%
+  row_to_names(.,1) %>%
+  clean_names(.) %>%
+  colnames(.) %>%
+  as.tibble(.) %>%
+    pull(.)
+  return(your_data_frame)
+}
+ 
+# * Get Column Names from Survey Monkey -----------------------------------
+get_column_names_survey_monkey <- function(raw_data_frame){
+  your_data_frame <- raw_data_frame %>%
+    clean_names(.) %>%
+    colnames(.) %>%
+    as.tibble(.)
   return(your_data_frame)
 }
 
@@ -16,19 +101,39 @@ load_your_data <- function(your_data_path_as_string){
 recode_qualitative_to_quantitative <- function(your_data_frame){
   your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Extremely likely"] <- 5; x})
   your_data_frame <- as.data.frame(your_data_frame)
+  your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Extremely useful"] <- 5; x})
+  your_data_frame <- as.data.frame(your_data_frame)
+  your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Extremely useful"] <- 5; x})
+  your_data_frame <- as.data.frame(your_data_frame)
   your_data_frame <- apply(your_data_frame,2,function(x){x[x=="extremely useful"] <- 5; x})
   your_data_frame <- as.data.frame(your_data_frame)
   your_data_frame <- apply(your_data_frame,2,function(x){x[x=="extremely useful"] <- 5; x})
+  your_data_frame <- as.data.frame(your_data_frame)
+  your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Very useful"] <- 4; x})
+  your_data_frame <- as.data.frame(your_data_frame)
+  your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Very useful"] <- 4; x})
   your_data_frame <- as.data.frame(your_data_frame)
   your_data_frame <- apply(your_data_frame,2,function(x){x[x=="very useful"] <- 4; x})
   your_data_frame <- as.data.frame(your_data_frame)
   your_data_frame <- apply(your_data_frame,2,function(x){x[x=="very useful"] <- 4; x})
   your_data_frame <- as.data.frame(your_data_frame)
+  your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Moderately useful"] <- 3; x})
+  your_data_frame <- as.data.frame(your_data_frame)
+  your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Moderately useful"] <- 3; x})
+  your_data_frame <- as.data.frame(your_data_frame)
   your_data_frame <- apply(your_data_frame,2,function(x){x[x=="useful"] <- 3; x})
+  your_data_frame <- as.data.frame(your_data_frame)
+  your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Not that useful"] <- 2; x})
+  your_data_frame <- as.data.frame(your_data_frame)
+  your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Not that useful"] <- 2; x})
   your_data_frame <- as.data.frame(your_data_frame)
   your_data_frame <- apply(your_data_frame,2,function(x){x[x=="somewhat useful"] <- 2; x})
   your_data_frame <- as.data.frame(your_data_frame)
   your_data_frame <- apply(your_data_frame,2,function(x){x[x=="somewhat useful"] <- 2; x})
+  your_data_frame <- as.data.frame(your_data_frame)
+  your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Not at all useful"] <- 1; x})
+  your_data_frame <- as.data.frame(your_data_frame)
+  your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Not at all useful"] <- 1; x})
   your_data_frame <- as.data.frame(your_data_frame)
   your_data_frame <- apply(your_data_frame,2,function(x){x[x=="not at all useful"] <- 1; x})
   your_data_frame <- as.data.frame(your_data_frame)
@@ -101,6 +206,8 @@ recode_qualitative_to_quantitative <- function(your_data_frame){
   your_data_frame <- apply(your_data_frame,2,function(x){x[x=="moderately interested"] <- 3; x})
   your_data_frame <- as.data.frame(your_data_frame)
   your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Moderately satisfied"] <- 3; x})
+  your_data_frame <- as.data.frame(your_data_frame)
+  your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Likely"] <- 3; x})
   your_data_frame <- as.data.frame(your_data_frame)
   your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Moderately likely"] <- 3; x})
   your_data_frame <- as.data.frame(your_data_frame)
@@ -176,7 +283,57 @@ recode_qualitative_to_quantitative <- function(your_data_frame){
 # PROBABILITY -------------------------------------------------------------
 # * Likelihood to: --------------------------------------------------------
 # ** Likelihood to Renew --------------------------------------------------
-# get_likelihood_to_renew <- function(your_data_frame,binary_factor_column,grouping_column){
+get_likelihood_to_renew <- function(your_data_frame){
+  probability_of_renewal_df <- your_data_frame %>%
+    filter(!is.na(likelihood_flag)) %>%
+    mutate(likelihood_flag=as.numeric(likelihood_flag)) %>%
+    dplyr::summarise(ltr_pct=mean(likelihood_flag),n=n())
+  print(probability_of_renewal_df)
+  probability_of_renewal_df <- probability_of_renewal_df %>%
+    mutate(ltc_pct=1-ltr_pct,
+           ltr_count=round(ltr_pct*n),
+           ltc_count=n-ltr_count)
+  print(probability_of_renewal_df)
+  ltr_score<- round((probability_of_renewal_df$ltr_pct)*100,0)
+  ltr_sample_size <- probability_of_renewal_df$n
+  
+  plot_ltr(your_data_frame,ltr_score,ltr_sample_size)
+  return(ltr_score)
+}
+
+# ** Likelihood to Renew - BY FACTOR --------------------------------------
+get_likelihood_to_renew_by_factor <- function(your_data_frame,segmentation_column){
+  df_likelihood_to_renew <- your_data_frame %>%
+    filter(!is.na(likelihood_flag)) %>%
+    filter(!is.na(!!as.name(segmentation_column))) %>%
+    group_by(!!as.name(segmentation_column)) %>%
+    mutate(likelihood_flag=as.numeric(likelihood_flag)) %>%
+    filter(!reason_for_churn%in%c('Haven\'t been on the platform long enough to feel comfortable saying "very" or "extremely likely to renew"')) %>%
+    dplyr::summarise(ltr_by_bt_pct=mean(likelihood_flag),n=n()) %>%
+    mutate(ltc_by_bt_pct=1-ltr_by_bt_pct,
+           ltr_by_bt_ct=round(ltr_by_bt_pct*n),
+           ltc_by_bt_ct=n-ltr_by_bt_ct) 
+  return(df_likelihood_to_renew)
+}
+# get_likelihood_to_renew <- function(your_data_frame){
+#   probability_of_renewal_df <- your_data_frame %>%
+#     filter(!is.na(likelihood_flag)) %>%
+#     mutate(likelihood_flag=as.numeric(likelihood_flag)) %>%
+#     dplyr::summarise(ltr_pct=mean(likelihood_flag),n=n())
+#   print(probability_of_renewal_df)
+#   probability_of_renewal_df <- probability_of_renewal_df %>%
+#     mutate(ltc_pct=1-ltr_pct,
+#            ltr_count=round(ltr_pct*n),
+#            ltc_count=n-ltr_count)
+#   print(probability_of_renewal_df)
+#   ltr_score<- round((probability_of_renewal_df$ltr_pct)*100,0)
+#   ltr_sample_size <- probability_of_renewal_df$n
+#   
+#   plot_ltr(your_data_frame,ltr_score,ltr_sample_size)
+#   return(ltr_score)
+# }
+# ** Likelihood to Renew: By Group ----------------------------------------
+# get_likelihood_to_renew_by_group <- function(your_data_frame,binary_factor_column,grouping_column){
 #   probability_of_renewal <- your_data_frame %>%
 #     filter(!is.na(likelihood_flag)) %>%
 #     group_by(grouping_column) %>%
@@ -184,17 +341,18 @@ recode_qualitative_to_quantitative <- function(your_data_frame){
 #     dplyr::summarise(ltr_pct=mean(binary_factor_column),n=n()) %>%
 #     mutate(ltc_pct=1-ltr_pct,
 #            ltr_count=round(ltr_pct*n),
-#            ltc_count=n-ltr_count) 
+#            ltc_count=n-ltr_count)
 #   return(probability_of_renewal)
 # }
 # ** Likelihood to Adopt --------------------------------------------------
-
 # Likelihood to Renew: Error Bars - Adjusted Wald -------------------------
 get_error_bars_adjusted_wald <- function(your_data_frame){
   upper_lower_bands <- NULL
+  lower_bound <- NULL
+  upper_bound <- NULL
   for (i in 1:nrow(your_data_frame)){
-    lower_bound[i] <- ciAWDx(your_data_frame$ltr_count[i],your_data_frame$sample_size[i],alp =0.1,h=2)%>%pull(var=2)
-    upper_bound[i] <- ciAWDx(your_data_frame$ltr_count[i],your_data_frame$sample_size[i],alp =0.1,h=2)%>%pull(var=3)
+    lower_bound[i] <- proportion::ciAWDx(your_data_frame$ltr_count[i],your_data_frame$sample_size[i],alp =0.1,h=2)%>%pull(var=2)
+    upper_bound[i] <- proportion::ciAWDx(your_data_frame$ltr_count[i],your_data_frame$sample_size[i],alp =0.1,h=2)%>%pull(var=3)
     upper_lower_bands <- rbind(upper_lower_bands,cbind(lower_bound[i],upper_bound[i])) %>% as_tibble()
   }
   
@@ -206,6 +364,60 @@ get_error_bars_adjusted_wald <- function(your_data_frame){
 }
 
 # Analysis ----------------------------------------------------------------
+
+# * Net Promoter Score ----------------------------------------------------
+get_nps_score <- function(your_data_frame){
+  nps_score_df <- your_data_frame %>% 
+    filter(!is.na(nps_groups)) %>%
+    select(net_promoter_score,nps_groups) %>%
+    group_by(nps_groups) %>%
+    count %>%
+    ungroup() %>%
+    mutate(total_sum=sum(n),
+           nps_group_sum=n,
+           nps_pct=nps_group_sum/total_sum)
+  nps_score <- round((nps_score_df$nps_pct[3]-nps_score_df$nps_pct[1])*100,0)
+  nps_sample_size <- nps_score_df$total_sum
+  plot_nps_score(your_data_frame,nps_score,nps_sample_size)
+  return(nps_score)
+}
+
+# * Get NPS Score Batch ---------------------------------------------------
+get_sat_score_batch <- function(your_data_frame){
+  sat_data_frame <- your_data_frame %>%
+    select(starts_with("sat__"))%>%
+    calculate_pop_pct_score(.) %>%
+    mutate(sat_pct=round((imp_sat_score*10),0)) %>%
+    select(objective_name,sat_pct) %>%
+    mutate_if(is.character,~str_replace_all(.,pattern = "_platform_value.",replacement = "")) %>%
+    mutate_if(is.character,~str_replace_all(.,pattern = "_onboarding.",replacement = "")) %>%
+    pivot_wider(names_from = objective_name,values_from = sat_pct)  %>%
+    mutate(survey_name=project_name)
+  return(sat_data_frame)
+}
+
+# * Master NPS Score Function ---------------------------------------------
+
+
+# * Get Sample Size -------------------------------------------------------
+get_sample_size_general <- function(your_data_frame,column_filter){
+  sample_size <- your_data_frame %>%
+    select(dplyr::starts_with(column_filter))%>%
+    select(last_col())%>%
+    filter(!is.na(.))%>%
+    nrow()
+  return(sample_size)
+}
+
+# * Get Sample Size: Importance -------------------------------------------
+get_sample_size <- function(your_data_frame){
+  sample_size <- your_data_frame %>%
+    select(dplyr::starts_with("imp__"))%>%
+    select(last_col())%>%
+    filter(!is.na(.))%>%
+    nrow()
+  return(sample_size)
+}
 # * Opportunity Functions --------------------------------------------------
 # ** Find Importance Columns ----------------------------------------------
 find_imp_sat_columns <- function(your_data_frame){
@@ -217,11 +429,24 @@ find_imp_sat_columns <- function(your_data_frame){
   return(data_frame_imp_sat)
 }
 
+# ** Find SAT columns -----------------------------------------------------
+find_sat_columns <- function(your_data_frame){
+  sat_columns <- your_data_frame %>%
+    select(starts_with("sat_"))
+  return(sat_columns)
+}
+
+# Calculate Satisfaction --------------------------------------------------
+calculate_satisfaction_score <- function(your_data_frame){
+  sat_columns <- find_sat_columns(your_data_frame)
+  satisfaction_scores <- calculate_pop_pct_score(sat_columns)
+  return(satisfaction_scores)
+}
 
 # ** Calculate Importance & Satisfaction ----------------------------------
 individual_data <- NULL
 all_data <- NULL
-calculate_imp_sat_score <- function(objectives){
+calculate_pop_pct_score <- function(objectives){
   for (objective in seq_along(objectives)){
     namez <- names(objectives)[[objective]]
     
@@ -271,7 +496,7 @@ calculate_opportunity_score <- function(data_frame_split) {
 get_imp_sat_opp_scores_total_population <- function(your_data_frame){
 
   opportunity_columns_group_1 <- find_imp_sat_columns(your_data_frame)
-  opportunity_score_group_1 <- calculate_imp_sat_score(opportunity_columns_group_1)  
+  opportunity_score_group_1 <- calculate_pop_pct_score(opportunity_columns_group_1)  
   opportunity_score_group_1 <- split_imp_sat_columns(opportunity_score_group_1)
   opportunity_score_group_1 <- calculate_opportunity_score(opportunity_score_group_1) 
   opportunity_score_group_1 <- opportunity_score_group_1 %>%
@@ -301,40 +526,31 @@ get_imp_sat_opp_scores_compare_2 <- function(your_data_frame,column_to_split_on,
   file_type <- "opportunity_list_table"
   opportunity_calc_group_1 <- your_data_frame %>%
     filter(column_to_split_on==factor_a)
-  sample_size_factor_a<- opportunity_calc_group_1 %>%
-    filter(!is.na(.[[1]]))%>%
-    nrow()
-  print(sample_size_factor_a)
+  
+  sample_size_factor_a<- get_sample_size(opportunity_calc_group_1)
+  
   opportunity_columns_group_1 <- find_imp_sat_columns(opportunity_calc_group_1)
   
-  opportunity_score_group_1 <- calculate_imp_sat_score(opportunity_columns_group_1)  
+  opportunity_score_group_1 <- calculate_pop_pct_score(opportunity_columns_group_1)  
   
   opportunity_score_group_1 <- split_imp_sat_columns(opportunity_score_group_1)
   
   opportunity_score_group_1<- calculate_opportunity_score(opportunity_score_group_1) %>%
-    mutate(opportunity_score=if_else(imp<sat,imp,imp+imp-sat)) %>%
-    arrange(desc(objective)) %>%
     mutate(segment_name=factor_a,
            rank=rank(desc(opportunity_score)))
   
   opportunity_calc_group_2 <- your_data_frame %>%
     filter(column_to_split_on==factor_b)
   
-  sample_size_factor_b<- opportunity_calc_group_2 %>%
-    filter(!is.na(.[[1]]))%>%
-    nrow()
-  print(sample_size_factor_b)
-  
+  sample_size_factor_b<- get_sample_size(opportunity_calc_group_2)
   
   opportunity_columns_group_2 <- find_imp_sat_columns(opportunity_calc_group_2)
   
-  opportunity_score_group_2 <- calculate_imp_sat_score(opportunity_columns_group_2) 
+  opportunity_score_group_2 <- calculate_pop_pct_score(opportunity_columns_group_2) 
   
   opportunity_score_group_2 <- split_imp_sat_columns(opportunity_score_group_2)
   
   opportunity_score_group_2<- calculate_opportunity_score(opportunity_score_group_2) %>%
-    mutate(opportunity_score=if_else(imp<sat,imp,imp+imp-sat)) %>%
-    arrange(desc(objective)) %>%
     mutate(segment_name=factor_b,
            rank=rank(desc(opportunity_score)))
   
@@ -351,9 +567,7 @@ get_imp_sat_opp_scores_compare_2 <- function(your_data_frame,column_to_split_on,
     as.data.frame(.) %>%
     select(deparsed_column_name=V2) %>%
     pluck(.,1)
-  # importance_satisfaction_opportunity %>%
-  # View("Check Data Frame")
-  
+
   importance_satisfaction_opportunity <- importance_satisfaction_opportunity %>%
     mutate(group_difference=.[[7]]-.[[8]],
            group_difference_score=sum(abs(group_difference)),
@@ -362,11 +576,12 @@ get_imp_sat_opp_scores_compare_2 <- function(your_data_frame,column_to_split_on,
                                        .[[7]]<10&.[[8]]>=10~factor_b,
                                        TRUE~"None")) %>%
     mutate(max_opportunity=if_else(.[[7]]>.[[8]],.[[7]],.[[8]])) %>%
+    mutate_if(is.numeric,round,1) %>%
     arrange(max_opportunity) %>%
     mutate(objective=factor(objective, levels=objective),
            pct_diff=abs(group_difference/max_opportunity),
-           segmentation_factor=deparsed_column_name) %>%
-    mutate_if(is.numeric,round,1)
+           segmentation_factor=deparsed_column_name,
+           pct_diff=scales::percent(pct_diff,accuracy = 2))
   
   importance_satisfaction_opportunity %>%
     arrange(desc(max_opportunity))%>%
@@ -380,12 +595,11 @@ get_imp_sat_opp_scores_compare_2 <- function(your_data_frame,column_to_split_on,
   plot <- get_opportunity_score_graph_individual(opportunity_graph_data_frame,factor_a,factor_b)
   save_yo_file_png_take_file_name(plot,paste0(deparsed_column_name,"_plot__opportunity_score"))
   
-  opportunities_by_stage_group_1 <- get_opportunities_by_stage(opportunity_score_group_1)
-  print_data_table(opportunities_by_stage_group_1,paste0("opp_by_stage-",factor_a))
-  
-  
-  opportunities_by_stage_group_2 <- get_opportunities_by_stage(opportunity_score_group_2)
-  print_data_table(opportunities_by_stage_group_2,paste0("opp_by_stage-",factor_b))
+  # opportunities_by_stage_group_1 <- get_opportunities_by_stage(opportunity_score_group_1)
+  # print_data_table(opportunities_by_stage_group_1,paste0("opp_by_stage-",factor_a))
+  # 
+  # opportunities_by_stage_group_2 <- get_opportunities_by_stage(opportunity_score_group_2)
+  # print_data_table(opportunities_by_stage_group_2,paste0("opp_by_stage-",factor_b))
   
   return(importance_satisfaction_opportunity)
 }
@@ -423,13 +637,13 @@ get_imp_sat_opp_scores_compare_3 <- function(your_data_frame,column_to_split_on,
   
   opportunity_columns_group_1 <- find_imp_sat_columns(opportunity_calc_group_1)
   
-  opportunity_score_group_1 <- calculate_imp_sat_score(opportunity_columns_group_1) 
+  opportunity_score_group_1 <- calculate_pop_pct_score(opportunity_columns_group_1) 
   
   opportunity_score_group_1 <- split_imp_sat_columns(opportunity_score_group_1)
   
   opportunity_score_group_1<- calculate_opportunity_score(opportunity_score_group_1) %>%
-    mutate(opportunity_score=if_else(imp<sat,imp,imp+imp-sat)) %>%
-    arrange(desc(opportunity_score)) %>%
+    # mutate(opportunity_score=if_else(imp<sat,imp,imp+imp-sat)) %>%
+    # arrange(desc(opportunity_score)) %>%
     mutate(segment_name=factor_a)
   
   opportunity_calc_group_2 <- your_data_frame %>%
@@ -437,13 +651,13 @@ get_imp_sat_opp_scores_compare_3 <- function(your_data_frame,column_to_split_on,
   
   opportunity_columns_group_2 <- find_imp_sat_columns(opportunity_calc_group_2)
   
-  opportunity_score_group_2 <- calculate_imp_sat_score(opportunity_columns_group_2) 
+  opportunity_score_group_2 <- calculate_pop_pct_score(opportunity_columns_group_2) 
   
   opportunity_score_group_2 <- split_imp_sat_columns(opportunity_score_group_2)
   
   opportunity_score_group_2<- calculate_opportunity_score(opportunity_score_group_2) %>%
-    mutate(opportunity_score=if_else(imp<sat,imp,imp+imp-sat)) %>%
-    arrange(desc(opportunity_score)) %>%
+    # mutate(opportunity_score=if_else(imp<sat,imp,imp+imp-sat)) %>%
+    # arrange(desc(opportunity_score)) %>%
     mutate(segment_name=factor_b)
   
   opportunity_calc_group_3 <- your_data_frame %>%
@@ -451,7 +665,7 @@ get_imp_sat_opp_scores_compare_3 <- function(your_data_frame,column_to_split_on,
   
   opportunity_columns_group_3 <- find_imp_sat_columns(opportunity_calc_group_3)
   
-  opportunity_score_group_3 <- calculate_imp_sat_score(opportunity_columns_group_3) 
+  opportunity_score_group_3 <- calculate_pop_pct_score(opportunity_columns_group_3) 
   
   opportunity_score_group_3 <- split_imp_sat_columns(opportunity_score_group_3)
   
@@ -870,6 +1084,82 @@ get_market_size_by_segment <- function(your_data_frame,column_to_split_on){
 }
 
 # SUMMARIZE ---------------------------------------------------------------
+
+get_historgram <- function(your_data_frame,column_name,title_string){
+    file_save_name <- paste0("plot ",title_string)
+    file_save_name <-  str_replace_all(file_save_name,pattern = " ",replacement = "_")
+    sample_size <- get_sample_size_general(your_data_frame,column_name)
+    plot  <- your_data_frame %>%
+      filter(!is.na(!!as.name(column_name))) %>%
+      group_by(!!as.name(column_name))%>%
+      count(column_name = factor(column_name)) %>%
+      ggplot(aes(x=fct_rev(!!as.name(column_name)), y=n,fill = !!as.name(column_name))) +
+      geom_col()+
+      coord_flip()+
+      labs(title=title_string,subtitle=paste0("Sample: ",sample_size),x="",y="Count",color="",fill="", size="")+#,caption=paste0("Data as of ",today()) ,caption="NYC Research Team" ,caption=paste0("Created ",today())
+      theme(text=element_text(family = "Roboto"),
+            panel.grid.major = element_line(color = "#DAE1E7"),
+            panel.background = element_blank(),axis.text = element_text(size = 12),
+            axis.text.x = element_text(margin = margin(t = 5)),#hjust = 1,angle=90
+            axis.text.y = element_text(margin = margin(r = 5)),
+            axis.title = element_text (size = 15),
+            axis.line = element_line(),
+            axis.title.y = element_text(margin = margin(r = 10), hjust = 0.5),
+            axis.title.x = element_text(margin = margin(t = 10), hjust = 0.5),
+            plot.caption = element_text(size = 8,
+                                        margin = margin(t = 10),
+                                        color = "#3D4852"), 
+            title = element_text (size = 15,margin = margin(b = 10)),) +
+      guides(fill=FALSE) +
+      expand_limits(x=0,y=0) 
+    save_yo_file_png_take_file_name(plot,file_save_name)
+    return(plot)
+  }
+# * Batch Summarization ---------------------------------------------------
+get_batch_histograms <- function(your_data_frame,column_antecedent_string,title_string){
+  file_save_name <- paste0("plot ",title_string)
+  file_save_name <-  str_replace_all(file_save_name,pattern = " ",replacement = "_")
+  sample_size <- get_sample_size_general(your_data_frame,column_antecedent_string)
+  plot  <- your_data_frame %>%
+    select(starts_with(column_antecedent_string)) %>%
+    rename_all(.,~str_replace_all(.,column_antecedent_string,"")) %>%
+    rename_all(.,~str_replace_all(.,"_"," ")) %>%
+    rename_all(.,~str_to_title(.)) %>%
+    gather() %>% 
+    filter(!is.na(value))%>%
+    group_by(key) %>%
+    count(value = factor(value)) %>% 
+    mutate(pct = prop.table(n)) %>%
+    ungroup()%>%
+    ggplot(aes(x = value, y = pct, fill = value, label = scales::percent(pct))) + 
+    geom_col(position = 'dodge') + 
+    geom_text(position = position_dodge(width = .9),    # move to center of bars
+              vjust = -0.5,    # nudge above top of bar
+              size = 3) + 
+    scale_y_continuous(labels = scales::percent)+
+    coord_flip()+
+    facet_wrap(~ key)+
+    labs(title=title_string,subtitle=paste0("Sample: ",sample_size),x="",y="",color="",fill="", size="")+#,caption=paste0("Data as of ",today()) ,caption="NYC Research Team" ,caption=paste0("Created ",today())
+    theme(text=element_text(family = "Roboto"),
+          panel.grid.major = element_line(color = "#DAE1E7"),
+          panel.background = element_blank(),axis.text = element_text(size = 12),
+          axis.text.x = element_text(margin = margin(t = 5)),#hjust = 1,angle=90
+          axis.text.y = element_text(margin = margin(r = 5)),
+          axis.title = element_text (size = 15),
+          axis.line = element_line(),
+          axis.title.y = element_text(margin = margin(r = 10), hjust = 0.5),
+          axis.title.x = element_text(margin = margin(t = 10), hjust = 0.5),
+          plot.caption = element_text(size = 8,
+                                      margin = margin(t = 10),
+                                      color = "#3D4852"), 
+          title = element_text (size = 15,margin = margin(b = 10)),) +
+    guides(fill=FALSE) +
+    expand_limits(x=0,y=0) 
+  save_yo_file_png_take_file_name(plot,file_save_name)
+  return(plot)
+}
+
+# * Cut Code --------------------------------------------------------------
 # attractiveness_rank_company_size %>%
 #   mutate(Midmarket_retailer_rank=rank(desc(Midmarket_retailers)),
 #          Small_Retailers_rank=rank(desc(Small_Retailers)),
@@ -996,7 +1286,7 @@ get_cleveland_graph <- function(data, objective, group_1,group_2,title_string,su
     geom_point(aes(x=!!objective, y=!!group_1), color="blue", size=3) +
     geom_point(aes(x=!!objective, y=!!group_2), color="red", size=3) +
     coord_flip()+
-    labs(title=title_string,subtitle=subtitle_string,x="Objectives",y="Opportunity Score",color="Shipping\nMethod",fill="", size="")+#,caption=paste0("Data as of ",today()) ,caption="NYC Research Team" ,caption=paste0("Created ",today())
+    labs(title=title_string,subtitle=subtitle_string,x="Objectives",y="Scores",color="",fill="", size="")+#,caption=paste0("Data as of ",today()) ,caption="NYC Research Team" ,caption=paste0("Created ",today())
     theme(text=element_text(family = "Roboto"),
           panel.grid.major = element_line(color = "#DAE1E7"),
           panel.background = element_blank(),axis.text = element_text(size = 12),
@@ -1018,8 +1308,8 @@ get_cleveland_graph <- function(data, objective, group_1,group_2,title_string,su
 # * Distribution Graph ----------------------------------------------------
 get_distribution_graph <- function(data,relevant_column,title_string,subtitle_string) {
   data %>%
-    #mutate(relevant_column = fct_rev(fct_reorder(relevant_column, n))) %>%
-    #filter(!is.na(relevant_column)) %>%
+    mutate(relevant_column = fct_rev(fct_reorder(relevant_column, n))) %>%
+    filter(!is.na(relevant_column)) %>%
     ggplot(aes(relevant_column,fill=relevant_column))+geom_bar() + 
     coord_flip() +
     labs(title=title_string,subtitle=subtitle_string,x="",y="Count",color="",fill="", size="")+#,caption=paste0("Data as of ",today()) ,caption="NYC Research Team" ,caption=paste0("Created ",today())
@@ -1063,92 +1353,54 @@ get_distribution_graph_with_fill <- function(data,relevant_column,fill_column,ti
 }
 
 
-# DEPRICATED CODE ---------------------------------------------------------
-# ** ORDER BY DIFFERENCE --------------------------------------------------
-# compare_two_groups_opportunities <- function(opportunity_data_frame_1,opportunity_data_frame_2){
-# 
-#   merged_opportunties <- rbind(opportunity_data_frame_1,opportunity_data_frame_2)
-#   segment_first <- first(merged_opportunties$segment_name)
-#   print(segment_first)
-#   segment_last <- last(merged_opportunties$segment_name)
-#   print(segment_last)
-#   pivoted_opportunities <- merged_opportunties %>%
-#     pivot_wider(objective,
-#                 names_from = c(segment_name),
-#                 values_from = opportunity_score) %>%
-#     mutate(objective=as_factor(objective)) %>%
-#     mutate(segment_name=arrange(desc(segment_name)))%>%
-#     mutate(difference=first(segment_name)-last(segment_name)) %>%
-#     mutate(objective = fct_reorder(objective, difference, .fun='max' ))
-#   return(pivoted_opportunities)
-# }
-# ** Master Opportunity Function [DEP] ------------------------------------
-# 
-# get_imp_sat_opp_scores <- function(your_data_frame,factor_name){
-#   data_frame_imp_sat <- find_imp_sat_columns(your_data_frame)
-#   imp_sat_scores <- calculate_imp_sat_score(data_frame_imp_sat)
-#   objective_columns <- split_imp_sat_columns(imp_sat_scores)
-#   opportuity_scores <- calculate_opportunity_score(objective_columns) %>%
-#     mutate(segment_name=factor_name)
-#   return(opportuity_scores)
-# }
-# ** Compare Two Factors: IMP-SAT-OPP - FAST ------------------------------
-# get_opportunity_score_compare_2 <- function(your_data_frame,column_to_split_on,factor_a,factor_b) {
-#   opportunity_calc_group_1 <- your_data_frame %>%
-#     filter(column_to_split_on==factor_a)
-#   
-#   opportunity_columns_group_1 <- find_imp_sat_columns(opportunity_calc_group_1)
-#   
-#   opportunity_score_group_1 <- calculate_imp_sat_score(opportunity_columns_group_1) 
-#   
-#   opportunity_score_group_1 <- split_imp_sat_columns(opportunity_score_group_1)
-#   
-#   opportunity_score_group_1<- calculate_opportunity_score(opportunity_score_group_1) %>%
-#     mutate(opportunity_score=if_else(imp<sat,imp,imp+imp-sat)) %>%
-#     arrange(desc(opportunity_score)) %>%
-#     mutate(segment_name=factor_a)
-#   
-#   opportunity_calc_group_2 <- your_data_frame %>%
-#     filter(column_to_split_on==factor_b)
-#   
-#   opportunity_columns_group_2 <- find_imp_sat_columns(opportunity_calc_group_2)
-#   
-#   opportunity_score_group_2 <- calculate_imp_sat_score(opportunity_columns_group_2) 
-#   
-#   opportunity_score_group_2 <- split_imp_sat_columns(opportunity_score_group_2)
-#   
-#   opportunity_score_group_2<- calculate_opportunity_score(opportunity_score_group_2) %>%
-#     mutate(opportunity_score=if_else(imp<sat,imp,imp+imp-sat)) %>%
-#     arrange(desc(opportunity_score)) %>%
-#     mutate(segment_name=factor_b)
-#   
-#   merged_opportunity_data_frame <- rbind(opportunity_score_group_1,opportunity_score_group_2)
-#   
-#   pivoted_opportunity <- merged_opportunity_data_frame %>%
-#     pivot_wider(objective,
-#                 names_from = c(segment_name),
-#                 values_from = opportunity_score) %>% 
-#     mutate(objective=as_factor(objective))  
-#   return(pivoted_opportunity)
-# }
+# * Get NPS Score Graph ---------------------------------------------------
+plot_nps_score <- function(your_data_frame,nps_score,nps_sample_size){
+  plot <- your_data_frame %>%
+    filter(!is.na(net_promoter_score)) %>%
+    ggplot(aes(net_promoter_score,fill=nps_groups)) + geom_bar() + 
+    scale_fill_manual(values=c("red", "yellow","green")) +
+    labs(title=paste0("US GGS Net Promoter Score = ",nps_score),subtitle=paste0("Sample size= ",nps_sample_size),x="Net Promoter Score",y="Number of Sellers",color="",fill="NPS Group", size="")+#,caption=paste0("Data as of ",today()) ,caption="NYC Research Team" ,caption=paste0("Created ",today())
+    theme(text=element_text(family = "Roboto"),
+          panel.grid.major = element_line(color = "#DAE1E7"),
+          panel.background = element_blank(),axis.text = element_text(size = 12),
+          axis.text.x = element_text(margin = margin(t = 5),hjust = 1),#angle=90
+          axis.text.y = element_text(margin = margin(r = 5)),
+          axis.title = element_text (size = 15),
+          axis.line = element_line(),
+          axis.title.y = element_text(margin = margin(r = 10), hjust = 0.5),
+          axis.title.x = element_text(margin = margin(t = 10), hjust = 0.5),
+          plot.caption = element_text(size = 8,
+                                      margin = margin(t = 10),
+                                      color = "#3D4852"), 
+          title = element_text (size = 15,margin = margin(b = 10)),) +
+    guides(color=FALSE) +
+    expand_limits(x=0,y=0)
+  save_yo_file_png_take_file_name(plot,"US_GGS_NPS_Score")
+}
 
-
-
-
-
-# ** Compare Two Factors: IMP-SAT-OPP DEP ---------------------------------
-# compare_two_groups_opportunities <- function(opportunity_data_frame_1,opportunity_data_frame_2){
-#     
-#   merged_opportunties <- rbind(opportunity_data_frame_1,opportunity_data_frame_2)
-#   pivoted_opportunities <- merged_opportunties %>%
-#     pivot_wider(objective,
-#                 names_from = c(segment_name),
-#                 values_from = opportunity_score) %>% 
-#     mutate(objective=as_factor(objective)) 
-#     # mutate(difference=segment_name-) %>%
-#     # mutate(objective = fct_reorder(objective, difference, .fun='max' ))
-#   return(pivoted_opportunities)
-# }
+# * Likelihood to Renew Graph ---------------------------------------------
+plot_ltr <- function(your_data_frame,ltr_score,ltr_sample_size){
+  plot_ltr <-  your_data_frame %>%
+    filter(!is.na(likelihood_to_renew)) %>%
+    ggplot(aes(likelihood_to_renew,fill=likelihood_to_renew))+geom_bar() + 
+    labs(title=paste0("Seller Likelihood to Renew: ",ltr_score,"%"),subtitle=paste0("Sample Size = ",ltr_sample_size),x="Likelihood to Renew",y="Number of Sellers",color="",fill="", size="",caption=paste0("Data as of ",today()))+
+    theme(text=element_text(family = "Roboto"),
+          panel.grid.major = element_line(color = "#DAE1E7"),
+          panel.background = element_blank(),axis.text = element_text(size = 12),
+          axis.text.x = element_text(margin = margin(t = 5)),#hjust = 1,angle=90
+          axis.text.y = element_text(margin = margin(r = 5)),
+          axis.title = element_text (size = 15),
+          axis.line = element_line(),
+          axis.title.y = element_text(margin = margin(r = 10), hjust = 0.5),
+          axis.title.x = element_text(margin = margin(t = 10), hjust = 0.5),
+          plot.caption = element_text(size = 8,
+                                      margin = margin(t = 10),
+                                      color = "#3D4852"), 
+          title = element_text (size = 15,margin = margin(b = 10)),) +
+    guides(fill=FALSE) +
+    expand_limits(x=0,y=0)
+  save_yo_file_png(plot_ltr,"US_GGS_Likelihood_to_Renew")
+}
 
 # * TODO * ----------------------------------------------------------------
 # * Add table Stakes Flag to Opportunity Score Calculation ----------------
@@ -1229,7 +1481,7 @@ print_data_table_general_population <- function(your_data_frame,deparsed_column_
        rowname_col = "Objective") %>%
     tab_header(
       title = md(paste0('Top Opportunities: ',project_name_short)),
-      # subtitle = md("Data US Alibaba users find most helpful when selecting a supplier")
+      subtitle = html(paste0("Sample: ",sample_description))
     ) %>%
     tab_options(
       column_labels.border.bottom.color = "black",
@@ -1254,7 +1506,7 @@ print_data_table_general_population <- function(your_data_frame,deparsed_column_
       style = cell_text(color = "black", weight = "bold"),
       locations = list(
         cells_row_groups(),
-        cells_column_labels(everything())))
+        cells_column_labels(everything())))  
     file_name <- paste0(project_name,"-",deparsed_column_name,"-table-",lubridate::today(),'.png')
     file_name_backup <- paste0("/Users/crogers/Work-Analysis/Output/",project_name,"-",deparsed_column_name,"-table-",lubridate::today(),'.png')
     gtsave(modified_data_frame,file_name)
@@ -1266,7 +1518,7 @@ print_data_table_compare_2 <- function(your_data_frame,deparsed_column_name,file
   columns_of_interest <- c(1:9)
   row_count<- nrow(your_data_frame)
   segement_name <- str_to_title(str_replace_all(deparsed_column_name,"_"," "))
-
+  
   modified_data_frame <- your_data_frame %>%
     select(all_of(columns_of_interest)) %>%
     rename(pctDiff=pct_diff)%>%
@@ -1275,6 +1527,7 @@ print_data_table_compare_2 <- function(your_data_frame,deparsed_column_name,file
            factor_a_opp=.[[7]],
            factor_b_opp=.[[8]]) 
 
+  
   factor_a_opp <- names(your_data_frame[7]) %>%
     str_replace_all(.,"opportunity_score_","") %>%
     str_to_title(.)
@@ -1290,7 +1543,7 @@ print_data_table_compare_2 <- function(your_data_frame,deparsed_column_name,file
            `Objective`=objective,
            !!factor_a_opp:=factor_a_opp,
            !!factor_b_opp:=factor_b_opp) %>%
-    dplyr::relocate(pctDiff,.after = everything()) %>%
+    dplyr::relocate(pctDiff,.after = everything())  %>%
     gt(groupname_col = "Sourcing Stage",
        rowname_col = "Objective") %>%
     tab_header(
@@ -1298,15 +1551,15 @@ print_data_table_compare_2 <- function(your_data_frame,deparsed_column_name,file
       subtitle = html(paste0("Sample: ",factor_a_opp_name," group N = ",sample_size_factor_a," & ",factor_b_opp_name," group N = ",sample_size_factor_b))
     )  %>%
     tab_spanner(
-      label = "Importance", 
+      label = "Importance",
       columns = 3:4
     ) %>%
     tab_spanner(
-      label = "Satisfaction", 
+      label = "Satisfaction",
       columns = 5:6
     ) %>%
     tab_spanner(
-      label = "Opportunities", 
+      label = "Opportunities",
       columns = 9:10
     ) %>%
     tab_options(
@@ -1329,7 +1582,9 @@ print_data_table_compare_2 <- function(your_data_frame,deparsed_column_name,file
         cells_row_groups(),
     cells_column_labels(everything()))) %>%
      cols_hide(
-       columns = c(7:8))
+       columns = c(7:8)) %>%
+    cols_align(align = "right",
+               columns = "pctDiff")
   file_name <- paste0(project_name,"-",deparsed_column_name,"-",file_type,lubridate::today(),'.png')
   file_name_backup <- paste0("/Users/crogers/Work-Analysis/Output/",project_name,"-",deparsed_column_name,"-",file_type,"-",lubridate::today(),'.png')
   gtsave(modified_data_frame,file_name)
@@ -1467,9 +1722,25 @@ save_yo_file_csv <- function(data_frame,project_name){
 }
 
 
+# * Save Current Survey Data for Historical Analysis ----------------------
+save_yo_file_historical_csv <- function(data_frame,historical_data_frame){
+  file_name <- "current_survey_data"
+  write.csv(data_frame,paste0(project_name,"-",file_name,"-",lubridate::today(),".csv"))
+  write.csv(data_frame,paste0("/Users/crogers/Work-Analysis/Output/",project_name,"-",file_name,"-",lubridate::today(),".csv"))
+  write.csv(data_frame,paste0("/Users/crogers/Work-Analysis/Seller Analysis/Seller Satisfaction Analysis/Previous_Survey_Findings/",project_name,"-",file_name,"-",lubridate::today(),".csv"))
+  merged_data_frame <- rbind(data_frame,historical_data_frame)
+  write.csv(merged_data_frame,paste0("/Users/crogers/Work-Analysis/Seller Analysis/Seller Satisfaction Analysis/Previous_Survey_Findings/","previous_survey_data",".csv"))
+   return(merged_data_frame)
+}
 # * Save - Plot -----------------------------------------------------------
-save_yo_file_png <- function(data_frame){
-  file_name <- deparse(substitute(data_frame))
+save_yo_file_png <- function(your_data_frame){
+  file_name <- deparse(substitute(your_data_frame))
+  ggsave(paste0(project_name,"-",file_name,"-",lubridate::today(),".png"),your_data_frame, width=15, height=10)
+  ggsave(paste0("/Users/crogers/Work-Analysis/Output/",project_name,"-",file_name,"-",lubridate::today(),".png"),your_data_frame, width=15, height=10)
+}
+
+# Save - Plot: Manual Name ------------------------------------------------
+save_yo_file_png_manual_name <- function(data_frame,file_name){
   ggsave(paste0(project_name,"-",file_name,"-",lubridate::today(),".png"),data_frame, width=15, height=10)
   ggsave(paste0("/Users/crogers/Work-Analysis/Output/",project_name,"-",file_name,"-",lubridate::today(),".png"),data_frame, width=15, height=10)
 }
@@ -1520,3 +1791,14 @@ save_yo_file_png_take_file_name <- function(plot,file_name){
 # Explanatory Analys ------------------------------------------------------
 
 
+
+
+# Stylistic Changes -------------------------------------------------------
+
+# * Title Case ------------------------------------------------------------
+# transform_strings_to_title_case <- function(your_data_frame){
+#   your_data_frame  <- your_data_frame %>%
+#     rename_all(.,~str_replace_all(.,"_"," ")) %>%
+#     rename_all(.,~str_to_title(.))
+#   return(your_data_frame)
+# }
