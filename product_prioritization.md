@@ -8,6 +8,7 @@ If the situation is low risk (e.g. it's a quick feature to build), you can proce
 <p align="center">
   <img src="https://user-images.githubusercontent.com/1085160/93369064-ccfb1080-f81c-11ea-9d9b-0eab73aa9498.png" width="400" height="400">
 </p>
+
 ## Process for High-Risk Situations
 Determine the [Net Present Value](https://github.com/charlesrogers/product_research/blob/master/research_resources/research_frameworks.md#net-present-value) of each of the solutions.
 The calculation is not meant to be exact, but meant to be a way of comparing different options **and** evaluating the core risks that undergird your assumptions.
