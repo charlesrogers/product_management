@@ -12,6 +12,7 @@ If the situation is low risk (e.g. it's a quick feature to build), you can proce
 Determine the [Net Present Value](https://github.com/charlesrogers/product_research/blob/master/research_resources/research_frameworks.md#net-present-value) of each of the solutions.
 The calculation is not meant to be exact, but meant to be a way of comparing different options **and** evaluating the core risks that undergird your assumptions.
 Over time, you are able to see collect base rates that can be used to improve future estimates.
+
 ### Calulation of NPV for Product Features
 The basic calculation is as follows:  
 Net Present Value = Likelihood to adopt * Number of Users * Incremental Value * Probability of Success 
