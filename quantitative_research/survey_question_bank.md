@@ -52,13 +52,16 @@
     + 51 years or more
 + Business Type
   + Which of the following best describes your company's "business type"?
+    + Personal use
     + Wholesaler/distributor - Buy products produced by other companies and sell to retailers or other businesses
     + Retailer - Sell products to consumers that were produced by other companies
     + Brand - design products (often with your logo on them) that are resold
     + Contract manufacturer - Manufacture products based on the designs or specifications of others
     + Raw material producer - growing crops, mining, extracting raw materials
-    + Trading Company - trade on behalf of other companies, typically don't store inventory, often help find suppliers
+    + Trading company - trade on behalf of other companies, typically don't store inventory, often help find suppliers
     + Import/export company - focus on helping companies get their products in/out of a specific country (less focused on helping them find suppliers)
+    + Service business - Companies that provide non-tangible products. For example, Law firm, Hair Salon...
+    Government Organization
 + Product End Use
   + Which of the following best describes the primary use of the products you source?
     + Internal use
