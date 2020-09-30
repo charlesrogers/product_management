@@ -16,15 +16,16 @@ The less data we have the more general we should make the insight
 3. Create model
 4. Test
 5. Create causal model
+6. Ask why the model could be incorrect
 ### Please refer to this document for more information: "MODEL CREATION"
 ## How to Write an Insight
 This is just one suggestion:
 1. Write 1 sentence for each interesting, remarkable, poignant, peculiar, or confusing thing you observed—this ideally will just involve looking through your key findings for each interview and selecting anything that still seems interesting after letting it sit for a while.
 2. Flush out the reason why it is interesting
-a. Ask "why" until it is no longer interesting.
+  + Ask "why" until it is no longer interesting.
 3. Explore what likely caused the observation to happen.
 4. Establish the bounds around which the insight is applicable 
-a. Eg.
+  + Eg. "Only until they hire a second person and they have more free time"
 ## Standard Output Format
 This is not required, but often a useful way to present a finding
 ### Headline
@@ -71,7 +72,7 @@ Below is an example of a true statement that feels like it could do more
 >Users that take the time to talk and evaluate vendors in more depth tend to have high satisfaction levels because they are making sure the supplier will meet their requirements.
 This statement is very likely true, I just want to quickly explore out loud what "independent information" it provides—in other words, what does it teach us that couldn't be already explained by something else. I am borrowing this concept (likely very incorrectly) from "mutual information".
 If we anonymize the statement up 2 levels, we could convert it to:
-2. buyers who do {x{ experience {y}
+1. buyers who do {x{ experience {y}
 and then down one level:
 1. buyers who {do the right thing} experience {satisfaction}
 It's sort of like saying "the people who are most successful work the hardest."
