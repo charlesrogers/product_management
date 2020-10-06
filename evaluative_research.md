@@ -67,6 +67,17 @@ a.
 7. Why
 8. Who
 
+## Post-Release Analysis
+Let's walk through how we could analyze success of a feature
+There are two levels we can measure at:
+1. Satisfaction in accomplishing the objective(s) which it was designed to support
+1. General Satisfaction
+The former is ideal because it more directly answers if we did what we set out to do. Focusing on the general satisfaction involves other factors that could muddy the water.
+
+If we focus on the objective-specific objective we need to go back and understand for what end the feature was created... *NB: Oftentime there is not one clear objective in mind when a feature is created, either because it is a solution looking for a problem, it has been forgotten, or it is trying to solve multiple problems*.
+Once we determine what the feature was intended to solve we can compare how satisfied those who use and do not used the feature are with the time it takes to accomplish the previously identified objective.
+Over a longer period of time you can track their montly usage, a time-based metric (how quickly they can do their objective), and their retention rate vs the control group.
+
 --- TO MERGE:
 ---
 # Evaluative Research
