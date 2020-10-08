@@ -23,3 +23,8 @@ Metawork
 ## How to Get People to *Use* What You Build
 The mixed methods approach adopted from ODI is primarily focused on *what* people want, while [JTBD by the Rewired group](https://github.com/charlesrogers/product_research/blob/master/customers_acquisition.md) is often focused on *how* to get people to buy.
 Getting people to buy requires you to understand the causal forces that promote their search and then the contextual forces that guide their decision making process (and then be close enough on the functionality they need). In other words, it's possible to build the right thing but not ever get any customers because it doesn't look like what they are looking for, nor is it where they are looking.
+
+## What to read next
+Now that you have an overview of what can be done, it's up to you to decide where you are:
++ If you know what your customers want but don't know how to get them to buy, look into the Customer Acquisition methodologies
++ If you know what your customers are trying to accomplish but don't know what 
