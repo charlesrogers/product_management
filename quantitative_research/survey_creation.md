@@ -57,8 +57,10 @@ Depending on the length and skip-logic, the survey should take anywhere from 2-4
   + Add a introduction on the first page of survey
   + Create the pages first
   + Give each page a descriptive name
+  + Add questions
+  + Add skip logic
 + Matrix questions
-  + Randomize rows for Matrix questions
+  + ~Randomize rows for Matrix questions~
 + PUT THE EMAIL ADDRESS QUESTION on the first page
 + Survey Final Check: 1 hour per x words to do the final testing
   + Custom Questions/Piping Logic: Ensure you didn't accidentally change the order
