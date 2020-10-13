@@ -115,11 +115,11 @@
   + High priority
   + Extremely high priority
 + Agreement
-  + Strongly Disagree
+  + Strongly disagree
   + Disagree
-  + Undecided
+  + Neither agree nor disagree
   + Agree
-  + Strongly Agree
+  + Strongly agree
 + Useful
   + Not at all useful
   + Slightly useful
