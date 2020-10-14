@@ -30,6 +30,16 @@ We want to determine a few things:
 
 #### Mutual Information
 
+## How to Group Objectives
+Users' objectives can be grouped in various ways, but perhaps the two most interesting are:
+1. What they are trying to achieve:
+   + Minimize time
+   + Minimize cost
+   + Minimize mistakes
+   + *Minimize risk likely shouldn't be included as each of the above is could be considered a type of risk*
+2. In which stage of the process they are found
+    + Evaluating
+    + Monitoring
 
 ---
 ## Cut Copy
