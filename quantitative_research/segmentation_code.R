@@ -24,7 +24,6 @@ add_to_current_survey_data <- function(your_output_column,column_name){
 }
 
 # * Load & Clean Data - Master Function -----------------------------------
-
 load_and_rename_data_survey_monkey <- function(your_data_path_as_string){
   raw_data_frame <- read_csv(your_data_path_as_string)
   col_names <- get_column_names_survey_monkey(raw_data_frame)
@@ -153,6 +152,8 @@ recode_qualitative_to_quantitative <- function(your_data_frame){
   your_data_frame <- as.data.frame(your_data_frame)
   your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Extremely satisfied"] <- 5; x})
   your_data_frame <- as.data.frame(your_data_frame)
+  your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Extremely Satisfied"] <- 5; x})
+  your_data_frame <- as.data.frame(your_data_frame)
   your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Extremely satisfied"] <- 5; x})
   your_data_frame <- as.data.frame(your_data_frame)
   your_data_frame <- apply(your_data_frame,2,function(x){x[x=="extremely important"] <- 5; x})
@@ -182,6 +183,8 @@ recode_qualitative_to_quantitative <- function(your_data_frame){
   your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Very satisfied"] <- 4; x})
   your_data_frame <- as.data.frame(your_data_frame)
   your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Very satisfied"] <- 4; x})
+  your_data_frame <- as.data.frame(your_data_frame)
+  your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Very Satisfied"] <- 4; x})
   your_data_frame <- as.data.frame(your_data_frame)
   your_data_frame <- apply(your_data_frame,2,function(x){x[x=="very interested"] <- 4; x})
   your_data_frame <- as.data.frame(your_data_frame)
@@ -213,7 +216,13 @@ recode_qualitative_to_quantitative <- function(your_data_frame){
   your_data_frame <- as.data.frame(your_data_frame)
   your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Moderately likely"] <- 3; x})
   your_data_frame <- as.data.frame(your_data_frame)
+  your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Slightly likely"] <- 2; x})
+  your_data_frame <- as.data.frame(your_data_frame)
+  your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Slightly likely"] <- 2; x})
+  your_data_frame <- as.data.frame(your_data_frame)
   your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Satisfied"] <- 3; x})
+  your_data_frame <- as.data.frame(your_data_frame)
+  your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Moderately Satisfied"] <- 3; x})
   your_data_frame <- as.data.frame(your_data_frame)
   your_data_frame <- apply(your_data_frame,2,function(x){x[x=="satisfied"] <- 3; x})
   your_data_frame <- as.data.frame(your_data_frame)
@@ -249,6 +258,10 @@ recode_qualitative_to_quantitative <- function(your_data_frame){
   your_data_frame <- as.data.frame(your_data_frame)
   your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Not that satisfied"] <- 2; x})
   your_data_frame <- as.data.frame(your_data_frame)
+  your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Slightly Satisfied"] <- 2; x})
+  your_data_frame <- as.data.frame(your_data_frame)
+  your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Not at all Important"] <- 1; x})
+  your_data_frame <- as.data.frame(your_data_frame)
   your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Not at all important"] <- 1; x})
   your_data_frame <- as.data.frame(your_data_frame)
   your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Not at all important"] <- 1; x})
@@ -264,6 +277,10 @@ recode_qualitative_to_quantitative <- function(your_data_frame){
   your_data_frame <- apply(your_data_frame,2,function(x){x[x=="not at all interested"] <- 1; x})
   your_data_frame <- as.data.frame(your_data_frame)
   your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Not at all satisfied"] <- 1; x})
+  your_data_frame <- as.data.frame(your_data_frame)
+  your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Not at all Satisfied"] <- 1; x})
+  your_data_frame <- as.data.frame(your_data_frame)
+  your_data_frame <- apply(your_data_frame,2,function(x){x[x=="Not at all Satisfied"] <- 1; x})
   your_data_frame <- as.data.frame(your_data_frame)
   your_data_frame <- apply(your_data_frame,2,function(x){x[x=="not at all satisfied"] <- 1; x})
   your_data_frame <- as.data.frame(your_data_frame)
@@ -297,7 +314,7 @@ get_likelihood_to_renew <- function(your_data_frame){
   ltr_score<- round((probability_of_renewal_df$ltr_pct)*100,0)
   ltr_sample_size <- probability_of_renewal_df$n
   
-  plot_ltr(your_data_frame,ltr_score,ltr_sample_size)
+  # plot_ltr(your_data_frame,ltr_score,ltr_sample_size)
   return(ltr_score)
 }
 
@@ -418,9 +435,75 @@ get_sample_size <- function(your_data_frame){
     nrow()
   return(sample_size)
 }
+
+# * Data Quality Checks ---------------------------------------------------
+# This score is calculated from 0 to 1, the lower the score, the lower the quality
+get_data_quality_score <- function(your_data_frame,quality_threshold) {
+  # data_frame_imp_sat <- find_imp_sat_columns(your_data_frame)
+  df_with_variables <- get_survey_completion_duration(your_data_frame)
+  df_with_variables <- get_sd_of_likert_survey_responses(df_with_variables)
+  df_with_variables <- get_respondent_pass_fail_status(df_with_variables)
+  
+  # df_with_variables <- df_with_variables %>%
+  #   filter(survey_quality_score==quality_threshold)
+  
+  return(df_with_variables)
+}
+# * * Chi-Squared Test ----------------------------------------------------
+
+# * * Standard Deviation Test ---------------------------------------------
+get_sd_of_likert_survey_responses <- function(your_data_frame){
+  df_with_sd <- your_data_frame %>%
+    select(starts_with("imp__"),starts_with("sat__"),respondent_id) %>%
+    pivot_longer(-respondent_id) %>%
+    filter(!is.na(value)) %>% 
+    group_by(respondent_id) %>%
+    mutate(standard_deviation_of_responses=sd(as.numeric(value))) %>%
+    ungroup() %>% 
+    select(respondent_id,standard_deviation_of_responses) %>%
+    distinct(respondent_id,standard_deviation_of_responses) 
+  your_data_frame <- your_data_frame %>%
+    left_join(df_with_sd)
+  return(your_data_frame)
+}
+
+# * * Calculate Respondent Pass/Fail --------------------------------------
+get_respondent_pass_fail_status <- function(your_data_frame){
+  your_data_frame <- your_data_frame %>%
+    mutate(survey_quality_score=if_else(standard_deviation_of_responses>.8,1,0))
+  return(your_data_frame)
+}
+
+# * * Time Test -----------------------------------------------------------
+## Take the start and end time and use lubridate
+get_survey_completion_duration <- function(your_data_frame){
+  df_with_survey_duration_in_seconds <- your_data_frame %>% 
+    mutate(start_date=mdy_hms(start_date),
+           end_date=mdy_hms(end_date),
+           survey_duration=as.period(end_date-start_date),
+           survey_duration_in_seconds=time_length(survey_duration)) %>%
+    select(everything(),-survey_duration)
+  return(df_with_survey_duration_in_seconds)
+}
+
+# * * Trap Question Test --------------------------------------------------
+## binary fail
+# * * Question Variability Test -------------------------------------------
+## 
 # * Opportunity Functions --------------------------------------------------
-# ** Find Importance Columns ----------------------------------------------
+
+# * * Find Imp & Sat Columns ----------------------------------------------
 find_imp_sat_columns <- function(your_data_frame){
+  importance_count <- your_data_frame %>%
+    select(starts_with("imp__")) %>%
+    ncol()
+  satisfaction_count <- your_data_frame %>%
+    select(starts_with("sat__")) %>%
+    ncol()
+  
+  if (importance_count!=satisfaction_count){
+    stop("The number of Importance & Satisfaction columns do not match")  
+  }
   imp_columns <- your_data_frame %>%
     select(starts_with("imp_"))
   sat_columns <- your_data_frame %>%
@@ -477,7 +560,8 @@ calculate_pop_pct_score <- function(objectives){
 split_imp_sat_columns <- function(data_frame_imp_sat){
   data_frame_imp_sat_split <-  data_frame_imp_sat %>%
     separate(objective_name,"__",into = c("imp_sat","objective"),remove = FALSE)
-  return(data_frame_imp_sat_split)
+  
+  return(data_frame_imp_sat_split)  
 }
 
 # ** Calculate Opportunity Score ------------------------------------------
@@ -494,7 +578,7 @@ calculate_opportunity_score <- function(data_frame_split) {
 
 # ** Opportunity - Total Population ---------------------------------------
 get_imp_sat_opp_scores_total_population <- function(your_data_frame){
-
+  sample_size <- get_sample_size(your_data_frame)
   opportunity_columns_group_1 <- find_imp_sat_columns(your_data_frame)
   opportunity_score_group_1 <- calculate_pop_pct_score(opportunity_columns_group_1)  
   opportunity_score_group_1 <- split_imp_sat_columns(opportunity_score_group_1)
@@ -510,14 +594,23 @@ get_imp_sat_opp_scores_total_population <- function(your_data_frame){
                 values_from = c(imp,sat,opportunity_score,rank)) %>%
     mutate(objective=as_factor(objective)) %>%
     separate(objective,sep="([.])",into= c("sourcing_stage","objective")) %>%
+    separate(sourcing_stage,sep="([1])",into= c("sourcing_stage","objective_type")) %>%
     # mutate(max_opportunity=rank()) %>%
     # arrange(max_opportunity) %>%
     mutate_if(is.numeric,round,1) %>%
     mutate(objective=factor(objective, levels=objective)) 
-  deparsed_column_name <- "total_opportunity"
-  
+  View(importance_satisfaction_opportunity)
+  deparsed_column_name <- "total_opportunity_by_stage"
   importance_satisfaction_opportunity %>%
-    print_data_table_general_population(.,deparsed_column_name)
+    print_data_table_general_population_group_by_stage(.,deparsed_column_name,sample_size)
+  
+  deparsed_column_name_by_type <- "total_opportunity_by_type"
+  importance_satisfaction_opportunity %>%
+    print_data_table_general_population_group_by_tyoe(.,deparsed_column_name_by_type,sample_size)
+
+  opportunity_graph_data_frame <- prep_data_frame_for_opportunity_graph(importance_satisfaction_opportunity)
+  plot_cartesian <- get_opportunity_score_graph_population(opportunity_graph_data_frame)
+  save_yo_file_png_take_file_name(plot_cartesian,paste0(deparsed_column_name,"_plot__opportunity_score"))
   
   return(importance_satisfaction_opportunity)
 }
@@ -731,13 +824,7 @@ get_opportunities_by_stage <- function(your_data_frame){
   return(stage_opportunity_count)
 }
 
-
-
-
-
-
 # SEGMENTATION ------------------------------------------------------------
-
 get_abs_difference <- function(your_data_frame){
   segment_name <- deparse(substitute(your_data_frame)) 
   new_data_frame <- your_data_frame %>%
@@ -1085,38 +1172,175 @@ get_market_size_by_segment <- function(your_data_frame,column_to_split_on){
 
 # SUMMARIZE ---------------------------------------------------------------
 
+# * Histogram -------------------------------------------------------------
 get_historgram <- function(your_data_frame,column_name,title_string){
-    file_save_name <- paste0("plot ",title_string)
-    file_save_name <-  str_replace_all(file_save_name,pattern = " ",replacement = "_")
-    sample_size <- get_sample_size_general(your_data_frame,column_name)
-    plot  <- your_data_frame %>%
-      filter(!is.na(!!as.name(column_name))) %>%
-      group_by(!!as.name(column_name))%>%
-      count(column_name = factor(column_name)) %>%
-      ggplot(aes(x=fct_rev(!!as.name(column_name)), y=n,fill = !!as.name(column_name))) +
-      geom_col()+
-      coord_flip()+
-      labs(title=title_string,subtitle=paste0("Sample: ",sample_size),x="",y="Count",color="",fill="", size="")+#,caption=paste0("Data as of ",today()) ,caption="NYC Research Team" ,caption=paste0("Created ",today())
-      theme(text=element_text(family = "Roboto"),
-            panel.grid.major = element_line(color = "#DAE1E7"),
-            panel.background = element_blank(),axis.text = element_text(size = 12),
-            axis.text.x = element_text(margin = margin(t = 5)),#hjust = 1,angle=90
-            axis.text.y = element_text(margin = margin(r = 5)),
-            axis.title = element_text (size = 15),
-            axis.line = element_line(),
-            axis.title.y = element_text(margin = margin(r = 10), hjust = 0.5),
-            axis.title.x = element_text(margin = margin(t = 10), hjust = 0.5),
-            plot.caption = element_text(size = 8,
-                                        margin = margin(t = 10),
-                                        color = "#3D4852"), 
-            title = element_text (size = 15,margin = margin(b = 10)),) +
-      guides(fill=FALSE) +
-      expand_limits(x=0,y=0) 
-    save_yo_file_png_take_file_name(plot,file_save_name)
-    return(plot)
-  }
-# * Batch Summarization ---------------------------------------------------
+  file_save_name <- paste0("plot ",title_string)
+  file_save_name <-  str_replace_all(file_save_name,pattern = " ",replacement = "_")
+  sample_size <- get_sample_size_general(your_data_frame,column_name)
+  plot  <- your_data_frame %>%
+    filter(!is.na(!!as.name(column_name))) %>%
+    group_by(!!as.name(column_name))%>%
+    count(column_name = factor(column_name)) %>%
+    ungroup() %>%
+    mutate(total_sum=sum(n),
+          factor_pct = n/total_sum) %>%
+    ggplot(aes(x=reorder(!!as.name(column_name),n), y=n,fill = !!as.name(column_name)))+#, label = scales::percent(factor_pct)) +
+    geom_col(position = 'dodge') + 
+    # geom_text(stat = "count", aes(label = after_stat(count)), vjust = -1)+
+    # geom_text(label = n,
+    #           position = position_dodge(width = .9),    # move to center of bars
+    #           vjust = -0.5,    # nudge above top of bar
+    #           size = 3) +
+    # scale_y_continuous(labels = scales::percent) +
+    coord_flip()+
+    # labs(title=title_string,x="",y="Count",color="",fill="", size="", caption=paste0("Data as of ",today(), "\nAlibaba NYC Research Team")) +
+    labs(title=title_string,subtitle=paste0("Sample: ",sample_size),x="",y="Count",color="",fill="", size="", caption=paste0("Data as of ",today(), "\nAlibaba NYC Research Team")) +
+    theme(text=element_text(family = "Roboto"),
+          panel.grid.major = element_line(color = "#DAE1E7"),
+          panel.background = element_blank(),axis.text = element_text(size = 12),
+          axis.text.y = element_text(margin = margin(t = 5),size=10),
+          axis.text.x = element_text(margin = margin(r = 5),size=10),
+          axis.title = element_text (size = 12),
+          axis.line = element_line(),
+          axis.title.y = element_text(margin = margin(r = 10), hjust = 0.5),
+          axis.title.x = element_text(margin = margin(t = 10), hjust = 0.5),
+          plot.caption = element_text(size = 8,
+                                      margin = margin(t = 10),
+                                      color = "#3D4852"), 
+          title = element_text (size = 12,margin = margin(b = 10)),) +
+    guides(fill=FALSE) +
+    expand_limits(x=0,y=0) 
+  save_yo_file_png_take_file_name(plot,file_save_name)
+  return(plot)
+}
+
+
+# * Get Histogram: PCT ----------------------------------------------------
+get_historgram_pct <- function(your_data_frame,column_name,title_string){
+  file_save_name <- paste0("plot ",title_string)
+  file_save_name <-  str_replace_all(file_save_name,pattern = " ",replacement = "_")
+  sample_size <- get_sample_size_general(your_data_frame,column_name)
+  your_data_frame$as.name(column_name) <- as.numeric(as.character(your_data_frame$column_name))
+  plot  <- your_data_frame %>%
+    select(!!as.name(column_name))%>%
+    #mutate(!!as.name(column_name)=fct_reorder(!!as.name(column_name),!!as.name(column_name),.fun='length' )) %>%
+    filter(!is.na(!!as.name(column_name))) %>%
+    # group_by(!!as.name(column_name))%>%
+    pivot_longer(!!as.name(column_name)) %>%
+    na.omit() %>%
+    count(value,name) %>%
+    mutate(total_sum=sum(n),
+           pct = prop.table(n)) %>%
+    ggplot(aes(y=pct,x=reorder(value,pct), fill=value, label = scales::percent(pct))) +
+    geom_col() + coord_flip()+
+    geom_text(aes(label=scales::percent(pct)), position = position_nudge(y = 0.025)) + 
+    
+    # count(column_name = factor(column_name)) %>%
+    # ungroup() %>%
+    # mutate(total_sum=sum(n),
+    #        factor_pct = n/total_sum) %>%
+    # ggplot(aes(x=reorder(!!as.name(column_name),n), y=n,fill = !!as.name(column_name)))+#, label = scales::percent(factor_pct)) +
+    # geom_col(position = 'dodge') + 
+    # coord_flip()+
+    labs(title=title_string,subtitle=paste0("Sample: ",sample_size),x="",y="Count",color="",fill="", size="", caption=paste0("Data as of ",today(), "\nAlibaba NYC Research Team")) +
+    theme(text=element_text(family = "Roboto"),
+          panel.grid.major = element_line(color = "#DAE1E7"),
+          panel.background = element_blank(),axis.text = element_text(size = 12),
+          axis.text.y = element_text(margin = margin(t = 5),size=10),
+          axis.text.x = element_text(margin = margin(r = 5),size=10),
+          axis.title = element_text (size = 12),
+          axis.line = element_line(),
+          axis.title.y = element_text(margin = margin(r = 10), hjust = 0.5),
+          axis.title.x = element_text(margin = margin(t = 10), hjust = 0.5),
+          plot.caption = element_text(size = 8,
+                                      margin = margin(t = 10),
+                                      color = "#3D4852"), 
+          title = element_text (size = 12,margin = margin(b = 10)),) +
+    guides(fill=FALSE) +
+    expand_limits(x=0,y=0) 
+  save_yo_file_png_take_file_name(plot,file_save_name)
+  return(plot)
+}
+
+# Histogram: Batch --------------------------------------------------------
 get_batch_histograms <- function(your_data_frame,column_antecedent_string,title_string){
+  file_save_name <- paste0("plot ",title_string)
+  file_save_name <-  str_replace_all(file_save_name,pattern = " ",replacement = "_")
+  sample_size <- get_sample_size_general(your_data_frame,column_antecedent_string)
+  plot  <- your_data_frame %>%
+    select(starts_with(column_antecedent_string)) %>%
+    rename_all(.,~str_replace_all(.,column_antecedent_string,"")) %>%
+    rename_all(.,~str_replace_all(.,"_"," ")) %>%
+    rename_all(.,~str_to_title(.)) %>%
+    gather() %>% 
+    filter(!is.na(value))%>%
+    group_by(key) %>%
+    count(value = factor(value)) %>% 
+    mutate(pct = prop.table(n)) %>%
+    ungroup()%>%
+    ggplot(aes(x = value, y = pct, fill = value, label = scales::percent(pct))) + 
+    geom_col(position = 'dodge') + 
+    geom_text(position = position_dodge(width = .9),    # move to center of bars
+              vjust = -0.5,    # nudge above top of bar
+              size = 3) + 
+    scale_y_continuous(labels = scales::percent) +
+    # coord_flip()+
+    facet_wrap(~ key,ncol=2)+
+    labs(title=title_string,subtitle=paste0("Sample: ",sample_size),x="",y="",color="",fill="", size="")+#,caption=paste0("Data as of ",today()) ,caption="NYC Research Team" ,caption=paste0("Created ",today())
+    theme(text=element_text(family = "Roboto"),
+          panel.grid.major = element_line(color = "#DAE1E7"),
+          panel.background = element_blank(),axis.text = element_text(size = 12),
+          axis.text.x = element_text(margin = margin(t = 5)),#hjust = 1,angle=90
+          axis.text.y = element_text(margin = margin(r = 5)),
+          axis.title = element_text (size = 15),
+          axis.line = element_line(),
+          axis.title.y = element_text(margin = margin(r = 10), hjust = 0.5),
+          axis.title.x = element_text(margin = margin(t = 10), hjust = 0.5),
+          plot.caption = element_text(size = 8,
+                                      margin = margin(t = 10),
+                                      color = "#3D4852"), 
+          title = element_text (size = 15,margin = margin(b = 10)),) +
+    guides(fill=FALSE) +
+    expand_limits(x=0,y=0) 
+  save_yo_file_png_take_file_name(plot,file_save_name)
+  return(plot)
+}
+
+# Density Plot ------------------------------------------------------------
+get_density_plot <- function(your_data_frame,column_name,title_string){
+  file_save_name <- paste0("plot ",title_string)
+  file_save_name <-  str_replace_all(file_save_name,pattern = " ",replacement = "_")
+  sample_size <- get_sample_size_general(your_data_frame,column_name)
+  plot  <- your_data_frame %>%
+    select(!!as.name(column_name))%>%
+    #mutate(!!as.name(column_name)=fct_reorder(!!as.name(column_name),!!as.name(column_name),.fun='length' )) %>%
+    filter(!is.na(!!as.name(column_name))) %>%
+    mutate(!!as.name(column_name):=as.numeric(as.character(!!as.name(column_name))))%>%
+    ggplot(aes(!!as.name(column_name))) + 
+    geom_histogram(aes(y = (..count..)/sum(..count..)),binwidth = 10) + 
+    scale_y_continuous(labels = scales::percent) + 
+    labs(title=title_string,subtitle=paste0("Sample: ",sample_size),x="",y="Percentage",color="",fill="", size="")+#,caption=paste0("Data as of ",today()) ,caption="NYC Research Team" ,caption=paste0("Created ",today())
+    theme(text=element_text(family = "Roboto"),
+          panel.grid.major = element_line(color = "#DAE1E7"),
+          panel.background = element_blank(),axis.text = element_text(size = 12),
+          axis.text.x = element_text(margin = margin(t = 5)),#hjust = 1,angle=90
+          axis.text.y = element_text(margin = margin(r = 5)),
+          axis.title = element_text (size = 15),
+          axis.line = element_line(),
+          axis.title.y = element_text(margin = margin(r = 10), hjust = 0.5),
+          axis.title.x = element_text(margin = margin(t = 10), hjust = 0.5),
+          plot.caption = element_text(size = 8,
+                                      margin = margin(t = 10),
+                                      color = "#3D4852"), 
+          title = element_text (size = 15,margin = margin(b = 10)),) +
+    guides(fill=FALSE) +
+    expand_limits(x=0,y=0)
+  
+  save_yo_file_png_take_file_name(plot,file_save_name)
+  return(plot)
+}
+# * Batch Segmentation - Horizonal ----------------------------------------
+get_batch_histograms_horizontal <- function(your_data_frame,column_antecedent_string,title_string){
   file_save_name <- paste0("plot ",title_string)
   file_save_name <-  str_replace_all(file_save_name,pattern = " ",replacement = "_")
   sample_size <- get_sample_size_general(your_data_frame,column_antecedent_string)
@@ -1138,7 +1362,7 @@ get_batch_histograms <- function(your_data_frame,column_antecedent_string,title_
               size = 3) + 
     scale_y_continuous(labels = scales::percent)+
     coord_flip()+
-    facet_wrap(~ key)+
+    facet_wrap(~ key,ncol=2)+
     labs(title=title_string,subtitle=paste0("Sample: ",sample_size),x="",y="",color="",fill="", size="")+#,caption=paste0("Data as of ",today()) ,caption="NYC Research Team" ,caption=paste0("Created ",today())
     theme(text=element_text(family = "Roboto"),
           panel.grid.major = element_line(color = "#DAE1E7"),
@@ -1175,6 +1399,79 @@ get_batch_histograms <- function(your_data_frame,column_antecedent_string,title_
 # }
 # Visulization ------------------------------------------------------------
 # How to use quosures https://ggplot2.tidyverse.org/reference/aes.html
+
+# * Opportunity Score Graph: Homogenous Grouping --------------------------
+
+# *  Opportunity Score Graph: Population ----------------------------------
+get_opportunity_score_graph_population <- function(data_frame){
+  plot <-  data_frame %>%
+    ggplot(aes(x=importance,y=satisfaction,color=opportunity,size=3))+geom_jitter(width = 0.025, height = 0.05) +
+    labs(title="Population Opportunities",subtitle="Under-Served Opportunities >= 10 Opportunity Score ",x="Importance",y="Satisfaction",color="Opportunity\nScore",fill="", size="",shape="Segment")+#,caption=paste0("Data as of ",today()) ,caption="NYC Research Team" ,caption=paste0("Created ",today())
+    theme(text=element_text(family = "Roboto"),
+          panel.grid.major = element_line(color = "#DAE1E7"),
+          panel.background = element_blank(),axis.text = element_text(size = 12),
+          axis.text.x = element_text(margin = margin(t = 5)),#hjust = 1,angle=90
+          axis.text.y = element_text(margin = margin(r = 5)),
+          axis.title = element_text (size = 15),
+          axis.line = element_line(),
+          axis.title.y = element_text(margin = margin(r = 10), hjust = 0.5),
+          axis.title.x = element_text(margin = margin(t = 10), hjust = 0.5),
+          plot.caption = element_text(size = 8,
+                                      margin = margin(t = 10),
+                                      color = "#3D4852"), 
+          title = element_text (size = 15,margin = margin(b = 10)),) +
+    guides(size=FALSE) +
+    expand_limits(x=0,y=0) +
+    annotate("segment",
+             x = 5,
+             xend=10,
+             y = 0,
+             yend=10,
+             color = "#3D4852") +
+    annotate("text", x = 7.75, y = 2,
+             hjust = 0,
+             color = "#3D4852",
+             size = 3.7,
+             label = paste0("Under-Served\nObjectives")) +
+    annotate("segment",
+             x = 0,
+             xend=10,
+             y = 0,
+             yend=10,
+             color = "#3D4852") +
+    annotate("text", x = 3, y = 2,
+             hjust = 0,
+             color = "#3D4852",
+             size = 3.7,
+             label = paste0("Appropriately-Served\nObjectives")) +
+    annotate("segment",
+             x = 0,
+             xend=10,
+             y = 0,
+             yend=10,
+             color = "#3D4852") +
+    annotate("text", x = 0.15, y = 2,
+             hjust = 0,
+             color = "#3D4852",
+             size = 3.7,
+             label = paste0("Over-Served\nObjectives")) +
+    annotate("segment",
+             x = 0,
+             xend=10,
+             y = 7.5,
+             yend=7.5,
+             color = "#3D4852") +
+    annotate("text", x = 1, y = 7.75,
+             hjust = 0,
+             color = "#3D4852",
+             size = 3.7,
+             label = paste0("Table Stakes")) +
+    scale_x_continuous(expand=c(0,0)) +
+    scale_y_continuous(expand=c(0,0)) +
+    coord_cartesian(xlim=c(0,10))
+  return(plot)
+}
+
 # *  Opportunity Score Graph: Individual ----------------------------------
 get_opportunity_score_graph_individual <- function(data_frame,segment_a,segment_b){
  plot <-  data_frame %>%
@@ -1467,7 +1764,7 @@ print_data_table <- function(your_data_frame,deparsed_column_name){
 }
 
 # * Print Data Table: General Population ----------------------------------
-print_data_table_general_population <- function(your_data_frame,deparsed_column_name){
+print_data_table_general_population_group_by_stage <- function(your_data_frame,deparsed_column_name,sample_size){
   modified_data_frame <- your_data_frame %>%
     mutate(objective=str_to_sentence(str_replace_all(objective,"_"," ")),
            sourcing_stage=str_to_title(str_replace_all(sourcing_stage,"_"," "))) %>%
@@ -1481,7 +1778,7 @@ print_data_table_general_population <- function(your_data_frame,deparsed_column_
        rowname_col = "Objective") %>%
     tab_header(
       title = md(paste0('Top Opportunities: ',project_name_short)),
-      subtitle = html(paste0("Sample: ",sample_description))
+      subtitle = html(paste0("Sample: ",sample_size))
     ) %>%
     tab_options(
       column_labels.border.bottom.color = "black",
@@ -1512,6 +1809,55 @@ print_data_table_general_population <- function(your_data_frame,deparsed_column_
     gtsave(modified_data_frame,file_name)
     gtsave(modified_data_frame,file_name_backup)
 }
+
+# Print Data Table: Group by Type -----------------------------------------
+print_data_table_general_population_group_by_tyoe <- function(your_data_frame,deparsed_column_name,sample_size){
+  modified_data_frame <- your_data_frame %>%
+    mutate(objective=str_to_sentence(str_replace_all(objective,"_"," ")),
+           sourcing_stage=str_to_title(str_replace_all(sourcing_stage,"_"," ")),
+           objective_type=str_to_title(str_replace_all(objective_type,"_"," "))) %>%
+    rename(`Opportunity Score`=opportunity_score_total_population,
+           `Importance`=imp_total_population,
+           `Satisfaction`=sat_total_population,
+           `Objective Type`=objective_type,
+           `Objective`=objective) %>%
+    select(-rank_total_population,-sourcing_stage) %>%
+    gt(groupname_col = "Objective Type",
+       rowname_col = "Objective") %>%
+    tab_header(
+      title = md(paste0('Top Opportunities: ',project_name_short)),
+      subtitle = html(paste0("Sample: ",sample_size))
+    ) %>%
+    tab_options(
+      column_labels.border.bottom.color = "black",
+      column_labels.border.bottom.width= px(3),
+      heading.align = "left"
+    ) %>%
+    tab_style(
+      style = cell_text(color = "green",weight = "normal"),
+      locations = list(
+        cells_body(
+          columns = vars(`Opportunity Score`),
+          rows = `Opportunity Score` >= 10
+        ))) %>%
+    tab_style(
+      style = cell_text(color = "darkgreen",weight = "bold"),
+      locations = list(
+        cells_body(
+          columns = vars(`Opportunity Score`),
+          rows = `Opportunity Score` >= 12
+        ))) %>%
+    tab_style(
+      style = cell_text(color = "black", weight = "bold"),
+      locations = list(
+        cells_row_groups(),
+        cells_column_labels(everything())))  
+  file_name <- paste0(project_name,"-",deparsed_column_name,"-table-",lubridate::today(),'.png')
+  file_name_backup <- paste0("/Users/crogers/Work-Analysis/Output/",project_name,"-",deparsed_column_name,"-table-",lubridate::today(),'.png')
+  gtsave(modified_data_frame,file_name)
+  gtsave(modified_data_frame,file_name_backup)
+}
+
 
 # * Print Data Table: Compare 2 -------------------------------------------
 print_data_table_compare_2 <- function(your_data_frame,deparsed_column_name,file_type,sample_size_factor_a,sample_size_factor_b){
