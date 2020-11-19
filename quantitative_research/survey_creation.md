@@ -25,6 +25,7 @@
 + Multiple Choice vs Multi-select
   + Make the list of answers mutually exclusive
   + Make each list of answers exhaustive
+  + Format each answer, gramatically, the same way such that you could use the answer in a future question via "piping logic"
 + Free text field
   + TBD
 + Multi-select
