@@ -6,6 +6,7 @@ There are many ways to uncover "pain points" in a job, and the following 4 quest
 2. Variance - "What makes [step x] unstable, unreliable, unpredictable, go off track, etc."
 3. Cost- "What makes [step x] error prone, costly, wasteful, limit its output, inefficient, etc..."
 4. I think one on efficacy belongs here... "What makes step x unsuccessful, not meet quality targets, etc..."
+
 *The first 3 are directly from the ODI methodology.*
 
 For example, "What makes selecting a vendor error prone, inefficient, etc."
