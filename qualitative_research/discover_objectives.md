@@ -1,7 +1,7 @@
 # Discover Objectives
 
-## Strategic Interviwes
-The 4 questions that are very useful are:
+## Strategic Interviews
+There are many ways to uncover "pain points" in a job, and the following 4 questions are quite useful in doing so:
 1. Speed - "What makes [step x] time consuming, slow, difficult to execute, complex, mentally taxing, etc."
 2. Variance - "What makes [step x] unstable, unreliable, unpredictable, go off track, etc."
 3. Cost- "What makes [step x] error prone, costly, wasteful, limit its output, inefficient, etc..."
