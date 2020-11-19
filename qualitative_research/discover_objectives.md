@@ -1,7 +1,12 @@
 # Discover Objectives
 
 ## Strategic Interviews
-There are many ways to uncover "pain points" in a job, and the following 4 questions are quite useful in doing so:
+### Overview of their process
+Go over their high-level process to see what they must do to accomplish their high-level objective (job).
+Sometimes drawing a a quick process diagram helps you see what you are missing in your understanding.
+###
+There are many ways to uncover "pain points" in a job, and the following 4 questions are quite useful in doing so.
+At each step of the process, ask:
 1. Speed - "What makes [step x] time consuming, slow, difficult to execute, complex, mentally taxing, etc."
 2. Variance - "What makes [step x] unstable, unreliable, unpredictable, go off track, etc."
 3. Cost- "What makes [step x] error prone, costly, wasteful, limit its output, inefficient, etc..."
