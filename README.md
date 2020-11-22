@@ -1,5 +1,5 @@
-# Product Research Process
-This document is my general research process. 
+# Product Management Process
+This document outlines my general product management process. 
 + Credentials?
 + Ethos (why did I write ethos? I don't even know what that means)
 + Request for input
