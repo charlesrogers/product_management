@@ -520,11 +520,88 @@ find_sat_columns <- function(your_data_frame){
 }
 
 # Calculate Satisfaction --------------------------------------------------
-calculate_satisfaction_score <- function(your_data_frame){
+get_satisfaction_scores <- function(your_data_frame){
   sat_columns <- find_sat_columns(your_data_frame)
+  sat_columns <- sat_columns %>% mutate_if(is.numeric,as.factor)
   satisfaction_scores <- calculate_pop_pct_score(sat_columns)
   return(satisfaction_scores)
 }
+
+
+# Calculate Satisfaction: Compare 2 ---------------------------------------
+get_satisfaction_scores.compare_2 <- function(your_data_frame,column_to_split_on,factor_a,factor_b) {
+  file_type <- "satisfaction_list_table"
+  opportunity_calc_group_1 <- your_data_frame %>%
+    filter(column_to_split_on==factor_a)
+  
+  # sample_size_factor_a<- get_sample_size(opportunity_calc_group_1)
+  
+  opportunity_score_group_1 <- get_satisfaction_scores(opportunity_calc_group_1) %>%
+    mutate(segment_name=factor_a,
+           rank=rank(desc(imp_sat_score)))
+  print(opportunity_score_group_1)
+  
+  opportunity_calc_group_2 <- your_data_frame %>%
+    filter(column_to_split_on==factor_b)
+  
+  # sample_size_factor_b<- get_sample_size(opportunity_calc_group_2)
+  
+  opportunity_score_group_2 <- get_satisfaction_scores(opportunity_calc_group_2) %>%
+    mutate(segment_name=factor_b,
+           rank=rank(desc(imp_sat_score)))
+  
+  merged_opportunity_data_frame <- rbind(opportunity_score_group_1,opportunity_score_group_2)
+  
+  # importance_satisfaction_opportunity <- merged_opportunity_data_frame %>%
+  #   pivot_wider(objective,
+  #               names_from = c(segment_name),
+  #               values_from = c(imp,sat,opportunity_score,rank)) %>%
+  #   mutate(objective=as_factor(objective)) %>%
+  #   separate(objective,sep="([.])",into= c("sourcing_stage","objective")) 
+  # deparsed_column_name <- deparse(substitute(column_to_split_on)) 
+  # deparsed_column_name <- str_split_fixed(deparsed_column_name[1],"([$])",2) %>%
+  #   as.data.frame(.) %>%
+  #   select(deparsed_column_name=V2) %>%
+  #   pluck(.,1)
+  # 
+  # importance_satisfaction_opportunity <- importance_satisfaction_opportunity %>%
+  #   mutate(group_difference=.[[7]]-.[[8]],
+  #          group_difference_score=sum(abs(group_difference)),
+  #          Opportunity_Group=case_when(.[[7]]>=10&.[[8]]>=10~paste0(factor_a,"__",factor_b),
+  #                                      .[[7]]>=10&.[[8]]<10~factor_a,
+  #                                      .[[7]]<10&.[[8]]>=10~factor_b,
+  #                                      TRUE~"None")) %>%
+  #   mutate(max_opportunity=if_else(.[[7]]>.[[8]],.[[7]],.[[8]])) %>%
+  #   mutate_if(is.numeric,round,1) %>%
+  #   arrange(max_opportunity) %>%
+  #   # mutate(max_opportunity=rank()) %>%
+  #   # arrange(max_opportunity) %>%
+  #   mutate(objective=factor(objective, levels=objective),
+  #          pct_diff=abs(group_difference/max_opportunity),
+  #          segmentation_factor=deparsed_column_name,
+  #          pct_diff=scales::percent(pct_diff,accuracy = 2))
+  # 
+  # importance_satisfaction_opportunity %>%
+  #   arrange(desc(max_opportunity))%>%
+  #   select(-group_difference_score,-max_opportunity) %>%
+  #   filter(Opportunity_Group!="None") %>%
+  #   select(-contains("rank"),-contains("group"),-contains("Group")) %>%
+  #   print_data_table_compare_2(.,deparsed_column_name,file_type,sample_size_factor_a,sample_size_factor_b)
+  # 
+  # opportunity_graph_data_frame <- prep_data_frame_for_opportunity_graph(importance_satisfaction_opportunity)
+  # 
+  # plot <- get_opportunity_score_graph_individual(opportunity_graph_data_frame,factor_a,factor_b)
+  # save_yo_file_png_take_file_name(plot,paste0(deparsed_column_name,"_plot__opportunity_score"))
+  
+  # opportunities_by_stage_group_1 <- get_opportunities_by_stage(opportunity_score_group_1)
+  # print_data_table(opportunities_by_stage_group_1,paste0("opp_by_stage-",factor_a))
+  # 
+  # opportunities_by_stage_group_2 <- get_opportunities_by_stage(opportunity_score_group_2)
+  # print_data_table(opportunities_by_stage_group_2,paste0("opp_by_stage-",factor_b))
+  
+  return(merged_opportunity_data_frame)
+}
+
 
 # ** Calculate Importance & Satisfaction ----------------------------------
 individual_data <- NULL
@@ -671,6 +748,8 @@ get_imp_sat_opp_scores_compare_2 <- function(your_data_frame,column_to_split_on,
     mutate(max_opportunity=if_else(.[[7]]>.[[8]],.[[7]],.[[8]])) %>%
     mutate_if(is.numeric,round,1) %>%
     arrange(max_opportunity) %>%
+    # mutate(max_opportunity=rank()) %>%
+    # arrange(max_opportunity) %>%
     mutate(objective=factor(objective, levels=objective),
            pct_diff=abs(group_difference/max_opportunity),
            segmentation_factor=deparsed_column_name,
@@ -1182,6 +1261,9 @@ get_historgram <- function(your_data_frame,column_name,title_string){
     group_by(!!as.name(column_name))%>%
     count(column_name = factor(column_name)) %>%
     ungroup() %>%
+    # mutate(!!as.name(column_name):=as.numeric(as.character(!!as.name(column_name))))%>%
+    # mutate(!!as.name(column_name):=as.integer(!!as.name(column_name))) %>%
+    # mutate(!!as.name(column_name):=arrange(!!as.name(column_name))) %>%
     mutate(total_sum=sum(n),
           factor_pct = n/total_sum) %>%
     ggplot(aes(x=reorder(!!as.name(column_name),n), y=n,fill = !!as.name(column_name)))+#, label = scales::percent(factor_pct)) +
@@ -1220,7 +1302,6 @@ get_historgram_pct <- function(your_data_frame,column_name,title_string){
   file_save_name <- paste0("plot ",title_string)
   file_save_name <-  str_replace_all(file_save_name,pattern = " ",replacement = "_")
   sample_size <- get_sample_size_general(your_data_frame,column_name)
-  your_data_frame$as.name(column_name) <- as.numeric(as.character(your_data_frame$column_name))
   plot  <- your_data_frame %>%
     select(!!as.name(column_name))%>%
     #mutate(!!as.name(column_name)=fct_reorder(!!as.name(column_name),!!as.name(column_name),.fun='length' )) %>%
@@ -1308,6 +1389,39 @@ get_batch_histograms <- function(your_data_frame,column_antecedent_string,title_
 
 # Density Plot ------------------------------------------------------------
 get_density_plot <- function(your_data_frame,column_name,title_string){
+  file_save_name <- paste0("plot ",title_string)
+  file_save_name <-  str_replace_all(file_save_name,pattern = " ",replacement = "_")
+  sample_size <- get_sample_size_general(your_data_frame,column_name)
+  plot  <- your_data_frame %>%
+    select(!!as.name(column_name))%>%
+    #mutate(!!as.name(column_name)=fct_reorder(!!as.name(column_name),!!as.name(column_name),.fun='length' )) %>%
+    filter(!is.na(!!as.name(column_name))) %>%
+    mutate(!!as.name(column_name):=as.numeric(as.character(!!as.name(column_name))))%>%
+    ggplot(aes(!!as.name(column_name))) + 
+    geom_histogram(aes(y = (..count..)/sum(..count..)),binwidth = 10) + 
+    scale_y_continuous(labels = scales::percent()) +
+    labs(title=title_string,subtitle=paste0("Sample: ",sample_size),x="",y="Percentage",color="",fill="", size="")+#,caption=paste0("Data as of ",today()) ,caption="NYC Research Team" ,caption=paste0("Created ",today())
+    theme(text=element_text(family = "Roboto"),
+          panel.grid.major = element_line(color = "#DAE1E7"),
+          panel.background = element_blank(),axis.text = element_text(size = 12),
+          axis.text.x = element_text(margin = margin(t = 5)),#hjust = 1,angle=90
+          axis.text.y = element_text(margin = margin(r = 5)),
+          axis.title = element_text (size = 15),
+          axis.line = element_line(),
+          axis.title.y = element_text(margin = margin(r = 10), hjust = 0.5),
+          axis.title.x = element_text(margin = margin(t = 10), hjust = 0.5),
+          plot.caption = element_text(size = 8,
+                                      margin = margin(t = 10),
+                                      color = "#3D4852"), 
+          title = element_text (size = 15,margin = margin(b = 10)),) +
+    guides(fill=FALSE) +
+    expand_limits(x=0,y=0)
+  
+  save_yo_file_png_take_file_name(plot,file_save_name)
+  return(plot)
+}
+# Density Plot: PCT -------------------------------------------------------
+get_density_plot_pct <- function(your_data_frame,column_name,title_string){
   file_save_name <- paste0("plot ",title_string)
   file_save_name <-  str_replace_all(file_save_name,pattern = " ",replacement = "_")
   sample_size <- get_sample_size_general(your_data_frame,column_name)
@@ -2148,3 +2262,112 @@ save_yo_file_png_take_file_name <- function(plot,file_name){
 #     rename_all(.,~str_to_title(.))
 #   return(your_data_frame)
 # }
+
+
+# Merge Survey Monkey Data and System Data --------------------------------
+get_missing_matches <- function(df_survey,df_system_data){
+  
+  df.renamed <- df_survey %>%
+    rename(company_name=what_is_the_name_of_your_company) %>%
+    select(-email_address) %>%
+    rename(email_address=what_is_your_email_address_so_we_can_send_you_your_gift_card)
+  
+  df.email_matches_only <- df.renamed %>%
+    left_join(df_system_data,by="email_address") %>%
+    select(-company_name.y) %>%
+    rename(company_name=company_name.x) %>%
+    filter(!is.na(admin_mbr_id))
+  
+  df.email_matches_missing <-  df.renamed %>%
+    anti_join(df_system_data,by="email_address")
+
+  df.company_name_matches_only <- df.email_matches_missing %>%
+    left_join(df_system_data,by="company_name")
+  
+  df.missing_list_for_manual_match <- df.company_name_matches_only %>%
+    filter(is.na(admin_mbr_id)) %>%
+    select(email_address.x,company_name)
+  return(df.missing_list_for_manual_match)
+}
+
+merge_survey_and_system_data <- function(df_survey,df_system_data){
+  
+  df.renamed <- df_survey %>%
+    rename(company_name=what_is_the_name_of_your_company) %>%
+    select(-email_address) %>%
+    rename(email_address=what_is_your_email_address_so_we_can_send_you_your_gift_card)
+  
+  df.email_matches_only <- df.renamed %>%
+    left_join(df_system_data,by="email_address") %>%
+    select(-company_name.y) %>%
+    rename(company_name=company_name.x)
+  return(df.email_matches_only)
+  df.email_matches_missing <-  df.renamed %>%
+    anti_join(df_system_data,by="email_address")
+  
+  df.company_name_matches_only <- df.email_matches_missing %>%
+    left_join(df_system_data,by="company_name") %>%
+    select(-email_address.y) %>%
+    rename(email_address=email_address.x) 
+  # return(df.company_name_matches_only)
+  df.final <- rbind(df.email_matches_only,df.company_name_matches_only) %>%
+    distinct(admin_mbr_id,.keep_all = TRUE)
+  
+  # return(df.final)
+}
+
+add_seller_service_participation_columns <- function(merged_df.survey_and_system,df_service_participants){
+  service_participants.online_trade_show <- df_service_participants %>%
+    mutate(row_name=row_number())%>%
+    select(Participation,`Member ID`,row_name) %>% 
+    filter(!is.na(Participation))%>%
+    pivot_wider( names_from = Participation, values_from = `Member ID`) %>%
+    pivot_longer(!row_name,names_to = "service_online_trade_show",values_to = "admin_mbr_id") %>%
+    filter(!is.na(admin_mbr_id)) %>%
+    filter(service_online_trade_show=="Online Trade Shows") %>%
+    select(service_online_trade_show,admin_mbr_id)
+  
+  service_participants.KWA_consumption <- df_service_participants %>%
+    mutate(row_name=row_number())%>%
+    select(Participation,`Member ID`,row_name) %>% 
+    filter(!is.na(Participation))%>%
+    pivot_wider( names_from = Participation, values_from = `Member ID`) %>% 
+    pivot_longer(!row_name,names_to = "service_KWA_consumption",values_to = "admin_mbr_id") %>%
+    filter(!is.na(admin_mbr_id)) %>%
+    filter(service_KWA_consumption=="KWA Consumption") %>%
+    select(service_KWA_consumption,admin_mbr_id)
+  
+  service_participants.iTech <- df_service_participants %>%
+    mutate(row_name=row_number())%>%
+    select(Participation,`Member ID`,row_name) %>% 
+    filter(!is.na(Participation))%>%
+    pivot_wider( names_from = Participation, values_from = `Member ID`) %>% 
+    pivot_longer(!row_name,names_to = "service_iTech",values_to = "admin_mbr_id") %>%
+    filter(!is.na(admin_mbr_id)) %>%
+    filter(service_iTech=="iTech Fully Managed Service") %>%
+    select(service_iTech,admin_mbr_id)
+  
+  service_participants.auto_responder <- df_service_participants %>%
+    mutate(row_name=row_number())%>%
+    select(Participation,`Member ID`,row_name) %>% 
+    filter(!is.na(Participation))%>%
+    pivot_wider( names_from = Participation, values_from = `Member ID`) %>% 
+    pivot_longer(!row_name,names_to = "service_auto_responder",values_to = "admin_mbr_id") %>%
+    filter(!is.na(admin_mbr_id)) %>%
+    filter(service_auto_responder=="Auto Responder") %>%
+    select(service_auto_responder,admin_mbr_id)
+  
+  
+  merged_df.survey_and_system <- merged_df.survey_and_system %>%
+    left_join(service_participants.online_trade_show)
+  
+  merged_df.survey_and_system <- merged_df.survey_and_system %>%
+    left_join(service_participants.KWA_consumption)
+  
+  merged_df.survey_and_system <- merged_df.survey_and_system %>%
+    left_join(service_participants.iTech)
+  
+  merged_df.survey_and_system <- merged_df.survey_and_system %>%
+    left_join(service_participants.auto_responder)
+  return(merged_df.survey_and_system)
+}
