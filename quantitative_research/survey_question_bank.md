@@ -131,8 +131,8 @@
 + Familiarity
   + How familiar are you with {Brand, Feature, etc...}?
     + I haven’t heard of it
-    + I have heard of it, but not really sure what it does
-    + I am familiar with it and understand what it does
+    + I have heard of it, but don’t know what it is
+    + I am familiar with it and more or less understand what it does
 + Usage
   + Which of the following best describes your use of {Tool, Feature, Service, etc...}?
     + I have never used it and do not plan on using it
