@@ -130,9 +130,9 @@
 ## Familiarity/Usage
 + Familiarity
   + How familiar are you with {Brand, Feature, etc...}?
-  + I haven’t heard of it
-  + I have heard of it, but not really sure what it does
-  + I am familiar with it and understand how it works
+    + I haven’t heard of it
+    + I have heard of it, but not really sure what it does
+    + I am familiar with it and understand how it works
 + Usage
   + Which of the following best describes your use of {Tool, Feature, Service, etc...}?
     + I have never used it and do not plan on using it
