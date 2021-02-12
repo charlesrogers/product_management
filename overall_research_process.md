@@ -19,7 +19,16 @@ Create an objective measurement of opportunities to improve the business/de-risk
   1. With existing products, the first step is to analyze the current funnel, looking for key dropoffs in the flow.
     1. Consider the business fundimentals and work back from a target revenue number... For example, if you need to have $xxx,xxx revenue during a certain time period, you can play with the levers to see which factors matter most. Often times, though, you'll need to increase things at the top of the funnel, especially if some of your conversion rates are <1%
     1. Rank by % dropoff 
-1. Qualitative interviews - Understand the landscape (Who, what, where, when, why) ⅰ. Determine the objectives ⅱ. What are they trying to accomplish (ie objectives)? ⅲ. Who does it (eg roles, organizations)? ⅳ. How do they do it/what are the steps in their process? ⅴ. What tools do they use? ⅵ. When we stop learning material new things we are done with initial discovery / Interview enough buyers that you know the objectives to the different groups b. 1st Round of Findings ⅰ. High-level journey map (see below) ⅱ. Define objectives
+1. Qualitative interviews - Understand the landscape (Who, what, where, when, why)
+  ⅰ. Determine the objectives
+  ⅱ. What are they trying to accomplish (ie objectives)?
+  ⅲ. Who does it (eg roles, organizations)?
+  ⅳ. How do they do it/what are the steps in their process?
+  ⅴ. What tools do they use?
+  ⅵ. When we stop learning material new things we are done with initial discovery / Interview enough buyers that you know the objectives to the different groups
+  b. 1st Round of Findings
+  ⅰ. High-level journey map (see below)
+  ⅱ. Define objectives
 1. Code and count them
 1. Create frameworks to explain behaviors
   1. Identify causal forces in behavior
