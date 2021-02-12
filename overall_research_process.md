@@ -23,7 +23,7 @@ Create an objective measurement of opportunities to improve the business/de-risk
 1. Code and count them
 1. Create frameworks to explain behaviors
   1. Identify causal forces in behavior
-  1. Categorize users by the factors that explain the largest differences in behavior 
+  1. Categorize users by the factors that explain the largest differences in behavior
   1. Segmented groups by their needs & identifying factors: Eg “x buyers want y and you can tell who they are by z behavior on the platform” 
     1. How to identify your segments through click data is often the most difficult 
 1. Create presentation 
