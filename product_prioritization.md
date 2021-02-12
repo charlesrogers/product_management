@@ -12,7 +12,7 @@ If the situation is low risk (e.g. it's a quick feature to build), you can proce
 ## What to Build (or How to "De-risk" Your Project)
 Focus on factors that have the *biggest* potential of failure. 
 Below is a framework to identify *where* the failure will happen.
-1. **Utility** Do they want the value you are trying to deliver? If they don't care about the value, you very likely shouldn't test the solution with them.
+1. **Utility**: Do they want the value you are trying to deliver? If they don't care about the value, you very likely shouldn't test the solution with them.
 2. **Discoverability**: Can they find the solution?
 3. **Comprehension**: Do they understand the solution?
 4. **Believability**: Do they beleive they solution would deliver the aforementioned value?
