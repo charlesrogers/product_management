@@ -9,6 +9,14 @@ If the situation is low risk (e.g. it's a quick feature to build), you can proce
   <img src="https://user-images.githubusercontent.com/1085160/93369064-ccfb1080-f81c-11ea-9d9b-0eab73aa9498.png" width="400" height="400">
 </p>
 
+## What to Build (or How to "De-risk" Your Project)
+Focus on factors that have the *biggest* potential of failure. 
+Below is a framework to identify *where* the failure will happen.
+1. **Utility** Do they want the value you are trying to deliver? If they don't care about the value, you very likely shouldn't test the solution with them.
+2. **Discoverability**: Can they find the solution?
+3. **Comprehension**: Do they understand the solution?
+4. **Believability**: Do they beleive they solution would deliver the aforementioned value?
+
 ## Process for High-Risk Situations
 Determine the [Net Present Value](https://github.com/charlesrogers/product_research/blob/master/research_resources/research_frameworks.md#net-present-value) of each of the solutions.
 The calculation is not meant to be exact, but meant to be a way of comparing different options **and** evaluating the core risks that undergird your assumptions.
@@ -26,20 +34,20 @@ Often your product feature will just improve one aspect of your value funnel. Yo
 #### Monte Carlo Simulation
 Because many of the elements involved in this calculation are likely not very certain (e.g. will involve a decently large range), a Monte Carlo Simulation can be used (as advocated by [Douglas Hubbard in How to Measure Anything](https://github.com/charlesrogers/product_research/blob/master/research_resources/Hubbard-How_to_measure_anything.md#montecarlo-simulation-for-npv-calculations).
 
-## Process for Low-Risk Situations
-Some product concepts are low-enough risk that they do not require speaking with users: for example, if you are selling leads and you have devised a solution that would result in better quality and more leads, the only pertinant questions are whether you could:
-+ Deliver the proposed value
-+ If the user could find the new solution
-+ If they could understand it
-+ If they would trust it enough to use it  
-Each of these potential issues are relatively low-probabiliy, especially if you are making incremental changes and following traditional design conventions.
-These lower-risk opportunities should typically reveal themselves as you analyze a conversion rate funnel, which is essentially optimizing an existing flow or feature. The risk of this type of innovation is that you reach a "[local maxima](https://github.com/charlesrogers/product_research/blob/master/research_resources/research_frameworks.md#local-maxima)".
 ### Things that Don't Need to be Tested
 + When a product has little adoption risk (eg it's a [sustaining innovation](https://github.com/charlesrogers/product_research/blob/master/research_resources/research_frameworks.md#sustaining-innovations) with little difference other than better performance, then the only question is really "does this perform better/result in better outcomes for the user" than the other options and thus less customer "insight" is required beyond whether it is usable.
-+ 
++ If you are making incremental changes and following traditional design conventions, Discoverability, Comprehension, Believability should be relatively low-probabiliy.
+These lower-risk opportunities should typically reveal themselves as you analyze a conversion rate funnel, which is essentially optimizing an existing flow or feature. The risk of this type of innovation is that you reach a "[local maxima](https://github.com/charlesrogers/product_research/blob/master/research_resources/research_frameworks.md#local-maxima)".
+
 ### Choose Products & Services that are Directly Related to the KPI at Hand
 In order to change a specific action we must address it with a directly relevant intervention (product or service).
 For example, to increase on-platform payment we should not focus on things that do not make the objectives concerning payment "better" (i.e. selecting a vendor), however if the payment objectives are already sufficiently satisfied, we can then look for adjacent or **concurrent** objectives that are attractive enough to shift payment behavior.
+
+
+
+
+
+
 
 ---
 ### TO FILE
