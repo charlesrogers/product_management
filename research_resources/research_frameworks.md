@@ -3,6 +3,8 @@
 ## Supply Side
 Many people think "features" first—what can be accomplished, but not whether it is desired.
 ## Demand Side
+### Demand Timeline
+Understand where in the search process the user finds themselves
 ## Decision Making Timeline
 ## Jobs To Be Done
 ## Four Forces
