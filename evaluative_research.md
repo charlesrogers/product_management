@@ -7,6 +7,8 @@ When you can do multiple things, use absolute ranking ("How useful do you find e
 When you can do one thing, look at relative ranking ("Please rank the top x of the following by how useful they would be to you.")
 There is a strong case to measure both relative and absolute because it is probable that one or two of the top selected options will be unattractive after you have to make compromises due to cost or feasability and where you to re-run the study without those choices the results would likely be quite different.
 Sometimes the users don't know how useful things will be (especially when you control the algorithm that allocates traffic to them) so it's best not to ask those questions and instead ask if what you'll require to achieve that end is feasible with their work flow.
+### Use Existing Benchmarks
+When it comes to launching a new product (or one with something categorically different—a new price, structure, etc), our tools are less predictive. What we can do is include an exisiting feature in the "desirability" metrics and compare its real-world conversion rate to that of the unreleased feature.
 ## Visual & Workflow Validation
 ### Questions to answer:
 1. Does you know what it is supposed to do?
