@@ -126,7 +126,12 @@
   + Moderately useful
   + Very useful
   + Extremely useful
-
++ Interest
+  + Not at all interested
+  + Slightly interested
+  + Moderately interested
+  + Very interested
+  + Extremely interested
 ## Familiarity/Usage
 + Familiarity
   + How familiar are you with {Brand, Feature, etc...}?
