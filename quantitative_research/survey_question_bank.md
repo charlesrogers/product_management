@@ -132,6 +132,12 @@
   + Moderately interested
   + Very interested
   + Extremely interested
++ Attractive
+  + Not at all attractive
+  + Slightly attractive
+  + Moderately attractive
+  + Very attractive
+  + Extremely attractive
 ## Familiarity/Usage
 + Familiarity
   + How familiar are you with {Brand, Feature, etc...}?
