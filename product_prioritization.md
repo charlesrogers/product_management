@@ -51,6 +51,33 @@ For example, to increase on-platform payment we should not focus on things that 
 
 ---
 ### TO FILE
+## How Much Will This Improve Things?
+Man, this is such a hard question to answer in *absolute* terms.
+First, to be honest, we shouldn't really test whether how effective a coupon would be unless it is a huge huge huge development effort, coupons are something that we KNOW work (millions of online retailers use them very effectively).
+But because you asked, and assuming we HAD to test before launching (which is NOT A GOOD IDEA)...
+Assuming a small minority of products (<10%) are coupon eligible (whether because limited by vendors who offer the coupon or by a price floor to be able to be applied), we'll need to figure out how likely users are to place a marginal order (one they wouldn't have placed otherwise [we shouldn't really consider buyers who are moving their orders from one supplier to another because that is just cannibalizing existing orders]—basically how many people are willing to place a order they hadn't planned because of the deal.
+
+So how do we find out how many people would place an aditional order?
+I would do a survey on the site, but that is going to be hard, so if we couldn't do that, I would focus on interviewing buyers who have purchased buy-now products in the last 30 days AND in the interview screener, I would ask a multi-select question like the following:
+"how do you typically shop on X site?"
+- I look to purchase the exact items I am looking for and rarely buy something not on my shopping list
+- I look to purchase a general item, but am often flexible on what I buy
+- I love deals and when I find a great value, I buy it even if I didn't plan on it
+- I am looking for interesting stuff and will purchase stuff that catches my eye
+I'd keep any one who includes either of the last two
+Then I would ask them to look on the site until they find something they might want to puchase:
+Then I would ask them how likely they would be to purchase it at the given Price/Shipping rate (1-5, 1 not at all likely, 5 extremely likely)
+Then I would introduce the idea of the coupon WITH the rules and ask the previous Likelihood to buy question, but this time with the coupon
+OKAY AND THEN to get actual predictive data (this is where it gets really hard to do without a lot of time and money invested):
+Benchmark how much a conversion rate improves at each step in the "likelihood to buy" something.
+For example, we'd want a table that looked something like this:
+Not at all likely: 1% Conversion Rate
+Not that likely: 1.5% CR
+Somewhat likely: 5% CR
+Very likely: 15% CR:
+Extremely likely: 30% CR
+Then you would ask a group of people (like... 100) how likely they were to do something, then combine their predicted scores from the table above, then see what % total actuall convert
+
 #### Caveats
 Magnitude vs Frequency. It's possible that the most common complaint is not the most important thing, and also compaint-based design can lead to small improvements (incrementalism) instead of uncovering new opportunites.
 ### OLD NOTES
