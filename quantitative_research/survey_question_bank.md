@@ -15,6 +15,12 @@
 + Overall satisfaction
 + IMP/SAT at objective level
 + Understand tradeoffs between needs
++ Relative vs Absolute Ranking - You really need both in case there isn't much distance between the ratings
+  + Absolute
+    + On a scale of 1-5, how likley are you to use each of the following solutions next time you do {}?
+    + Please rank which solutions you'd be most likely to use (up to 3)
+    + You selected {} as your top solution—-why would this be the one you'd be mostly likely to use?
+    + Are there any reasons you wouldn't use this solution or things you'd want to verify before you could confidently say you'd use it?
 ## Firmographic Questions
 + Number of employees
   + Approximately how many full-time employees are there in your organization?
