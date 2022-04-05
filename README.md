@@ -5,7 +5,7 @@ This document outlines my general product management process.
 + Request for input
 ## What Should We Do?
 The most intriguing questions for product researchers are often:
-+ "Which products and services should we create?"
++ "[Which products and services should we create?](https://github.com/charlesrogers/product_management/blob/master/README.md#what-to-build)"
 + "[What should we do to get people to use our products and services?](https://github.com/charlesrogers/product_research/blob/master/README.md#how-to-get-people-to-use-what-you-build)"
 ## What to Build
 Concerning what to build, the process of discovering the objectives and the relative satisfaction with which they are achieved is a challening and intriguing proposition and can be likened to creating a "map" of the market, highlighting which sections are fertile for investment. Additionally, "what to build" is such a vital question, for if you get it right, everything sings, but if you don't, nothing really works.
