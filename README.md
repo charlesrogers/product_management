@@ -8,7 +8,8 @@ The most intriguing questions for product researchers are often:
 + "[Which products and services should we create?](https://github.com/charlesrogers/product_management/blob/master/README.md#what-to-build)"
 + "[What should we do to get people to use our products and services?](https://github.com/charlesrogers/product_research/blob/master/README.md#how-to-get-people-to-use-what-you-build)"
 ## What to Build
-Concerning what to build, the process of discovering the objectives and the relative satisfaction with which they are achieved is a challening and intriguing proposition and can be likened to creating a "map" of the market, highlighting which sections are fertile for investment. Additionally, "what to build" is such a vital question, for if you get it right, everything sings, but if you don't, nothing really works.
+The general idea of what to build is something that is benefitial for your target user enough so that there is some value you can capture and you're both happy about the transaction.
+Prinicpal in that relationship is discovering your target users' objectives and the relative satisfaction with which they are currently achieved to know where to focus. This is a challening and intriguing proposition and can be likened to creating a "map" of the market, highlighting which sections are fertile for investment. Additionally, if you discover something suficiently important yet unsatisfied and solve it in a material way you can still get much wrong and succeed (though if you don't, nothing really matters).
 > Product-market-fit hideth a multitude of sins
 1. [Determine what people want](https://github.com/charlesrogers/product_research/blob/master/qualitative_research/discover_objectives.md) via qualitative interviews
 2. [Measure how badly they want it](https://github.com/charlesrogers/product_research/blob/master/quantitative_research/survey_creation.md) via a qualitative study
