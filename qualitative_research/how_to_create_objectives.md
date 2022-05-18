@@ -1,24 +1,28 @@
 # How to Create Objectives
 ## What is the Appropriate Level to Frame the Objectives?
-### Framework to explain the different levels of objectives
-1. Business level: Maximize profit profit
-2. Job level: The role specific job itself - eg "Sell more products" or "Find the right products for internal use"
-3. Step level: The context-specific job  - eg. "Source products in order to resell them"
-4. Process step level: A critical step in order to achieve the intermediate job (at Level 2) - eg. "Evaluate suppliers"
-5. Objective/Metric Level - eg "determine on-time delivery rate"
-6. Tactical step level: Tactics or techniques that are used in order to achieve a process step - eg. "Learn from other people what they thought of their experience sourcing from that supplier
-7. Consumption Chain Level: how long to understand the tool that helps you accomplish the objective
-## Meta Jobs:
-+ Objectives specifically related to using the product - eg. "Find repeat order data", "Sign up quickly"
-+ Objectives related to internal processes that don't directly accomplish the job (but are more around reducing variability/cost/mistakes when accomplishing the context-specific (level 2 job - "Submit pre-PO approval request to supervisor") but may be company specific. Very similar to product meta job, but it's service related...
-+ If it applies to every step, a potential solution is abstracting it up a level and just asking it once:
-> Minimize the likelihood of not following established processes in the organization
-  + Optional: Is this about forgetting? Is this about not making your bosses angry? Should we abstract up a level and say something like "Minimize the number of internal preventable mistakes"
+### Hierarcy of Abstractions for User Objectives
+1. Role level: The job-specific objective
+    1. Eg a sales person's core job might be "Sell a product or service"
+1. Outcome/Quality level - Specific criteria about how the job needs to be accomplished ("if you don't do it this way, it's not worth doing")
+    1.  These could also be called "meta" jobs, but they often concern how long something takes, error rate, resources requirements, and quality aspects)
+1. Step level: The context-specific job  - eg. "Find leads" or "Source products in order to resell them"
+1. Objective-level/Metric Level 
+    1. Typically related to and can be measured in - eg "determine on-time delivery rate"
+1. Strategic level
+    1. 
+1. Tactical level: Tactics or techniques that are used in order to achieve a process step 
+    1. These are dangerous because they imply a solution, however you'll need to respect these unless you are going to introduce a solution good enough that a user finds it worth it to change their process.
+    1. eg. "Learn from other people what they thought of their experience sourcing from that supplier
+
+NB: In business there is often a higher level, "company-level" goal, which very frequently is "Maximize profit" and it is often appropriate to skip this because it is almost a universal.
+
 ## Troubleshotting & Tips
 + When stuck on an objective, it might be helpful to identify at which level it is located:
  + The above example (X) seems like it's "Sell Products > Find Suppliers > Vet Supplier > Determine Supplier's Business Stability > Determine financial stability"
 + Probability/risk (and thus "Likelihood" objectives) seem to be more relevant when there is hidden risk...
-+ Go deeper on the objectives that are more directly relevant to the project and higher level for the adjacent objectives.
++ + Go deeper on the objectives that are more directly relevant to the project and stay higher level for if only an adjacent objectives. The more relevant to the business/project at-hand, the more specific (lower level) we typically should focus. 
+## Open Questions
+
 + When presenting solutions, is it better to write the solution to a higher or more specific level?
 For example, when trying to determine what solution to build, and cross-validating against previous interviews and considering the needs of a US-based medical device company:
 + Level X - Minimize time to find a supplier who complies with regulations
@@ -27,8 +31,7 @@ For example, when trying to determine what solution to build, and cross-validati
 + Obj B. Minimize time to find a supplier who is FDA compliant
 Level Y - A is useful to many people, but applies to lots of industries
 Level Y - B is useful to , but applies to one industry
-## Which Levels to Include
-The more relevant to the business/project at-hand, the more specific (lower level) we typically should focus. 
+
 ## Merge or Split
 Scope
 ## Testing Objectives
@@ -73,13 +76,13 @@ Avoiding something bad happening seems to be slightly "juicing" it but the doubl
 Other examples:
 + Minimize the likelihood of using a payment method that will negatively impact cash flow 
 + Minimize the likelihood cash flow will be negatively affected by payment method
-#### Issues with Juicing
+#### Issues with "Juicing"
 What are we actually doing when we are juicing?
 We are likely merging objectives with solutions + value proposition, which makes the objectives quite a bit more attractive
 ## Open Questions
-### Should we measure outcomes Independently 
-### Ask about the last experience, not average
-De-generalize
++ Should we measure outcomes Independently?
++ Ask about the last experience, not average?
++ De-generalize?
 ### Synthetic vs Observed
 Only use synthetic when you are pretty sure it should or it is high risk to not include or you have more space and you can "guess and check"
 ### Determine vs Confirm
@@ -88,3 +91,19 @@ Confirm if specific out come is desired ("Determine if"  is the same and shouldn
 ### Complexity Factor
 Something that will change your answer to an outcome
 You need the outcome and the complexity factor
+
+
+## Breif summation
+There are different levels of abstraction for a job, and many challenges arise when not being on the same page about the level of job one is discussing:
+1. Core job
+1. Quality elements: How you want to do that core job (quickly, without errors, with the least amount of resources, high quality)
+1. Strategic aspects of doing that job
+1. Tactical elements of doing that strategy
+
+
+## Meta Jobs:
++ Objectives specifically related to using the product - eg. "Find repeat order data", "Sign up quickly"
++ Objectives related to internal processes that don't directly accomplish the job (but are more around reducing variability/cost/mistakes when accomplishing the context-specific (level 2 job - "Submit pre-PO approval request to supervisor") but may be company specific. Very similar to product meta job, but it's service related...
++ If it applies to every step, a potential solution is abstracting it up a level and just asking it once:
+> Minimize the likelihood of not following established processes in the organization
+  + Optional: Is this about forgetting? Is this about not making your bosses angry? Should we abstract up a level and say something like "Minimize the number of internal preventable mistakes"
