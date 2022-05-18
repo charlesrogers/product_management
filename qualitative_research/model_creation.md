@@ -1,5 +1,6 @@
 # Model Creation
-See "The Cycles of Theory Building in Management Research": https://www.hbs.edu/faculty/publication%20files/05-057.pdf
+See section on [Model Creation](how_to_create_a_theory.MD)
+
 ## How to create an accurate model of the world? 
 Create a theory that explains the largest variance with the fewest number of moving parts.
 It's not easy, but it's fun.
@@ -11,7 +12,8 @@ Observe and measure what you see
 >[E]xplore the association between the category-defining attributes and the outcomes observed. p. 3
 Eventually this process should ideally involve some statistical analysis (e.g. regression) to test the relationship
 ## Create a Descriptive Acyclic Graph (DAG)
-https://en.wikipedia.org/wiki/Directed_acyclic_graph
+[DAG](descriptive_acyclic_graphs.md)
+
 ## Test in-sample test to invalidate/corroborate the hypothesis
 ## Test Out of Sample
 >"[Models improve] when researchers [...] "test" the hypothesis that had been inductively formulated. This most often is done by exploring whether the same correlations exist between attributes and outcomes in a different set of data than the data from which the hypothesized relationships were induced." p.4
