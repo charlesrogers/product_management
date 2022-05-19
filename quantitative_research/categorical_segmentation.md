@@ -1,10 +1,11 @@
 # Categorical Segmentation
 In order to produce prioritized solutions, often we'll employ Categorical Segmentation in order to determine _who_ wants _what_. The main objectives here are to show which types of users would be most amenable to which types of solutions, and then can be [prioritized by their estimated lifetime value](https://github.com/charlesrogers/product_research/blob/master/product_prioritization.md).  
-NB: Categorical Segmentation should not produce as high opportunity scores as using an "outcome driven innovation" process, but the results will likely be an "interpretable model" that allows you to target potential users based on identifiable factors.
+NB: Categorical Segmentation should not produce as high opportunity scores as using the more black-box process done in the traditional [outcome driven innovation process](outcome_driven_innovation.md), but the results will likely be an "interpretable model" that allows you to target potential users based on identifiable factors.
 ## Process
-1. Determine which factors to use for segmentation 
+1. Determine which factors to use for segmentation are: 
     1. Identifiable in the population (whether to advertisers or in own database)
-    1. Likley to predict the largest variance between user groups
+    1. Likley to predict the largest variance between user groups (eg 
+        1. These are largely baesd off the hypotheses developed in 1-1 interviews. For example, you may have discovered that when companies make their first specialized hire they now have much a greater need to remain in sync across teams, and you saw that across different interviews and you could even test it out of sample (when you did a new interview and found the company had made a specialized hire, you ask "how did that affect your need to stay in sync" and they look at you like "how did you know!?" then you know you have a pretty strong signal.
 1. Determine what types of simplification to use for each factor
     1. Turning x-point scales into <x-point scales can be difficult. How do we know when to reduce the number down from, lets say 6, to 3 or 2 groups?
 1. Calculate Importance, Satisfaction, and Opportunity scores by Segment (user group)
