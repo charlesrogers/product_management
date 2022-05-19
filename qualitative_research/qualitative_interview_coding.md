@@ -2,16 +2,18 @@
 ### Individual Interview
 + Diagram journey by creating the timeline of the each user's journey
 + Formalize the user's objectives/goals [discovered in the interview](discover_objectives.md)
-+ Understand why they prioritize what they prioritize by determining root causes
-  + Create DAG by diagraming the salient forces at play for each decision
++ Explore their "switch moments" and seek to why they prioritize what they prioritize by determining root causes & tradeoffs
+  + Create [a diagram that maps the salient forces](directional_acyclic_graphs.md) at play for each decision and which are those that "cause" the action taken.
   + Determine which tradeoffs were made
-+ Identify and diagram switch/decision moments using the Four Forces model
-+ Start with the research objectives & try and answer to questions
++ Identify and diagram switch/decision moments using the [Four Forces model](research_frameworks.md#four-forces)
++ Refer to the research objectives & provide a rough answer to questions
 + Extract meaningful quotes
++ [Sample coding document](https://docs.google.com/spreadsheets/d/1u9hIOZcCLU1PxsdKaUpgihlC39KXGZX6780TVbWFdrg/edit?usp=sharing)
 
 ### Cross-Interview Synthesis
 + Compare & Contrast individual journeys in order to understand relationship between how people
   + What is different & similar between people
+    +  The anomolies are important as they are the places for future innovation.
 + Create a storyline to help others understand (the research questions/relationship between the factors)
 + Formulate hypotheses
 + Match interviews to hypotheses
