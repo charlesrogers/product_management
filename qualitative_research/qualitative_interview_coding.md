@@ -1,19 +1,21 @@
 # Qualitative Interview Coding & Synthesis
 ### Individual Interview
-+ Diagram journey by creating the timeline of the buyer's journey: For each user, write what their journey was
-+ Extract the user's objectives/goals
++ Diagram journey by creating the timeline of the each user's journey
++ Formalize the user's objectives/goals [discovered in the interview](discover_objectives.md)
 + Understand why they prioritize what they prioritize by determining root causes
-  + Create DAG by diagraming the material forces at play for each decision
+  + Create DAG by diagraming the salient forces at play for each decision
   + Determine which tradeoffs were made
 + Identify and diagram switch/decision moments using the Four Forces model
-+ Start with the research objectives &  try and answer to questions
++ Start with the research objectives & try and answer to questions
 + Extract meaningful quotes
 
 ### Cross-Interview Synthesis
 + Compare & Contrast individual journeys in order to understand relationship between how people
   + What is different & similar between people
 + Create a storyline to help others understand (the research questions/relationship between the factors)
-
++ Formulate hypotheses
++ Match interviews to hypotheses
++ 
 
 ## Research Synthesis Guide
 1. Start with the research guide and start answering questions (objectives & hypotheses)
