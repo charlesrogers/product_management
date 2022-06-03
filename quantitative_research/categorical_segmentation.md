@@ -3,16 +3,19 @@ In order to produce prioritized solutions, often we'll employ Categorical Segmen
 NB: Categorical Segmentation should not produce as high opportunity scores as using the more black-box process done in the traditional [outcome driven innovation process](outcome_driven_innovation.md), but the results will likely be an "interpretable model" that allows you to target potential users based on identifiable factors.
 
 ## Categorical Segmentation Process (Easily Interpretable)
-We want to determine which differences between users actually impact their needs,or, in otherwords, which groups have a statistically significant difference in needs.
+We want to determine which differences between users actually correlate with having different needs, or, in other words, which groups have a statistically significant difference in needs.
+
 We do this by splitting categorical factors into two groups based on the hypotheses we had previously formed. 
 It can be something as simple as "we think people who are in growing companies will have a greater desire for x". In this case, we might look at number of people hired in the last x year and say if the percent is greater than 10% of the company, they are in a growth stage. Everyone else (above a certain employee size) would be in a mature phase.
 
 We then calculate the importance, satisfaction, and opportunity scores for those 2 groups. The scores are taken and compared via the Mann Whitney test.
 
-Why Mann Whitney? Well, we used this tool: [Statistical Tests](https://datatricks.co.uk/statistical-tests-in-r), and it said the Mann Whitney was the right test for our formerly-categorical-data-but-now-interval data:
+Why Mann-Whitney? Well, we used this tool: [Statistical Tests Interactive Tool](https://datatricks.co.uk/statistical-tests-in-r), and it said the Mann-Whitney was the right test for our formerly-categorical-data-but-now-interval data:
 >The Mann-Whitney test is a non-parametric test that allows two unpaired samples to be compared without making the assumption that values are normally distributed.
 
-We calculate the opportunity scores for each group by factor (eg large vs small users) then compare the difference between those two groups with the Mann Whitney test. If the P-Value is less than 0.05, we determine the medians of samples of the two different factors are not identical and thus it is a signficicant factor in segmentation.
+We calculate the opportunity scores for each group by factor (eg large vs small users) then compare the difference between those two groups with the Mann-Whitney test. If the P-Value is less than 0.05, we determine the medians of samples of the two different factors are not identical and thus it is a signficicant factor in segmentation.
+In our previous example, if we found the P-Value for a Mann-Whitney test comparing growth companies vs mature companies was 0.009, we have strong evidence that those groups actually have different needs and it's not just a slight difference that could be explained by normal variation from two samples from a similar group.
+ 
 
 ## Maximum Segmentation Process (Less- Easily Interpretable)
 1. Determine which factors to use for segmentation are: 
