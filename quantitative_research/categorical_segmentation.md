@@ -14,7 +14,8 @@ Why Mann-Whitney? Well, we used this tool: [Statistical Tests Interactive Tool](
 >The Mann-Whitney test is a non-parametric test that allows two unpaired samples to be compared without making the assumption that values are normally distributed.
 
 We calculate the opportunity scores for each group by factor (eg large vs small users) then compare the difference between those two groups with the Mann-Whitney test. If the P-Value is less than 0.05, we determine the medians of samples of the two different factors are not identical and thus it is a signficicant factor in segmentation.
-In our previous example, if we found the P-Value for a Mann-Whitney test comparing growth companies vs mature companies was 0.009, we have strong evidence that those groups actually have different needs and it's not just a slight difference that could be explained by normal variation from two samples from a similar group.
+
+In our previous example, if we found the P-Value for a Mann-Whitney test comparing the opportuity scores between growth companies and mature companies was 0.009, we have strong evidence that those groups actually have different needs and it's _not_ just a slight difference that could be explained by normal variation from two samples of the essentially the same type of user. And again, now in plain English: that growth companies and mature companies don't really have differences in the objectives we measured).
  
 
 ## Maximum Segmentation Process (Less- Easily Interpretable)
