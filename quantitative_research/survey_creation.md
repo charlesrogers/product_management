@@ -1,15 +1,28 @@
 # Survey Creation Process 
+Your survey shouldn't start with a blank page; it naturally grows out of your research plan, specifically the objectives and your key risks. 
+## Why a survey
+Well, I most frequently use surveys to "quantify" things, or in other words to measure the magnitude of things. We rarely use surveys to learn new information (eg "what are all the types of software do people use") as those can be learned in qualitative interviews.
+Why? Well, surveys are precious resource (people's willingness to take surveys is a cherished thing so we should respect this common good), so we aim to get the highest ROI out of each questionnaire fielded, and that means having a very good idea of the landscape beforehand and using the survey to meansure frequency, amount, etc... 
 ## Survey Design Process
-+ List hypotheses you want to invalidate/corroborate
-+ List objectives
+At a high level, this is how I create a survey:
++ List high level objectives of study 
++ List hypotheses to invalidate/corroborate
 + List questions that will invalidate/corroborate those hypotheses
 + List factors that would be useful in segmentation
   + Those that are identifiable by advertisers
   + Those that we predict will explain the largest variance between users
-+ Determine objective
+
 ## Design Questionnaire
-+  Cross-Survey Comparison via Standard Question Bank: [Use this database of questions](https://github.com/charlesrogers/product_research/blob/master/quantitative_research/survey_question_bank.md) for all demo/firmo questions and for likert/multiple-choice answers
+Take the above list and flush out each objective/key risk/hypothesis into a question.
+For example, if you want to know which option is most popular
+
 ### Question Construction
+There are a few main types of questions:
+#### Unstructured Information
+When you don't know the likely options to select, you can use an open response question (however if the survey is full of these, you might be better off, if possible, doing interviews until you have a higher-fidelity 
+#### Comparison
+#### Ranking
+#### Facts/data
 + Time & Money - When writing quantity questions (of time or money):
 +(Generally) Only include one variable in a question
   + When questions seem to break, it's likely because you are asking two questions in one. This is often when you create answers that include something like X AND Y or A AND B
@@ -53,6 +66,7 @@
 + Review with partners
 + Update survey
 ### Code survey in survey instrument:
++  In order to facilitate cross-survey comparison, use a "Standard Question Bank": [A database of standard questions and responses](https://github.com/charlesrogers/product_research/blob/master/quantitative_research/survey_question_bank.md) that are uniform for all demo/firmo questions and for likert/multiple-choice answers. This means you'll have the same income and age ranges and can compare results from different surveys.
 Depending on the length and skip-logic, the survey should take anywhere from 2-4 (uninterrupted) hours to code
 + Survey Organizaion
   + Add a introduction on the first page of survey
