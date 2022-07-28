@@ -41,6 +41,9 @@ As these questions are often not measurable from objective data (eg. system logs
 For example
 ## Output Goals
 - Measurement of influence: To what degree were the insights & suggestion incorporated into the product strategy?
+  - Did the end product address at least one of the core needs of the target user group?
+  - To what degree did the end product respect the core constraints of the target user group?
+- Was the target KPI reached?
 ## Troubleshooting Breakdowns in Research Incorporation
 If the insights were not incorporated in the product it's likely because something fell apart in how the work was done:
 - Did the stakeholders agree to the KPI of the project? If there is not agreement on what should be researched, it's more likely-than-not that the research project should not move forward (barring exigent circumstances).
@@ -49,8 +52,7 @@ If the insights were not incorporated in the product it's likely because somethi
 If the goals aren't being met, sometimes its less of a project-level issue and has to do more with the working relationship or internal company dynamics:
 ## "Meta" Research Goals
 There are also some process and "quality of work" goals that often don't make it outside the research team, but are more focused on how the work is done:
-### Throughput
-- Project speed
-  -  Was the research done in a timely manner
-### Quality of Work
-- 
+- Throughput/Project speed
+  -  Was the research done in a timely manner?
+- Quality of Work: were basic research standards met?
+
