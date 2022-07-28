@@ -49,14 +49,13 @@ If the goals aren't being met, sometimes it's less of a project-level issue and 
 - Did the stakeholders agree to the KPI of the project? If there isn't agreement on the objective of the research, it's more likely-than-not that the research project *should not* move forward (barring exigent circumstances).
 - Were the stakeholders involved in the actual research process? They should join in at least some interviews and participate in the post-interview debrief process of hypothesis creation.
 - Is there a fractured relationship between the researcher and the other stakeholders?
-- 
+***
+# Things to Still Add
 ## "Meta" Research Goals
 There are also some process and "quality of work" goals that often don't make it outside the research team, but are more focused on how the work is done:
 - Throughput/Project speed
   -  Was the research done in a timely manner?
 - Quality of Work: were basic research standards met?
 
-***
-## Things to Still Add
 ### Specific Examples of Performance Goals
 Coming Soon (probably)
