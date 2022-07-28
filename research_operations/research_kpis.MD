@@ -1,4 +1,6 @@
 # Research KPIs
+*This document is still being copy edited - 7/28/2022*  
+
 Research is a tricky space to measure—our true objective is delivering value to actual humans, but our work is an early input in to the much larger product development process (which we do not directly control).
 Because of this somewhat unique situation, many teams struggle with the challenge of creating measurements which are useful.  
 In order to do so, there first should be agreement on the role of research. Once that is established, it is prudent to have a distinct measure of both performance and outcomes.
