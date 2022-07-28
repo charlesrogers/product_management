@@ -19,32 +19,32 @@ To use a sports analogy, we measure the quality of our play instead of just focu
 - How well was the research project planned? The depth of this question should vary depending on the scope and stage of the research, but for larger projects, focus on the following questions:
   - Was the initial research request turned into falsifiable hypotheses?
   - Were those hypotheses evaluated until a satisfactory answer was discovered?
-  - If there was both a qualitative and a quantiative phase of the project, were there theories created after the initial interviews that were then invalidated/corroborated in the quantiative phase?
+  - If there was both a qualitative and a quantitative phase of the project, were there theories created after the initial interviews that were then invalidated/corroborated in the quantitative phase?
   - Were their clear go/no-go thresholds established for the project before the research started? For example, we might say "we need to hit $XM dollars in revenue with this initiative to create value for our shareholders". If this is missing from the start, it's probable that the goalposts are moved as we fall more and more in love with our ideas and we greenlight projects that don't pass the minimum investment hurdle.
   - Was the appropriate scale of research conducted? These should vary depending on the implication of the decision, stage of the project, and our existing level of knowledge.
 - How well did the research uncover the reality of the situation?
   - Were the right people included in the study?
-  - Was enough information gathered so that we have an idea of the depth & breadth of situation?
+  - Was enough information gathered so that we have an idea of the depth & breadth of the situation?
   - Were the priorities and tradeoffs clearly articulated?
 - How actionable are these insights? In addition to providing insight into the general objectives of the market, in most projects there will a need to create something (this is likely not successful if the insights do not influence the end product)
   - How clearly were the objectives articulated?
-  - How clearly were the objectives priortized?
+  - How clearly were the objectives prioritized?
   - How clearly are the constraints articulated?
   - How clearly are the tradeoffs between the objectives and the constraints articulated? 
 - How accurate are these insights?
-  - This largely has to do with how things are expressed; if we're not certain, use language that expresses that level (or lack) of confidence. It's also appropriate to use actual percentages along with context on the likely range of probability. [See this breif section on working with small samples for more information on the topic](https://github.com/charlesrogers/product_management/edit/master/quantitative_research/statistical_techniques.md).
+  - This largely has to do with how things are expressed; if we're not certain, use language that expresses that level (or lack) of confidence. It's also appropriate to use actual percentages along with context on the likely range of probability. [See this brief section on working with small samples for more information on the topic](https://github.com/charlesrogers/product_management/edit/master/quantitative_research/statistical_techniques.md).
 - How clearly are the insights expressed? This has a lot to do with presentation design and understanding the way your partners consume information.
 #### Measurement of Performance Goals
 As these questions are often not measurable from objective data (eg. system logs telling you how many users sign up), there is an inherent degree of subjectivity in these questions. Measuring these on a clearly defined scale (often a 1-5 Likert) reduces the subjectivity. 
 **NB Define these measurements as specifically and objectively as possible if used in actual performance reviews.**
 ## Outcome Goals
-- Measurement of influence: To what degree were the insights & suggestion incorporated into the product strategy?
+- Measurement of influence: To what degree were the insights & suggestions incorporated into the product strategy?
   - Did the end product address at least one of the core needs of the target user group?
   - To what degree did the end product respect the core constraints of the target user group?
 - Was the target KPI reached? (This is the holy grail question, but there is often a large gap between the research and the release that this is a lagging indicator, the previous outcome goals are in-process KPIs and will let us know how likely we are to achieve this latter goal).
 ## Troubleshooting Breakdowns in Research Incorporation
-If the goals aren't being met, sometimes its less of a project-level issue and has to do more with the working relationship or internal company dynamics:
-- Did the stakeholders agree to the KPI of the project? If there isn't agreement on the obejctive of the research, it's more likely-than-not that the research project *should not* move forward (barring exigent circumstances).
+If the goals aren't being met, sometimes it's less of a project-level issue and has to do more with the working relationship or internal company dynamics:
+- Did the stakeholders agree to the KPI of the project? If there isn't agreement on the objective of the research, it's more likely-than-not that the research project *should not* move forward (barring exigent circumstances).
 - Were the stakeholders involved in the actual research process? They should join in at least some interviews and participate in the post-interview debrief process of hypothesis creation.
 - Is there a fractured relationship between the researcher and the other stakeholders?
 - 
