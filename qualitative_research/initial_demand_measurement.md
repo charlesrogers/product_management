@@ -9,12 +9,9 @@ The first question is are we trying to answer is if we are
 ### Retention
 
 ### Equaition
-LTA = ƒ(Demand * Solution * BATNA)
+LTA = ƒ(Demand * Solution Value * Minimum Switching Value)
 Demand = ƒ(Job Importance * Satisfaction)
-BATNA = ƒ(
-
-
-
+Minimum Switching Value = ƒ(Vale / BATNA + Switching Cost) *Must be > 1*
 
 ## Ways to Measure Initial Demand 
 ### LTA
@@ -50,4 +47,4 @@ Measuring demand before you actually are selling the product is a form of prophe
 ### 
 
 
-#Standard Operating Procedure For Pre-Launch Demand Measurement
+# Standard Operating Procedure For Pre-Launch Demand Measurement
