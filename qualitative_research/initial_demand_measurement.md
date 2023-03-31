@@ -1,4 +1,6 @@
 # Initial Demand Measurement (Pre-Launch PMF Signals)
+
+<img width="2000" alt="Pre-PMF Demand Measurement" src="https://user-images.githubusercontent.com/1085160/229198110-a1903b8a-5bdc-4ec6-bc0f-70bbd938fdd5.png">
 ## Core Objective
 Determine the minimum value to get enough users to adopt AND NOT exceed the acceptable churn rate, or in other words, it has to be sufficiently 1. attractive to garner adoption and 2. efficacious & pleasant to use to provide value to users over a long period of time
 ### Adoption
@@ -14,7 +16,11 @@ Demand = ƒ(Job Importance * Satisfaction)
 Minimum Switching Value = ƒ(Vale / BATNA + Switching Cost) *Must be > 1*
 
 ## Ways to Measure Initial Demand 
+### Job Importance
 ### LTA
+Need to define the following to get a somewhat accurate estimate
++ Features 
++ Target Price
 ### WTP
 #### Stratagyn WTP
 "How much would you pay to solve this problem perfectly?"
@@ -49,11 +55,12 @@ Measuring demand before you actually are selling the product is a form of prophe
 
 # Standard Operating Procedure For Pre-Launch Demand Measurement
 
-What number of people who are VERY EXCITED about the product to exist?
+Find what number of people who are VERY EXCITED about the product to exist?
 Depends on how many of them are in the populations:
-Show product
-Find people exicted
-Measure number of people who meet that criteria
++ Show product
++ Find people exicted
+  + Define How
++ Measure number of people who meet that criteria
 If enough
 Interview more and confirm they meet the same % of LTA
 Launch product and hit milestone
