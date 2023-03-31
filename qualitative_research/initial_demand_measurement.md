@@ -3,6 +3,9 @@
 Determine the minimum value to get enough users to adopt AND NOT exceed the acceptable churn rate, or in other words, it has to be sufficiently 1. attractive to garner adoption and 2. efficacious & pleasant to use to provide value to users over a long period of time
 ### Adoption
 The first question is are we trying to answer is if we are
+#### Value
+#### Understanding/Usability
+
 ### Retention
 
 ### Equaition
@@ -37,4 +40,7 @@ Directional feedback at 40 participants
 
 
 ## Maximum Acceptable Churn Rate
-<img width="436" alt="image" src="https://user-images.githubusercontent.com/1085160/229168533-5f728ddf-148f-4de0-a41a-ede095e4a964.png">
+A high churn rate means you can add tons of new customers but have the same amount of revenue as last year
+
+<img width="435" alt="image" src="https://user-images.githubusercontent.com/1085160/229171716-829a4173-9f57-4d2d-ac1f-ccbdcc4a7b52.png">
+
