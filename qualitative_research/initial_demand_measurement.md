@@ -12,9 +12,7 @@ The first question is are we trying to answer is if we are
 LTA = ƒ(Demand * Solution * BATNA)
 Demand = ƒ(Job Importance * Satisfaction)
 BATNA = ƒ(
-### Tradeoffs
-+ Shorter feedback loops with less and lower quality data vs longer feedback loops with conclusive data
-+ Leave space for things to change with additional data
+
 
 
 
@@ -44,3 +42,12 @@ A high churn rate means you can add tons of new customers but have the same amou
 
 <img width="435" alt="image" src="https://user-images.githubusercontent.com/1085160/229171716-829a4173-9f57-4d2d-ac1f-ccbdcc4a7b52.png">
 
+## Mitigating Risk
+Measuring demand before you actually are selling the product is a form of prophecy; there is tension where we must balance balances COST and TIME. We could execute a study where we get a statistically-significant sample for our potential segments, but the time and budget requirerd to do that would suffocate any innovation; in fact that is what we are precisely trying to do: accelaerte the rate of learning. We don't have to know the exact GPS coordiantes of the desintation from day one, but we do need to know the direction of the NEXT STEP.
+### Fast Cycles = Tradeoffs
++ Shorter feedback loops with less and lower quality data vs longer feedback loops with conclusive data
++ Leave space for things to change with additional data
+### 
+
+
+#Standard Operating Procedure For Pre-Launch Demand Measurement
