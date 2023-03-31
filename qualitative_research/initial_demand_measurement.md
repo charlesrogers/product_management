@@ -48,3 +48,14 @@ Measuring demand before you actually are selling the product is a form of prophe
 
 
 # Standard Operating Procedure For Pre-Launch Demand Measurement
+
+What number of people who are VERY EXCITED about the product to exist?
+Depends on how many of them are in the populations:
+Show product
+Find people exicted
+Measure number of people who meet that criteria
+If enough
+Interview more and confirm they meet the same % of LTA
+Launch product and hit milestone
+IF NOT
+Add features until we get to enough people to hit + ROI
