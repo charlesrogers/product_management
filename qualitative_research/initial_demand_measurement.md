@@ -1,12 +1,15 @@
 # Initial Demand Measurement (Pre-Launch PMF Signals)
 
-<img width="2000" alt="Pre-PMF Demand Measurement" src="https://user-images.githubusercontent.com/1085160/229198110-a1903b8a-5bdc-4ec6-bc0f-70bbd938fdd5.png">
 ## Core Objective
 Determine the minimum value to get enough users to adopt AND NOT exceed the acceptable churn rate, or in other words, it has to be sufficiently 1. attractive to garner adoption and 2. efficacious & pleasant to use to provide value to users over a long period of time
 ### Adoption
 The first question is are we trying to answer is if we are
 #### Value
 #### Understanding/Usability
+
+## Establishing a Hurdle Rate
+[^1]
+[^1]:
 
 ### Retention
 
@@ -29,6 +32,7 @@ Need to define the following to get a somewhat accurate estimate
 
 ## Sean Ellis/Superhuman
 Ask the user how “how would you feel if you could no longer use the product?” and measure the percent who answer “very disappointed.” >= 40% predicts PMF [Source](https://review.firstround.com/how-superhuman-built-an-engine-to-find-producst-market-fit)
+[Actual Superhumna Segmentation](https://coda.io/@rahulvohra/superhuman-product-market-fit-engine)
 Ideally this is done with users, but if you are pre-launch
 Directional feedback at 40 participants
 “What is the main benefit you receive from {the product}”? Look at those who are most dissappointed and build for them.
@@ -66,3 +70,13 @@ Interview more and confirm they meet the same % of LTA
 Launch product and hit milestone
 IF NOT
 Add features until we get to enough people to hit + ROI
+
+# Likelihood to Adopt
+## Qualitative
+## Quantitative
+Best-worst scaling surveys (Max-Diff)
+Thurstonial models
+
+
+#Usefulness 1.5 more important than Usability
+[source](https://measuringu.com/usefulness/)
