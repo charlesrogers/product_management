@@ -14,9 +14,13 @@ The first question is are we trying to answer is if we are
 ### Retention
 
 ### Equaition
-LTA = ƒ(Demand * Solution Value * Minimum Switching Value)
-Demand = ƒ(Job Importance * Satisfaction)
-Minimum Switching Value = ƒ(Vale / BATNA + Switching Cost) *Must be > 1*
+LTA Equation
+If we were to break down the factors influencing a potential user's Likelihood to Adopt (independent of usability factors) it would likely be a function of the following factors:
+LTA = ƒ(Demand * Solution Value)
+Opportunity = ƒ(JTBD Importance - JTBD Satisfaction)
+Solution Value = ƒ(Solution Efficacy/Minimum Switching Value)  Must be > 1
+Solution Efficacy = ƒ(Solution Relevance * Product Capability)
+Minimum Switching Value = ƒ(BATNA + Switching Cost))
 
 ## Ways to Measure Initial Demand 
 ### Job Importance
