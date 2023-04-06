@@ -84,3 +84,10 @@ Thurstonial models
 
 #Usefulness 1.5 more important than Usability
 [source](https://measuringu.com/usefulness/)
+<img width="1872" alt="Pre-Launch Demand Measurement (1)" src="https://user-images.githubusercontent.com/1085160/230430833-d4b1d191-9b26-4cdc-bbef-f2b2c3687171.png">
+<img width="2075" alt="JTBD Levels" src="https://user-images.githubusercontent.com/1085160/230430906-edef9de2-5c93-494a-a437-4d00f49790d1.png">
+
+
+<img width="1411" alt="Sample Outcome Satisfaction Diagram-v3 (3)" src="https://user-images.githubusercontent.com/1085160/230430782-74cc3569-6540-477c-aa40-ead5bc479a51.png">
+
+
