@@ -3,14 +3,18 @@ JTBD helps us frame core user goals that are useful from a 30,000 foot perspecti
 Defining the sub (and sub-sub) goals related to that core job creates an accurate model of user behavior which clarifies what tradeoffs to make at which levels.
 ## JOB LEVELS
 Level	Level Name	Definition	Example
-1	Core job	The core goal the user wants to accomplish	Manage household finances
-2	Job step	The high-level steps required to compete the job	Create a budget; track budget see post on Job Steps
-3	Job sub-step	These are the steps to accomplish the "Job steps"	Estimate monthly expenses
-4	Contextual goal	The generalized tasks required to adequately accomplish the job-sub step.	Accurately predict how much we'll spend on food this week
-5	Implementation task	The individual tasks required to adequately accomplish the task;
-These are tasks someone will actually do.	Measure the money spent on restaurants in the last 7 days
-6	Product-specific goals	It's not recommended to add so much detail that details about a specific product are included (this confounds solution and objective)	Track my reward points at McDonalds
-n/a	Experience Criteria	These are general goals, relevant in most every situation; typically are things measured in a usability test.	Minimize effort to onboard new app that tracks spend
+| Level  | Level Name | Definition | Example | 
+| ------------- | ------------- | ------------- | ------------- |
+| 1  | Core job  | The core goal the user wants to accomplish  | Manage household finances  |
+| 2  | Job step  | The high-level steps required to compete the job | Create a budget; track budget see post on Job Steps |
+| 3  | Job sub-step  | These are the steps to accomplish the "Job steps"  | Estimate monthly expenses  |
+| 4  | Contextual goal  | The generalized tasks required to adequately accomplish the job-sub step.  | Accurately predict how much we'll spend on food this week  |
+| 5  | Implementation task  | The individual tasks required to adequately accomplish the task; These are tasks someone will actually do. | Tabulate the money spent on restaurants in the last 7 days  |
+| 6  | Product-specific goals  | It's not recommended to add so much detail that details about a specific product are included (this confounds solution and objective)  | Track my reward points at McDonalds  |
+| n/a  |	Experience Criteria |	These are general goals, relevant in most every situation; typically are things measured in a usability test.	| Minimize effort to onboard new app that tracks spend
+	
+
+
 The struck-through part doesn't add any unique information.
 ## A few notes:
 When a goal focuses on how to accomplish to get something done AND can be applied to almost any other situation we would term it an "evaluative criteria" and best measured in a usability test.
