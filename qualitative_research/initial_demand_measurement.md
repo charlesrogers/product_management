@@ -1,4 +1,6 @@
 # Initial Demand Measurement (Pre-Launch PMF Signals)
+## TIME
+Getting people to adopt is a function of where they are in their journey, so there is a time element. Certain needs become more important at different stages
 
 ## Core Objective
 Determine the minimum value to get enough users to adopt AND NOT exceed the acceptable churn rate, or in other words, it has to be sufficiently 1. attractive to garner adoption and 2. efficacious & pleasant to use to provide value to users over a long period of time
