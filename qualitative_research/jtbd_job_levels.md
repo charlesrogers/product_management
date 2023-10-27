@@ -17,6 +17,7 @@ Level	Level Name	Definition	Example
 
 The struck-through part doesn't add any unique information.
 ## A few notes:
+### Don't Focus on General Usability Factors
 When a goal focuses on how to accomplish to get something done AND can be applied to almost any other situation we would term it an "evaluative criteria" and best measured in a usability test.
 Eg "Minimize effort to understand how to use a feature"
 In an org with specialized roles, one person's "Level 4" will be another person's "Level 2"
@@ -25,7 +26,7 @@ Typically you won't need to go beyond 5 levels if you want extensible jobs that 
 As each step is comprised of many sub-steps, the number of goals at each sub-level can grow exponentially (see illustration below)
 If we share the definition of "use case" as a "description of how users will perform tasks on your website", then the core difference is that JTBDs are independent of any product-specific constraints.
 
-## WHAT IS THE DIFFERENCE BETWEEN A "JOB TO BE DONE" VS "USE CASES"
+### WHAT IS THE DIFFERENCE BETWEEN A "JOB TO BE DONE" VS "USE CASES"
 If our JTBDs reach a level that includes goals unique to a particular product it reaches Job Level 6, which is no longer extensible to all other products as it has merged a user's "demand" with parameters related to one specific product's "supply".
 One example for a travel product might be
 JTBD Level 5: "aggregate all my travel points to see my overall balance across airlines
@@ -38,3 +39,13 @@ Planned future topics that will be covered:
 How do Job Levels help resolve prioritization conflicts
 How does JTDB offer value in defining concepts for net new innovation?
 Please share any other questions you might have
+
+### Efficiency vs Efficacy
+Two primary vectors to measure an objective: Efficiency vs Efficacy.
+Efficiency is to do the same thing but with more easy (faster, cheaper, etc)
+Efficacy is to be able to accomplish something new
+### Universality across Products
+Level 1, 2 and 3 really do abstract up across apps--excel and quickbooks do the same thing for people in accounting (probably, you know what I mean).
+
+### Specificity is a Function of Category Maturity
+The more mature a category, the higher fidelity you'll be able to explore as people will know what they want because you're exploring a complex space with existing expectations. BATNA, KANO
