@@ -25,7 +25,7 @@ An sub-objective can be relevant in multiple parent-level objectives (eg a level
 Typically you won't need to go beyond 5 levels if you want extensible jobs that span across products (which is the express purpose of JTBD: to separate supply from demand)
 As each step is comprised of many sub-steps, the number of goals at each sub-level can grow exponentially (see illustration below)
 If we share the definition of "use case" as a "description of how users will perform tasks on your website", then the core difference is that JTBDs are independent of any product-specific constraints.
-
+This includes education (teaching someone how to do something OR what they should want)
 ### Efficiency vs Efficacy
 Two primary vectors to measure an objective: Efficiency vs Efficacy.
 Efficiency is to do the same thing but with more easy (faster, cheaper, etc)
