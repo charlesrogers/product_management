@@ -1,7 +1,9 @@
 # Jobs Database
 ## Automatic Hierarcy
 It's easier to have distinct, relational, names names for each level. The following formula will create those for you.
+
 *NB:* When you run the script, you will be prompted twice, the first asking which column has your Job Levels, and the second, to which column you want to write your numbering system.
+
 1. Open the Apps Script editor by clicking on "Extensions" and selecting "Apps Script."
 2. In the script editor, replace any existing code with the following:
 ```javascript
@@ -14,12 +16,12 @@ function onOpen() {
 
 function promptAndRunUpdate() {
   var ui = SpreadsheetApp.getUi();
-  var result = ui.prompt('Enter Data Column Letter', 'Enter the letter of the column containing the data to consider for hierarchy counts (e.g., A, B, C, ...)', ui.ButtonSet.OK_CANCEL);
+  var result = ui.prompt('Enter Data Column Letter', 'Enter the letter of the column containing the data to READ for hierarchy counts (e.g., B)', ui.ButtonSet.OK_CANCEL);
 
   if (result.getSelectedButton() === ui.Button.OK) {
     var dataColumnLetter = result.getResponseText().toUpperCase();
     if (/^[A-Z]$/.test(dataColumnLetter)) {
-      result = ui.prompt('Enter Result Column Letter', 'Enter the letter of the column where you want to write the hierarchy counts (e.g., A, B, C, ...)', ui.ButtonSet.OK_CANCEL);
+      result = ui.prompt('Enter Result Column Letter', 'Enter the letter of the column where you want to WRITE the hierarchal numbering system (e.g., A)', ui.ButtonSet.OK_CANCEL);
 
       if (result.getSelectedButton() === ui.Button.OK) {
         var resultColumnLetter = result.getResponseText().toUpperCase();
