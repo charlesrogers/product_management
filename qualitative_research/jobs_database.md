@@ -1,8 +1,6 @@
 # Jobs Database
-## Automatic Hierarcy
-It's easier to have distinct, relational, names names for each level. The following formula will create those for you.
-
-*NB:* When you run the script, you will be prompted twice, the first asking which column has your Job Levels, and the second, to which column you want to write your numbering system.
+## How to Automatically Number Your Jobs
+It's easier to have distinct, relational, names names for each job level. The following formula will create those for you in Google Sheets.
 
 1. Open the Apps Script editor by clicking on "Extensions" and selecting "Apps Script."
 2. In the script editor, replace any existing code with the following:
@@ -80,3 +78,4 @@ function getLevel(cellValue) {
 6. You should now see a "Custom Functions" menu. Click on it, and you should see the "Update Hierarchy Count" option.
 
 7. Click on "Update Hierarchy Count" to run the script.
+*NB:* When you run the script, you will be prompted for user inputs twice, the first asking in which column are your Job Levels, and the second, to which column you wish to write your numbering system.
