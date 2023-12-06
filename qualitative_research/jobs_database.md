@@ -5,6 +5,8 @@ It's easier to have distinct, relational, names names for each job level. The fo
 1. Open the Apps Script editor by clicking on "Extensions" and selecting "Apps Script."
 2. In the script editor, replace any existing code with the following:
 ```javascript
+// Version 2.8 - Improved numbering logic to continue from the last non-blank row in the output column
+
 function onOpen() {
   var ui = SpreadsheetApp.getUi();
   ui.createMenu('Custom Functions')
@@ -19,7 +21,7 @@ function promptAndRunUpdate() {
   if (result.getSelectedButton() === ui.Button.OK) {
     var dataColumnLetter = result.getResponseText().toUpperCase();
     if (/^[A-Z]$/.test(dataColumnLetter)) {
-      result = ui.prompt('Enter Result Column Letter', 'Enter the letter of the column where you want to WRITE the hierarchal numbering system (e.g., A)', ui.ButtonSet.OK_CANCEL);
+      result = ui.prompt('Enter Result Column Letter', 'Enter the letter of the column where you want to WRITE the hierarchical numbering system (e.g., A)', ui.ButtonSet.OK_CANCEL);
 
       if (result.getSelectedButton() === ui.Button.OK) {
         var resultColumnLetter = result.getResponseText().toUpperCase();
@@ -38,27 +40,29 @@ function promptAndRunUpdate() {
 function updateHierarchyCount(dataColumnLetter, resultColumnLetter) {
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
   var data = sheet.getRange(dataColumnLetter + "1:" + dataColumnLetter + sheet.getLastRow()).getValues();
-  var currentCount = [0, 0, 0, 0];
   var outputData = [];
+  var outputRowIndex = getLastNonBlankRowIndex(sheet, resultColumnLetter) + 1; // Start from the next row
 
-  for (var i = 0; i < data.length; i++) {
-    if (data[i][0] !== "") {
-      var level = getLevel(data[i][0]);
-      if (level > 0) {
-        currentCount[level - 1]++;
-        for (var j = level; j < currentCount.length; j++) {
-          currentCount[j] = 0;
-        }
-        var countString = currentCount.slice(0, level).join(".");
-        outputData.push([countString]);
+  for (var i = 1; i < data.length; i++) {
+    var level = getLevel(data[i][0]);
+    if (level > 0) {
+      var currentCount = getCurrentCount(outputData, level);
+      currentCount[level - 1]++;
+      for (var j = level; j < currentCount.length; j++) {
+        currentCount[j] = 0;
       }
+      var countString = currentCount.map(val => (val || "0")).join(".");
+      outputData.push([countString]);
+      outputRowIndex++;
+    } else {
+      // If the input column doesn't contain the "Level" pattern, do not overwrite the output column
+      outputData.push([outputRowIndex <= sheet.getLastRow() ? sheet.getRange(outputRowIndex, sheet.getRange(resultColumnLetter + "1").getColumn()).getValue() || "" : ""]);
+      outputRowIndex++;
     }
   }
 
-  if (outputData.length > 0) {
-    // Write the hierarchy counts to the specified result column
-    sheet.getRange(1, sheet.getRange(resultColumnLetter + "1").getColumn(), outputData.length, 1).setValues(outputData);
-  }
+  // Write the hierarchy counts to the specified result column starting from the specified row
+  sheet.getRange(outputRowIndex - outputData.length, sheet.getRange(resultColumnLetter + "1").getColumn(), outputData.length, 1).setValues(outputData);
 }
 
 function getLevel(cellValue) {
@@ -68,6 +72,26 @@ function getLevel(cellValue) {
   var match = cellValue.match(/Level (\d+):/);
   return match ? parseInt(match[1]) : 0;
 }
+
+function getCurrentCount(outputData, level) {
+  var currentCount = Array(level).fill(0);
+  if (outputData.length > 0) {
+    var lastCount = outputData[outputData.length - 1][0].split(".").map(Number);
+    currentCount = currentCount.map((val, index) => lastCount[index] || 0);
+  }
+  return currentCount;
+}
+
+function getLastNonBlankRowIndex(sheet, columnLetter) {
+  var values = sheet.getRange(columnLetter + "1:" + columnLetter + sheet.getLastRow()).getValues();
+  for (var i = values.length - 1; i >= 0; i--) {
+    if (values[i][0] !== "") {
+      return i + 1; // Adjust for 1-based index
+    }
+  }
+  return 0; // Return 0 if the column is completely blank
+}
+
 ```
 3. Save the script.
 
