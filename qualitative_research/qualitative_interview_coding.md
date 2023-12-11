@@ -96,3 +96,7 @@ Here are the Meta objectives we want to accomplish while executing an interview:
 4. Minimize the effort to capture the context associated with an objected
 5. Minimize the time to find what you're looking for when reviewing a previously coded interview
 6. Make everything we know about users legible (searchable)
+7. 
+
+### To Integrate
+Investigate until you find something powerful, then try and map *why* it's happened. Then compare to others to explain why it wasn't a factor until you can explain it with a falsifiable statement. Then test out of sample.
