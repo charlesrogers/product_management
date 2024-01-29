@@ -7,3 +7,12 @@ There are some tricky elements about removing extraneous information:
 + https://journals.sagepub.com/doi/pdf/10.1177/2515245917745629
 + https://en.wikipedia.org/wiki/Directed_acyclic_graph
 + https://cran.r-project.org/web/packages/ggdag/vignettes/intro-to-dags.html
+
+
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
