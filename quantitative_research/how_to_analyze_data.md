@@ -1,5 +1,10 @@
 # Getting Started
 ## Prep Your Workspace
+### Sign Into Git
+```r
+# https://happygitwithr.com/git-client
+use_this::
+```
 ### Create the Project-Level Variables
 These variables will be utilized in the creation of graphs and 
 ``` r
@@ -33,15 +38,24 @@ source("/Users/YOUR_COMPUTER/TOP_LINE_FOLDER/.../global_functions.R")
 
 ```
 
-## Load & View Data
+## Load & Clean Data
 Ideally you have data in SPSS format because that means you get column labells
-
+### Load Data
 ```r
 df_spss  <-  read_sav("YOUR_FILE.sav")
+```
+```r
 # Check out the data and their labels via th Labeled package's Dictionary functionality
 dictionary <- labelled::generate_dictionary(df_spss)
 ```
+```r
+# https://www.pipinghotdata.com/posts/2020-12-23-leveraging-labelled-data-in-r/
 
+```
+```r
+# Clean Data
+# https://datamgmtinedresearch.com/clean
+```
 ## Sumary Statistics
 
 ## Data Prep
