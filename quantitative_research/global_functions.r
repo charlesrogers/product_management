@@ -1,5 +1,8 @@
 #Global Functions
 
+# Create your own R package
+https://www.pipinghotdata.com/posts/2020-10-25-your-first-r-package-in-1-hour/#tl-dr
+
 ## Clean Open Ended Responses
 oer_counter <- function(df) {
   # Convert all values to lowercase
