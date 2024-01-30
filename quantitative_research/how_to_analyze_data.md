@@ -65,7 +65,10 @@ dictionary <- labelled::generate_dictionary(df_spss)
 ```
 ### Create Importance & Satisfaction Dataframes
 ```r
-
+# Select all the importance & satisfaction rows,
+# IF they hav labels, include this transformation
+df_spss %<>%
+  mutate_if(haven::is.labelled, as_factor)
 ```
 ## Analysis
 ```r
