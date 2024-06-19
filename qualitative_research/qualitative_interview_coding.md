@@ -20,22 +20,22 @@
 + 
 
 ## Research Synthesis Guide
-1. Start with the research guide and start answering questions (objectives & hypotheses)
-a. Questions
-b. Findings
++ Start with the research guide and start answering questions (objectives & hypotheses)
+  +  Questions
+  + Findings
 c. 
 ## How to do synthesis:
-1. Break down insights into:
-a. Context
-ⅰ. "When I am..."
-b. Objectives
-ⅰ. "So I can..."
-c. Tactics
-ⅰ. "I do this..."
-1. Work arounds
-2. Alternatives
-3. Non-consumption
-4. 
++ Break down insights into:
+  + Context
+    + "When I am..."
++ Objectives
+  + "So I can..."
+    + Tactics
++ "I do this..."
+  + Work arounds
+  + Alternatives
++ Non-consumption
++ 
 It's likely better to do it as it goes instead of waiting until the end and having to remember everything.
 1. Do x
 2. Do y
