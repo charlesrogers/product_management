@@ -1,4 +1,4 @@
-# Qual Analysis
+# Qualitative Analysis
 
 There are a few types of qual research, but here we're going to start describing why a user is doing something.
 
