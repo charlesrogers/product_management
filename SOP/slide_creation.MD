@@ -36,3 +36,8 @@
 1. *ONLY* you have created the body copy, update graphic with issues 
 1. Rewrite title with signficance of the data found
 1. 
+
+
+# Prompts:
++ Create an analysis that takes deduplicated {} and looks {} in the {} stage and breaks down the top 100 used {}, filtered by {} used by more than 5 users
++ 
