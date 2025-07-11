@@ -19,7 +19,9 @@
   1. Describe data
   1. Note what is confirmatory or different from hypotheses
   1. Note what is the significance/second order effects of these facts
-  1. Consider what are good metaphors for these findings (eg users do x which is like SLACK vs Hubspot)
+    1. Consider what are good metaphors for these findings (eg users do x which is like SLACK vs Hubspot)
+  1. Note which new questions result from these second order effects and add new slide stubs (slide + headline describing what to analyze) to be filled out later
 1. Write body copy
 1. *ONLY* you have created the body copy, update graphic with issues 
 1. Rewrite title with signficance of the data found
+1. 
