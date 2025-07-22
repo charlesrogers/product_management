@@ -1,4 +1,10 @@
 # Slide Creation
+
+## Priotitization
+1. Look at the data and look at the most common use cases
+1. Determine what the 80/20 value would be for the solutions
+1. Think about the second order effects of the suggestions
+
 ## Qual-based slides
 
 ## Quant-based Slides:
@@ -41,3 +47,9 @@
 # Prompts:
 + Create an analysis that takes deduplicated {} and looks {} in the {} stage and breaks down the top 100 used {}, filtered by {} used by more than 5 users
 + 
+
+
+# Post Mortem:
+## Labels:
++ Spend a lot of time printing data instead of just getting it right
++ really liked how I broke things down the same way (users, threads, % of labels)
